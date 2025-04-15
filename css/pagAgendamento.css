@@ -1,0 +1,71 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: white;
+    border-bottom: 1px solid #ccc;
+}
+
+.nav-links a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: #007BFF;
+}
+
+.progress-bar {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.step {
+    width: 50px;
+    height: 5px;
+    background: #ccc;
+    margin: 0 5px;
+}
+
+.step.active {
+    background: #007BFF;
+}
+
+.selection-container {
+    margin: 50px auto;
+    width: 300px;
+}
+
+.pet-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    background: white;
+}
+
+.icon {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.pet-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.new-pet {
+    display: block;
+    margin-top: 20px;
+    color: #007BFF;
+    text-decoration: none;
+}

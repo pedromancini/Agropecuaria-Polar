@@ -91,6 +91,13 @@
     height: 50px;
     border: none;
     border-radius: 15px;
-    background-color: green;
+    background-color: #008000;
     color: white;
+
+    cursor: pointer;
+}
+
+
+.btn-agendar button:hover{
+    background-color: #02a002;
 }
