@@ -8,9 +8,33 @@ body {
 .top-bar {
     display: flex;
     justify-content: space-between;
+    align-items: center; /* Alinha os itens no centro verticalmente */
     padding: 10px 20px;
     background: white;
     border-bottom: 1px solid #ccc;
+}
+
+/* Agrupamento da logo e botão */
+.logo-container {
+    display: flex;
+    flex-direction: column; /* Deixa a logo em cima e o botão embaixo */
+    align-items: flex-start; /* Alinha tudo à esquerda */
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.back-button {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+}
+
+.back-button:hover {
+    text-decoration: underline;
 }
 
 .nav-links a {

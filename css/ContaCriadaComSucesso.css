@@ -1,0 +1,64 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo cinza escuro */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* Caixa central branca */
+.success-box {
+    background: #ffffff;
+    padding: 30px 20px;
+    border-radius: 20px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.icon-success {
+    font-size: 50px;
+    color: #4CAF50;
+    background: #E8F5E9;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
+}
+
+.success-box h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Botão */
+.btn-fechar {
+    background-color: #2DB3DC;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-fechar:hover {
+    background-color: #239fc3;
+}

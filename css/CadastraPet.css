@@ -1,0 +1,140 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Arial', sans-serif;
+    background-color: #fff;
+    color: #333;
+}
+
+/* Header */
+.header {
+    padding: 20px;
+}
+
+.voltar {
+    color: #2DB3DC;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.voltar:hover {
+    text-decoration: underline;
+}
+
+/* Container principal */
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Foto Upload */
+.foto-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.foto-icone {
+    background-color: #E0F7FA;
+    color: #00796B;
+    font-size: 40px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+/* Formulário */
+.pet-form {
+    text-align: left;
+}
+
+.pet-form label {
+    display: block;
+    font-size: 14px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.pet-form input[type="text"],
+.pet-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+/* Tipo do Pet */
+.tipos-pet {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.tipo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.tipo .icone {
+    background-color: #C8EAF0;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    font-size: 24px;
+}
+
+.tipo.selecionado .icone {
+    background-color: #2DB3DC;
+    color: white;
+}
+.tipo.selecionado span {
+    font-weight: bold;
+}
+
+
+
+/* Sexo */
+.sexo {
+    display: flex;
+    gap: 20px;
+    margin-top: 5px;
+}
+
+/* Nascimento */
+.nascimento {
+    margin-top: 10px;
+}
+
+.nascimento input[type="text"] {
+    margin-top: 10px;
+}
+
+/* Peso */
+#peso {
+    margin-top: 10px;
+}
