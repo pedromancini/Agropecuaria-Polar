@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecione o Serviço</title>
+    <link rel="stylesheet" href="css/SelecionaServico.css">
+</head>
+<body>
+
+<header class="topo">
+    <div class="logo">Pet<span>Anjo</span></div>
+    <div class="usuario">Olá, Usuário</div>
+</header>
+
+<div class="barra-progresso">
+    <div class="etapa ativa"></div>
+    <div class="etapa"></div>
+    <div class="etapa"></div>
+    <div class="etapa"></div>
+    <div class="etapa"></div>
+</div>
+
+<main class="conteudo">
+    <div class="pet-selecionado">
+        <div class="icone-pet">🐶</div>
+        <span>Ramon</span>
+    </div>
+
+    <h2>Selecione o serviço</h2>
+
+    <div class="servicos-grid">
+        <label class="servico-item">
+            <div class="icone-servico">🛁</div>
+            <div class="nome-servico">Banho</div>
+            <input type="radio" name="servico">
+            <span class="checkmark"></span>
+        </label>
+
+        <label class="servico-item">
+            <div class="icone-servico">💧</div>
+            <div class="nome-servico">Banho & Hidratação</div>
+            <input type="radio" name="servico">
+            <span class="checkmark"></span>
+        </label>
+
+        <label class="servico-item">
+            <div class="icone-servico">🛁</div>
+            <div class="nome-servico">Banho & Tosa Higiênica</div>
+            <input type="radio" name="servico">
+            <span class="checkmark"></span>
+        </label>
+
+        <label class="servico-item">
+            <div class="icone-servico">✂️</div>
+            <div class="nome-servico">Banho & Tosa Máquina</div>
+            <input type="radio" name="servico">
+            <span class="checkmark"></span>
+        </label>
+
+        <label class="servico-item">
+            <div class="icone-servico">✂️</div>
+            <div class="nome-servico">Banho & Tosa Tesoura</div>
+            <input type="radio" name="servico">
+            <span class="checkmark"></span>
+        </label>
+
+        <label class="servico-item">
+            <div class="icone-servico">🧹</div>
+            <div class="nome-servico">Banho & Tosa Trimming</div>
+            <input type="radio" name="servico">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <h3>Escolha serviços adicionais (opcionais)</h3>
+
+    <div class="servicos-adicionais">
+        <label class="adicional-item">
+            <div>Escovação</div>
+            <input type="checkbox" name="adicional">
+            <span class="checkmark"></span>
+        </label>
+
+        <label class="adicional-item">
+            <div>Hidratação Profunda</div>
+            <input type="checkbox" name="adicional">
+            <span class="checkmark"></span>
+        </label>
+
+        <label class="adicional-item">
+            <div>Limpeza de Ouvido</div>
+            <input type="checkbox" name="adicional">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <div class="botoes-navegacao">
+        <button class="btn-voltar">Voltar</button>
+        <button class="btn-avancar">Avançar</button>
+    </div>
+</main>
+
+</body>
+</html>

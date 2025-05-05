@@ -1,0 +1,189 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2DB3DC;
+}
+
+.logo span {
+    color: #5C4033;
+}
+
+.usuario {
+    font-size: 14px;
+    color: #007BFF;
+}
+
+.barra-progresso {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    gap: 30px;
+}
+
+.etapa {
+    width: 40px;
+    height: 3px;
+    background-color: #bbb;
+    border-radius: 5px;
+}
+
+.etapa.ativa {
+    background-color: #2DB3DC;
+}
+
+.conteudo {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+}
+
+.pet-selecionado {
+    background: #F8F8F8;
+    padding: 10px 20px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.icone-pet {
+    font-size: 30px;
+}
+
+h2, h3 {
+    margin: 20px 0;
+    font-size: 22px;
+    color: #333;
+}
+
+.servicos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.servico-item {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.servico-item:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.icone-servico {
+    background-color: #E0F7FA;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.nome-servico {
+    font-size: 14px;
+    color: #333;
+    margin-top: 10px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #bbb;
+    border-radius: 50%;
+    margin: 10px auto 0;
+}
+
+.servico-item input[type="radio"]:checked + .checkmark {
+    border-color: #2DB3DC;
+    background-color: #2DB3DC;
+}
+
+.servicos-adicionais {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.adicional-item {
+    background: #f2f2f2;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.adicional-item input[type="checkbox"]:checked + .checkmark {
+    background-color: #2DB3DC;
+}
+
+.botoes-navegacao {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.btn-voltar, .btn-avancar {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-voltar {
+    background: none;
+    color: #007BFF;
+}
+
+.btn-avancar {
+    background: #ccc;
+    color: #ffffff;
+}
