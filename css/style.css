@@ -91,5 +91,39 @@ footer {
     object-fit: contain;
   }
 
-  
-  
+/* Efeito de suavização de entrada do modal */
+.modal.fade .modal-dialog {
+  transform: translate(0, -50px); /* Inicia o modal um pouco acima */
+  opacity: 0; /* Começa invisível */
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out; /* Transição suave */
+}
+
+.modal.show .modal-dialog {
+  transform: translate(0, 0); /* Modal volta para sua posição original */
+  opacity: 1; /* Fica totalmente visível */
+}
+
+/* Efeito de desfoque (blur) no fundo do modal */
+.modal-backdrop {
+  transition: opacity 0.3s ease, backdrop-filter 0.3s ease; /* Transição suave */
+  opacity: 0.7; /* Ajusta a opacidade do fundo */
+  backdrop-filter: blur(5px); /* Aplica desfoque no fundo */
+}
+
+
+/* Estilo para o botão de olho dentro do input */
+.input-group .btn {
+  background-color: #fff;
+  border: 1px solid #ced4da; /* Borda padrão do botão */
+  border-radius: 0 0.25rem 0.25rem 0; /* Borda arredondada apenas à direita */
+  color: #6c757d; /* Cor do ícone */
+}
+
+.input-group .form-control {
+  border-radius: 0.25rem 0 0 0.25rem; /* Borda arredondada à esquerda */
+}
+
+/* Estilo para o ícone de olho */
+.input-group .btn i {
+  font-size: 1.2rem; /* Tamanho do ícone */
+}
