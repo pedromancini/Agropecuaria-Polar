@@ -50,46 +50,53 @@ footer {
 }
 
 
-.marcas-section {
-    background-color: #f9f9fa;
-    padding: 40px 0;
-    text-align: center;
-  }
-  
-  .titulo-marcas {
-    font-size: 24px;
-    margin-bottom: 30px;
-    color: #004d00;
-  }
-  
-  .marcas-grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .marca-item {
-    background-color: #cacaca;
-    width: 80px;
-    height: 80px;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  
-  .marca-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  }
-  
-  .marca-item img {
-    max-width: 60%;
-    max-height: 60%;
-    object-fit: contain;
-  }
+.marca-img {
+  max-height: 300px;      /* altura fixa */
+  width: 300px;            /* largura proporcional */
+  object-fit: contain;    /* garante que a imagem não seja cortada */
+  filter: grayscale(30%); /* deixa as imagens levemente acinzentadas para efeito moderno */
+  transition: filter 0.3s ease;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+}
+
+.marca-img:hover {
+  filter: none; /* cores originais ao passar o mouse */
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Força os indicadores ficarem abaixo do carrossel, centralizados */
+#carouselMarcas .carousel-indicators {
+  position: relative !important; /* tira o position:absolute padrão */
+  bottom: 0;
+  margin-top: 20px;  /* espaço acima das bolinhas */
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* espaçamento entre as bolinhas */
+}
+
+/* Bolinhas padrão em cinza claro */
+#carouselMarcas .carousel-indicators button {
+  background-color: black; /* bolinhas pretas */
+  opacity: 0.5;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  transition: opacity 0.3s;
+}
+
+/* Bolinha ativa com opacidade total */
+#carouselMarcas .carousel-indicators button.active {
+  opacity: 1;
+  background-color: black;
+}
+
 
 /* Efeito de suavização de entrada do modal */
 .modal.fade .modal-dialog {

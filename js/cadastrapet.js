@@ -152,3 +152,7 @@ $(document).ready(function () {
 
     });
 });
+document.getElementById("btnVoltar").addEventListener("click", function() {
+  // Exemplo: Voltar para a página anterior do navegador
+  window.history.back();
+});
