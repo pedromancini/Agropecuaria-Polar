@@ -211,11 +211,7 @@ body {
     text-align: center;
 }
 
-#btnVoltar{
-   top: 10px; 
-   left: 15px; 
-   width: 70px; 
-   height: 30px; 
-   padding: 0;
-   font-size: 9px;
+.btn-img-voltar {
+  height: 30px;  /* igual à altura da logo */
+  width: 30px;
 }

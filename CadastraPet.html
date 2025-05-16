@@ -20,10 +20,11 @@
 
     <main class="form-container">
         <form class="pet-form position-relative">
-            <button id="btnVoltar" type="button" class="btn btn-outline-secondary position-absolute">
-                <i class="fas fa-arrow-left fa-lg me-1">Voltar</i>
-            </button>
-
+            <div class="container mt-2">
+                <a href="javascript:history.back()">
+                    <img src="img/voltar.png" alt="Voltar" class="btn-img-voltar">
+                </a>
+            </div>
             <div class="foto-upload position-relative text-center">
                 <label id="cursor-img" for="fotoInput"
                     class="w-80 h-80 d-flex flex-column justify-content-center align-items-center clickable-div">
