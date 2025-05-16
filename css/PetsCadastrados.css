@@ -1,70 +1,51 @@
-/* Reset */
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #fff;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
-.topo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+header {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.logo {
-    font-size: 20px;
-    font-weight: bold;
-    color: #2DB3DC;
-}
-
-.logo span {
-    color: #5C4033;
+.logo-img {
+    width: 60px;
+    height: auto;
 }
 
 .usuario {
-    font-size: 14px;
-    color: #007BFF;
+  font-size: 14px;
+  color: #007BFF;
 }
-
 .barra-progresso {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0;
-    gap: 30px;
+    margin: 30px 0;
+    gap: 10px;
 }
 
 .etapa {
     width: 40px;
-    height: 3px;
-    background-color: #bbb;
+    height: 6px;
+    background-color: #dee2e6;
     border-radius: 5px;
+    transition: 0.3s;
 }
 
 .etapa.ativa {
     background-color: #2DB3DC;
 }
 
-.conteudo {
-    flex: 1;
-    padding: 20px;
-    text-align: center;
-}
-
 h1 {
-    margin-bottom: 30px;
-    font-size: 24px;
+    font-size: 28px;
+    font-weight: 600;
     color: #333;
 }
 
@@ -76,30 +57,24 @@ h1 {
 }
 
 .pet-card {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 16px;
-    width: 150px;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
     padding: 20px;
     text-align: center;
-    cursor: pointer;
-    transition: box-shadow 0.3s ease;
+    width: 200px;
+    transition: 0.3s;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .pet-card:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transform: translateY(-3px);
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .icone-pet {
-    background-color: #E0F7FA;
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 10px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
+    font-size: 40px;
 }
 
 .info-pet strong {
@@ -109,7 +84,7 @@ h1 {
 }
 
 .info-pet span {
-    font-size: 12px;
+    font-size: 13px;
     color: #666;
 }
 
@@ -127,10 +102,17 @@ h1 {
     text-decoration: underline;
 }
 
-.rodape {
+footer {
+    margin-top: auto;
     text-align: center;
     padding: 20px;
-    font-size: 12px;
+    font-size: 13px;
     background-color: #f9f9f9;
     color: #666;
+}
+
+.btn-img-voltar {
+  height: 30px;  /* igual à altura da logo */
+  width: 30px;
+  margin-left: 35px;
 }
