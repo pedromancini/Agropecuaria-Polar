@@ -1,3 +1,4 @@
+ AOS.init();
 document.addEventListener("DOMContentLoaded", function () {
     // Inicialização dos modais
     const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
@@ -17,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Alternar visibilidade da senha no registro
     const toggleSenhaRegistro = document.getElementById("toggleSenha");
     const senhaRegistro = document.getElementById("senha");
 
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Máscara automática para CPF
+    // masscara automática para CPF
     const cpfInput = document.getElementById("cpf");
     if (cpfInput) {
         cpfInput.addEventListener("input", function (e) {
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Validação e envio do formulário de registro
+
     const registroForm = document.getElementById("registroForm");
     const mensagemCadastro = document.getElementById("mensagemCadastro");
 
@@ -99,7 +99,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Validação e envio do formulário de login
     const loginForm = document.getElementById("loginForm");
     const loginMessage = document.getElementById("loginMessage");
 
@@ -107,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
         loginForm.addEventListener("submit", function (event) {
             event.preventDefault();
 
-            // Lógica de login (simulada)
             loginMessage.classList.remove("d-none", "alert-danger");
             loginMessage.classList.add("alert", "alert-success");
             loginMessage.textContent = "Login realizado com sucesso!";
@@ -121,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Validação e envio do formulário de recuperação de senha
+
     const formRecuperacao = document.getElementById("esqueciSenhaForm");
     const mensagemRecuperacao = document.getElementById("mensagemRecuperacao");
 
@@ -151,7 +149,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Função de validação de CPF
     function validarCPF(cpf) {
         cpf = cpf.replace(/[^\d]+/g, "");
         if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
@@ -174,4 +171,31 @@ document.addEventListener("DOMContentLoaded", function () {
         if (resto >= 10) resto = 0;
         return resto === parseInt(cpf.charAt(10));
     }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const titulo = document.getElementById("tituloPrincipal");
+  const texto = titulo.textContent;
+  titulo.textContent = ""; // Limpa o conteúdo original
+
+  [...texto].forEach((letra, i) => {
+    const span = document.createElement("span");
+    span.textContent = letra;
+    span.className = "letra";
+    span.style.animationDelay = `${i * 0.05}s`;
+    titulo.appendChild(span);
+  });
+});
+document.addEventListener("DOMContentLoaded", () => {
+  const subtitulo = document.getElementById("subtituloPrincipal");
+  const texto = subtitulo.textContent;
+  subtitulo.textContent = "";
+
+  [...texto].forEach((letra, i) => {
+    const span = document.createElement("span");
+    span.textContent = letra;
+    span.className = "letra-onda";
+    span.style.animationDelay = `${i * 0.09}s`;
+    subtitulo.appendChild(span);
+  });
 });
