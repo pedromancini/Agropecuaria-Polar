@@ -1,141 +1,172 @@
-body {
-    font-family: Arial, sans-serif;
-    background-image: url(/img/26913.jpg);
-    background-repeat: repeat;
-    background-size: cover; 
-    background-color: #f8f9fa;
-}
-header {
-    background-size: cover;
-    color: white;
-    text-align: center;
-    padding: 100px 0;
-}
+        body {
+          background-repeat: repeat;
+          background-size: cover;
+          background-color: #f8f9fa;
+        }
 
-nav.navbar {
-    margin-bottom: 30px;
-}
-section h2 {
-    margin-bottom: 30px;
-    color: #004d00;
-}
-footer {
-    background-color: #004d00;
-    color: white;
-    padding: 15px 0;
-    text-align: center;
-}
-.card {
-    transition: transform 0.2s;
-}
-.card:hover {
-    transform: scale(1.05);
-}
+        header {
+          background-size: cover;
+          color: white;
+          text-align: center;
+          padding: 100px 0;
+        }
 
-.whatsapp-float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-    background-color: #25d366;
-    border-radius: 50%;
-    padding: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s;
-}
+        nav.navbar {
+          margin-bottom: 30px;
+          background-color: #004d00;
+        }
 
-.whatsapp-float img {
-    width: 40px;
-    height: 40px;
-}
+        .navbar a {
+          color: white;
+        }
 
-.whatsapp-float:hover {
-    transform: scale(1.1);
-}
+        section h2 {
+          margin-bottom: 30px;
+          color: #004d00;
+        }
 
+        #produtos{
+          padding-bottom: 100px;
+        }
 
-.marca-img {
-  max-height: 300px;      /* altura fixa */
-  width: 300px;            /* largura proporcional */
-  object-fit: contain;    /* garante que a imagem não seja cortada */
-  filter: grayscale(30%); /* deixa as imagens levemente acinzentadas para efeito moderno */
-  transition: filter 0.3s ease;
-  margin: 0 auto;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-}
+        footer {
+          background-color: #004d00;
+          color: white;
+          padding: 15px 0;
+          text-align: center;
+        }
 
-.marca-img:hover {
-  filter: none; /* cores originais ao passar o mouse */
-  transform: scale(1.05);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
+        .card {
+          transition: transform 0.2s;
+        }
 
-/* Força os indicadores ficarem abaixo do carrossel, centralizados */
-#carouselMarcas .carousel-indicators {
-  position: relative !important;
-  bottom: 0;
-  margin-top: 20px; 
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
+        .card:hover {
+          transform: scale(1.05);
+        }
+
+        .card-img-top {
+          object-fit: cover;
+          height: 250px;
+          width: 100%;
+        }
+
+        .marcas-trabalhadas{
+          color: white;
+        }
+
+        .whatsapp-float {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          z-index: 1000;
+          background-color: #25d366;
+          border-radius: 50%;
+          padding: 12px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+          transition: transform 0.3s;
+        }
+
+        .whatsapp-float img {
+          width: 40px;
+          height: 40px;
+        }
+
+        .whatsapp-float:hover {
+          transform: scale(1.1);
+        }
 
 
-/* Bolinhas padrão em cinza claro */
-#carouselMarcas .carousel-indicators button {
-  background-color: black; /* bolinhas pretas */
-  opacity: 0.5;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: none;
-  transition: opacity 0.3s;
+        .marca-img {
+          max-height: 300px;
+          width: 300px;
+          object-fit: contain;
+          filter: grayscale(30%);
+          transition: filter 0.3s ease;
+          margin: 0 auto;
+          padding: 10px;
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+        }
+
+        .marca-img:hover {
+          filter: none;
+          transform: scale(1.01);
+          transition: all 0.3s ease;
+          cursor: pointer;
+          border-radius: 8px;
+        }
+
+        #carouselMarcas .carousel-indicators {
+          position: relative !important;
+          bottom: 0;
+          margin-top: 20px;
+          display: flex;
+          justify-content: center;
+          gap: 10px;
+        }
+
+        #marcas {
+          background-color: #004d00;
+        }
+
+        #carouselMarcas .carousel-indicators button {
+          background-color: black;
+          opacity: 0.5;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          border: none;
+          transition: opacity 0.3s;
+        }
+
+        #carouselMarcas .carousel-indicators button.active {
+          opacity: 1;
+          background-color: black;
+        }
+
+        .modal.fade .modal-dialog {
+          transform: translate(0, -50px);
+          opacity: 0;
+          transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        }
+
+        .modal.show .modal-dialog {
+          transform: translate(0, 0);
+          opacity: 1;
+        }
+
+        .modal-backdrop {
+          transition: opacity 0.3s ease, backdrop-filter 0.3s ease;
+          opacity: 0.7;
+          backdrop-filter: blur(5px);
+        }
+
+        .input-group .btn {
+          background-color: #fff;
+          border: 1px solid #ced4da;
+          border-radius: 0 0.25rem 0.25rem 0;
+          color: #6c757d;
+        }
+
+        .input-group .form-control {
+          border-radius: 0.25rem 0 0 0.25rem;
+        }
+
+        .input-group .btn i {
+          font-size: 1.2rem;
+        }
+
+        .letra {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: cair 0.6s ease forwards;
 }
 
-/* Bolinha ativa com opacidade total */
-#carouselMarcas .carousel-indicators button.active {
-  opacity: 1;
-  background-color: black;
-}
-
-
-/* Efeito de suavização de entrada do modal */
-.modal.fade .modal-dialog {
-  transform: translate(0, -50px); /* Inicia o modal um pouco acima */
-  opacity: 0; /* Começa invisível */
-  transition: transform 0.5s ease-out, opacity 0.5s ease-out; /* Transição suave */
-}
-
-.modal.show .modal-dialog {
-  transform: translate(0, 0); /* Modal volta para sua posição original */
-  opacity: 1; /* Fica totalmente visível */
-}
-
-/* Efeito de desfoque (blur) no fundo do modal */
-.modal-backdrop {
-  transition: opacity 0.3s ease, backdrop-filter 0.3s ease; /* Transição suave */
-  opacity: 0.7; /* Ajusta a opacidade do fundo */
-  backdrop-filter: blur(5px); /* Aplica desfoque no fundo */
-}
-
-
-/* Estilo para o botão de olho dentro do input */
-.input-group .btn {
-  background-color: #fff;
-  border: 1px solid #ced4da; /* Borda padrão do botão */
-  border-radius: 0 0.25rem 0.25rem 0; /* Borda arredondada apenas à direita */
-  color: #6c757d; /* Cor do ícone */
-}
-
-.input-group .form-control {
-  border-radius: 0.25rem 0 0 0.25rem; /* Borda arredondada à esquerda */
-}
-
-/* Estilo para o ícone de olho */
-.input-group .btn i {
-  font-size: 1.2rem; /* Tamanho do ícone */
+@keyframes cair {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

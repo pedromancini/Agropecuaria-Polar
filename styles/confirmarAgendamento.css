@@ -1,8 +1,8 @@
 .etapa {
     width: 30px;
     height: 6px;
+    border-radius: 5px;
     background-color: #dee2e6;
-    border-radius: 10px;
 }
 
 .etapa-ativa {
@@ -43,4 +43,36 @@
 
 #data_horario{
     cursor: pointer;
+    display: block;
+}
+
+#container-agendamento {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    position: relative; 
+}
+
+.modal-header .btn-close {
+    position: absolute;
+    right: 1rem; 
+}
+
+.modal-header .modal-title {
+    margin: 0; 
+}
+
+#data-horario{
+    font-size: 18.6px;
+}
+
+.card{
+    border: 1px solid black;
 }

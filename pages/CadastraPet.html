@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="/styles/CadastraPet.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet" />
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
 </head>
 
 <body>
@@ -20,7 +21,7 @@
 
     <main class="form-container">
         <form class="pet-form position-relative">
-            <div class="container mt-2">
+            <div class="container">
                 <a href="javascript:history.back()">
                     <img src="/img/voltar.png" alt="Voltar" class="btn-img-voltar">
                 </a>
@@ -39,7 +40,7 @@
             </div>
 
             <div class="modal fade" id="modalRecorte" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered"> <!-- tamanho grande -->
+                <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Recorte a Imagem</h5>
@@ -55,11 +56,28 @@
                     </div>
                 </div>
             </div>
-            <label class="title-pet" for="nome">Nome</label>
+            
+            <div class="modal fade" id="modalSucesso" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title text-center">Cadastro Concluído!</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <p>Seu pet foi cadastrado com sucesso!</p>
+                            <p>Você será redirecionado para a página anterior em <span
+                                    id="contador-redirecionamento">3</span> segundos...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <label class="title-pet" for="nome">Nome*</label>
             <input type="text" id="nome" class="form-control mt-2" placeholder="Nome do seu pet">
 
-            <label class="mt-2 title-pet">Tipo do Pet</label>
-            <div class="container-sm  d-flex justify-content-evenly align-items-start" id="container-tipos">
+            <label class="mt-2 title-pet">Tipo do Pet*</label>
+            <div class="container-sm  d-flex justify-content-evenly align-items-start" id="container-tipos">
                 <div class="btn" data-tipo="cachorro">
                     <div class="icone">🐶</div>
                     <span>Cachorro</span>
@@ -76,16 +94,18 @@
             </div>
 
             <div id="outroDescricao" class="descricao-outro">
-                <label for="descricaoOutro">Descrição do Animal</label>
+                <label for="descricaoOutro">Descrição do Animal*</label>
                 <textarea id="descricaoOutro" class="form-control" placeholder="Descreva o seu pet"></textarea>
             </div>
 
-            <label class="mt-2 title-pet">Raça</label>
-            <select id="raca" class="form-control mt-1">
-                <option value="">Selecione a raça</option>
-            </select>
+            <label class="mt-2 title-pet" for="raca-container">Raça</label>
+            <div id="raca-container">
+                <select id="raca" class="form-control mt-1">
+                    <option value="">Selecione a raça</option>
+                </select>
+            </div>
 
-            <label class="mt-2 title-pet">Sexo</label>
+            <label class="mt-2 title-pet">Sexo*</label>
             <div class="sexo mt-1">
                 <label><input type="radio" name="sexo" value="femea" class="checkbox-green "> Fêmea</label>
                 <br>
@@ -98,8 +118,8 @@
                 <input type="text" id="data-nascimento" class="form-control mt-2" placeholder="DD/MM/AAAA">
             </div>
 
-            <label class="mt-2 title-pet" for="peso">Peso (em kg)</label>
-            <input type="text" id="peso" class="form-control mt-1" value="1" maxvalue="199">
+            <label class="mt-2 title-pet" for="peso">Peso (em kg)*</label>
+            <input type="text" id="peso" class="form-control mt-1" value="" maxvalue="199">
 
             <div class="botao-container">
                 <button type="submit" class="btn btn-success w-100">Enviar</button>
