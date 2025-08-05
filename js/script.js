@@ -186,16 +186,3 @@ document.addEventListener("DOMContentLoaded", () => {
     titulo.appendChild(span);
   });
 });
-document.addEventListener("DOMContentLoaded", () => {
-  const subtitulo = document.getElementById("subtituloPrincipal");
-  const texto = subtitulo.textContent;
-  subtitulo.textContent = "";
-
-  [...texto].forEach((letra, i) => {
-    const span = document.createElement("span");
-    span.textContent = letra;
-    span.className = "letra-onda";
-    span.style.animationDelay = `${i * 0.09}s`;
-    subtitulo.appendChild(span);
-  });
-});
