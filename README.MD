@@ -10,11 +10,4 @@
 - **CSS3**
 - **JavaScript**
 
-## 🚀 Como Executar
-
-1. Clone este repositório:
-
-   git bash
-   git clone https://github.com/pedromancini/agropecuaria-polar.git
-
 
