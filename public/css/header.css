@@ -1,0 +1,21 @@
+.header-main{
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/img/banner.png");
+    background-position: center center;
+    background-size: 100%;
+    color: white;
+    gap: 20px;
+}
+
+.header-main h1 {
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.header-main p {
+    font-size: 15px;
+}

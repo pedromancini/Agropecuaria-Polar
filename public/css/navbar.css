@@ -1,0 +1,55 @@
+.navbar-main {
+    display: flex;
+    height: 40px;
+    background-color: #004d00;
+    padding: 5px;
+    justify-content: space-between; /* Distribui os elementos */
+    align-items: center; /* Centraliza verticalmente */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-sections-wrapper {
+    height: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.navbar-sections-wrapper a {
+    text-decoration: none;
+    height: 100%;
+    color: white;
+
+    transition: color 0.25s ease-in-out;
+}
+
+.navbar-sections-wrapper a:hover {
+    color: black;
+}
+
+.navbar-user-wrapper img {
+    width: 40px;
+}
+
+.navbar-user-wrapper {
+    height: 100%;
+    width: fit-content;
+}
+
+.navbar-main-wrapper {
+    width: 70%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dummy1 {
+    width: 40px;
+}

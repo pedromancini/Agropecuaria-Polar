@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agropecuária Polar - Cadastro</title>
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/cadastro.css">
+    <link rel="stylesheet" href="/css/GLOBAL.css">
+</head>
+
+<body>
+    <div class="form-container">
+        <form action="/cadastrar" method="post">
+            <div class="form-wrapper">
+                <label for="nome">Nome completo</label>
+                <input type="text" name="nome" id="nome" required>
+
+                <label for="endereco">Endereço completo</label>
+                <input type="text" name="endereco" id="endereco" required>
+
+                <label for="cpf">CPF</label>
+                <input type="text" name="cpf" id="cpf" required>
+
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" required>
+
+                <label for="senha">Senha</label>
+                <input type="password" name="senha" id="senha" required>
+
+                <label for="senha-confirmacao">Confirmar senha</label>
+                <input type="password" name="senha_confirmacao" id="senha_confirmacao">
+
+                <button class="criar-conta-btn" type="submit">Criar Conta</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="/js/cpf.js"></script>
+</body>
+
+</html>
