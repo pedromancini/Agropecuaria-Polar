@@ -1,84 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agropecuária Polar</title>
 
-    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/reset.css" />
 
-    <link rel="stylesheet" href="/css/GLOBAL.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/GLOBAL.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/carousel.css" />
 
-    <link rel="shortcut icon" href="/img/logoFavicon.png" type="image/x-icon">
-</head>
+    <link rel="shortcut icon" href="/img/logoFavicon.png" type="image/x-icon" />
 
-<body>
-    <%- include("partials/header.ejs") %>
-    <%- include("partials/navbar.ejs") %>
+    <script src="/js/carousel.js" defer></script>
+  </head>
+
+  <body>
+    <%- include("partials/header.ejs") %> <%- include("partials/navbar.ejs") %>
 
     <div class="section-servicos" id="nossos-servicos">
-    <h3 style="margin-top: 30px; margin-bottom: 30px;">Nossos serviços</h3>
-        <div class="section-servicos-cards-wrapper">
-            <div class="servicos-card">
-                <div class="servicos-card-img-wrapper">
-                    <img src="/img/racoes.png" alt="">
-                </div>
-                <div class="servicos-card-text-wrapper">
-                    <span class="servicos-card-header">
-                        Ração para animais
-                    </span>
-                    <p>
-                        Alimento balanceado para o cuidado dos seus animais.
-                    </p>
-                </div>
-            </div>
-
-            <div class="servicos-card">
-                <div class="servicos-card-img-wrapper">
-                    <img src="/img/banhoTosa.png" alt="">
-                </div>
-                <div class="servicos-card-text-wrapper">
-                    <span class="servicos-card-header">
-                       Banho e Tosa
-                    </span>
-
-                    <p>
-                        Higiene e cuidado para manter seu pet saudável e feliz.
-                    </p>
-                    
-                    <button class="agendar-btn">Agendar</button>
-                </div>
-            </div>
-
-            <div class="servicos-card">
-                <div class="servicos-card-img-wrapper">
-                    <img src="/img/artigosPesca.jpg" alt="">
-                </div>
-                <div class="servicos-card-text-wrapper">
-                    <span class="servicos-card-header">
-                        Ração para animais
-                    </span>
-                    <p class="pesca-txt">
-                        Aqui você encontra tudo para sua pescaria: varas, anzóis, linhas, iscas artificiais e muito mais! Qualidade, variedade e o melhor atendimento para você aproveitar cada momento à beira do rio..
-                    </p>
-                </div>
-            </div>
-
+      <h3 style="margin-top: 30px; margin-bottom: 30px">Nossos serviços</h3>
+      <div class="section-servicos-cards-wrapper">
+        <div class="servicos-card">
+          <div class="servicos-card-img-wrapper">
+            <img src="/img/racoes.png" alt="" />
+          </div>
+          <div class="servicos-card-text-wrapper">
+            <span class="servicos-card-header"> Ração para animais </span>
+            <p>Alimento balanceado para o cuidado dos seus animais.</p>
+          </div>
         </div>
+
+        <div class="servicos-card">
+          <div class="servicos-card-img-wrapper">
+            <img src="/img/banhoTosa.png" alt="" />
+          </div>
+          <div class="servicos-card-text-wrapper">
+            <span class="servicos-card-header"> Banho e Tosa </span>
+
+            <p>Higiene e cuidado para manter seu pet saudável e feliz.</p>
+
+            <button class="agendar-btn">Agendar</button>
+          </div>
+        </div>
+
+        <div class="servicos-card">
+          <div class="servicos-card-img-wrapper">
+            <img src="/img/artigosPesca.jpg" alt="" />
+          </div>
+          <div class="servicos-card-text-wrapper">
+            <span class="servicos-card-header"> Artigos de pesca </span>
+            <p class="pesca-txt">
+              Aqui você encontra tudo para sua pescaria: varas, anzóis, linhas,
+              iscas artificiais e muito mais! Qualidade, variedade e o melhor
+              atendimento para você aproveitar cada momento à beira do rio..
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <!-- MARCAS  -->
     <div class="section-marcas" id="nossas-marcas">
-        <div class="marcas-slider-wrapper">
-            <div class="slider-buttons"></div>
+      <div class="marcas-slider-wrapper">
+        <div class="carousel-header">
+          <h3>Nossas Marcas</h3>
+          <p>As melhores opções para seu pet</p>
         </div>
+
+        <div class="carousel-container">
+          <div class="carousel-track" id="carouselTrack">
+            <!-- Página 1: Cachorro -->
+            <div class="carousel-page">
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img
+                    src="/img/marcas/cachorro/gran-plus.png"
+                    alt="GranPlus"
+                  />
+                </div>
+
+                <div class="marca-name">Gran Plus</div>
+                <div class="marca-category">Cachorro</div>
+              </div>
+
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img src="/img/marcas/cachorro/baw-waw.png" alt="Baw-Waw" />
+                </div>
+                <div class="marca-name">Baw-Waw</div>
+                <div class="marca-category">Cachorro</div>
+              </div>
+
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img src="/img/marcas/cachorro/Pedigree.png" alt="Pedigree" />
+                </div>
+                <div class="marca-name">Pedigree</div>
+                <div class="marca-category">Cachorro</div>
+              </div>
+
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img src="/img/marcas/cachorro/purina.png" alt="Purina" />
+                </div>
+                <div class="marca-name">Purina</div>
+                <div class="marca-category">Cachorro</div>
+              </div>
+            </div>
+
+            <!-- Página 2: Gato -->
+            <div class="carousel-page">
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img src="/img/marcas/gato/Origens-Gato.jpg" alt="Purina" />
+                </div>
+                <div class="marca-name">Otigens Gato</div>
+                <div class="marca-category">Gato</div>
+              </div>
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img src="/img/marcas/gato/Purina-Gatos.jpeg" alt="Purina" />
+                </div>
+                <div class="marca-name">Purina Gatos</div>
+                <div class="marca-category">Gato</div>
+              </div>
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img
+                    src="/img/marcas/gato/Ultralife-Gatos.jpeg"
+                    alt="Purina"
+                  />
+                </div>
+                <div class="marca-name">UltraLife Gatos</div>
+                <div class="marca-category">Gato</div>
+              </div>
+
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img src="/img/marcas/gato/Whiskas-Gatos.jpeg" alt="Purina" />
+                </div>
+                <div class="marca-name">Whiskas Gatos</div>
+                <div class="marca-category">Gato</div>
+              </div>
+            </div>
+
+            <!-- Página 3: Pássaros -->
+            <div class="carousel-page">
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img src="/img/marcas/passaros/Nutropica-Passaros.jpeg" alt="Nutropica-Passaros" />
+                </div>
+                <div class="marca-name">Nutropica Pássaros</div>
+                <div class="marca-category">Pássaros</div>
+              </div>
+
+
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img src="/img/marcas/passaros/SempreVita-Passaros.jpeg" alt="SempreVita-Passaros" />
+                </div>
+                <div class="marca-name">SempreVita Pássaros</div>
+                <div class="marca-category">Pássaros</div>
+              </div>
+
+
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img src="/img/marcas/passaros/Suprema-Passaros.jpeg" alt="Suprema-Passaros" />
+                </div>
+                <div class="marca-name">Suprema Pássaros</div>
+                <div class="marca-category">Pássaros</div>
+              </div>
+
+
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img src="/img/marcas/passaros/TerraDosPassaros.jpg" alt="TerraDosPassaros" />
+                </div>
+                <div class="marca-name">Terra Dos Pássaros</div>
+                <div class="marca-category">Pássaros</div>
+              </div>
+            </div>
+
+            <!-- Página 4: Roedores -->
+            <div class="carousel-page">
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img src="/img/marcas/roedores/FunnyBunny.jpg" alt="Funny Bunny" />
+                </div>
+                <div class="marca-name">Funny Bunny</div>
+                <div class="marca-category">Roedores</div>
+              </div>
+
+
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img src="/img/marcas/roedores/Nutrópica.png" alt="Nutrópica" />
+                </div>
+                <div class="marca-name">Nutrópica Twister</div>
+                <div class="marca-category">Roedores</div>
+              </div>
+
+
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img src="/img/marcas/roedores/PicNic.png" alt="Pic Nic" />
+                </div>
+                <div class="marca-name">Pic Nic</div>
+                <div class="marca-category">Roedores</div>
+              </div>
+
+
+              <div class="marca-card">
+                <div class="marca-image">
+                  <img src="/img/marcas/roedores/Roedores.jpeg" alt="Selecta Roedores" />
+                </div>
+                <div class="marca-name">Selecta Roedores</div>
+                <div class="marca-category">Roedores</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slider-buttons">
+          <button class="carousel-btn" id="prevBtn">‹</button>
+          <div class="carousel-indicators" id="indicators"></div>
+          <button class="carousel-btn" id="nextBtn">›</button>
+        </div>
+      </div>
     </div>
 
     <%-include("partials/footer.ejs")%>
-</body>
-
+  </body>
 </html>

@@ -30,7 +30,7 @@ h3 {
     display: flex;
     flex-direction: column;
     width: 440px;
-    height: 420px;
+    height: 450px;
     border-radius: 6px;
     border: 1px solid rgb(212, 212, 212);
 }
@@ -52,39 +52,51 @@ h3 {
 .servicos-card-header {
     font-weight: 600;
     font-size: 20px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }
 
 
-.servicos-card-text-wrapper{
+.servicos-card-text-wrapper {
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; 
     align-items: center;
     gap: 20px;
+    padding-top: 20px; 
 }
 
+.servicos-card-text-wrapper p {
+    text-align: center;
+    padding: 0 12px;
+    flex-grow: 1;
+}
 
 .servicos-card-text-wrapper .pesca-txt {
-    padding: 12px;
+    padding: 0 12px;
     text-align: center;
+    flex-grow: 1;
 }
 
 .agendar-btn {
     width: 90%;
     padding: 12px;
     color: white;
-    background-color: #198254;
+    background-color: #004d00;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
     border: none;
+    margin-bottom: 15px;
 
     transition: all 0.2s ease-in-out;
 }
 .agendar-btn:hover {
-    background-color: #004d00;
+    background-color: #198254;
 }
 
 .section-marcas {
