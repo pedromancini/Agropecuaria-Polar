@@ -9,10 +9,17 @@
         </div>
 
         <div class="navbar-user-wrapper">
-            <div class="navbar-user-img">
-                <a href="/cadastrar">
-                    <img src="/img/userIcon.svg" alt="user-img">
-                </a>
+            <div class="navbar-hamburger">
+                <button class="hamburger-btn" onclick="toggleMenu()">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="/login">Login</a>
+                    <a href="/cadastrar">Cadastro</a>
+                    <a href="/perfil">Perfil</a>
+                </div>
             </div>
         </div>
     </div>

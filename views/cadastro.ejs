@@ -9,36 +9,96 @@
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/cadastro.css">
     <link rel="stylesheet" href="/css/GLOBAL.css">
+
+    <script src="/js/cadastro.js" defer></script>
+
 </head>
 
 <body>
-    <div class="form-container">
-        <form action="/cadastrar" method="post">
-            <div class="form-wrapper">
-                <label for="nome">Nome completo</label>
-                <input type="text" name="nome" id="nome" required>
-
-                <label for="endereco">Endereço completo</label>
-                <input type="text" name="endereco" id="endereco" required>
-
-                <label for="cpf">CPF</label>
-                <input type="text" name="cpf" id="cpf" required>
-
-                <label for="email">Email</label>
-                <input type="text" name="email" id="email" required>
-
-                <label for="senha">Senha</label>
-                <input type="password" name="senha" id="senha" required>
-
-                <label for="senha-confirmacao">Confirmar senha</label>
-                <input type="password" name="senha_confirmacao" id="senha_confirmacao">
-
-                <button class="criar-conta-btn" type="submit">Criar Conta</button>
+    <div class="cadastro-container">
+        <div class="cadastro-header">
+            <a href="/" class="btn-voltar" title="Voltar">←</a>
+            
+            <div class="logo-container">
+                <img src="/img/logo.png" alt="Agropecuária Polar">
             </div>
-        </form>
+            
+            <h1>Criar Conta</h1>
+            <p>Preencha os dados abaixo para se cadastrar</p>
+        </div>
+
+        <div class="form-container">
+            <form action="/cadastrar" method="post" id="cadastroForm">
+                <div class="form-wrapper">
+                    <div class="form-group">
+                        <label for="nome">Nome completo</label>
+                        <input type="text" name="nome" id="nome" placeholder="Digite seu nome completo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cpf">CPF</label>
+                        <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder="seu@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cep">CEP</label>
+                        <input type="text" name="cep" id="cep" placeholder="00000-000" maxlength="9" required>
+                        <span class="error-message" id="cep-error"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rua">Rua</label>
+                            <input type="text" name="rua" id="rua" placeholder="Nome da rua" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="numero">Número</label>
+                            <input type="text" name="numero" id="numero" placeholder="Nº" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bairro">Bairro</label>
+                            <input type="text" name="bairro" id="bairro" placeholder="Bairro" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cidade">Cidade</label>
+                            <input type="text" name="cidade" id="cidade" placeholder="Cidade" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estado">Estado</label>
+                        <input type="text" name="estado" id="estado" placeholder="UF" maxlength="2" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="senha">Senha</label>
+                        <input type="password" name="senha" id="senha" placeholder="Mínimo 6 caracteres" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="senha-confirmacao">Confirmar senha</label>
+                        <input type="password" name="senha_confirmacao" id="senha_confirmacao" placeholder="Digite a senha novamente" required>
+                    </div>
+
+                    <button class="criar-conta-btn" type="submit">Criar Conta</button>
+
+                    <div class="login-link">
+                        Já tem uma conta? <a href="/login">Faça login</a>
+                    </div>
+                </div>
+        </div>
     </div>
 
-    <script src="/js/cpf.js"></script>
 </body>
 
 </html>

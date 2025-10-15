@@ -53,3 +53,66 @@
 .dummy1 {
     width: 40px;
 }
+
+.navbar-user-wrapper {
+    position: relative;
+}
+
+.hamburger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hamburger-line {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+.hamburger-btn:hover .hamburger-line {
+    background-color: gray;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    min-width: 150px;
+    margin-top: 8px;
+    z-index: 1000;
+}
+
+.dropdown-menu.active {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: black;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f5f5f5;
+}
+
+.dropdown-menu a:first-child {
+    border-radius: 4px 4px 0 0;
+}
+
+.dropdown-menu a:last-child {
+    border-radius: 0 0 4px 4px;
+}
