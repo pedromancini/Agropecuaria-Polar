@@ -1,28 +1,47 @@
 const connection = require("./connection")
+const enderecoModel = require("./enderecoModel")
+const cidadeModel = require("./cidadeModel")
 const Sequelize = require("sequelize")
 
-const usuariosModel = connection.define("usuarios", {
-    nome: {
+const usuariosModel = connection.define("USUARIO", {
+    Nome: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    email: {
+    Email: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    senha: {
+    Senha: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    endereco: {
+    Cidade: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+            model: cidadeModel,
+            key: "id"
+        }
+    },
+    Imagem: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: true,
     },
-    cpf: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    
+    idEndereco: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+            model: enderecoModel,
+            key: "id"
+        }
+    }
+})
+
+// Associação 1 -> 1 - endereço
+usuariosModel.belongsTo(enderecoModel, {
+    foreignKey: "idEndereco",
+    as: "ENDERECO"
 })
 
 usuariosModel.sync({force:false})

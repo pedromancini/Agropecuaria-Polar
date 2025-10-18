@@ -1,27 +1,23 @@
 const {router} = require("../config")
 const userModel = require("../database/usuariosModel")
+const enderecoModel = require("../database/enderecoModel")
 
 router.get("/cadastrar", (req, res) => {
     res.render("cadastro.ejs")
 })
 
 router.post("/cadastrar", (req, res) => {
-    const {nome, cpf, email, cep, rua, numero, bairro, cidade, estado, senha, senha_confirmacao} = req.body;
-
-    // Validar se as senhas tao certinha
-    if (senha !== senha_confirmacao) {
-        return res.status(400).send("As senhas não coincidem!");
-    }
+    const {rua, bairro, estado, cidade, numero, nome, cpf, cep, email, senha} = req.body;
 
     // Montar o endereço completo
-    const enderecoCompleto = `${rua}, ${numero} - ${bairro}, ${cidade}/${estado} - CEP: ${cep}`;
+    const enderecoCompleto = `${rua}, ${numero} - ${bairro}`;
 
-    userModel.create({
-        nome: nome,
-        email: email,
-        senha: senha,
-        endereco: enderecoCompleto,
-        cpf: cpf
+    enderecoModel.create({
+        Endereco: enderecoCompleto,
+        Cpf: cpf,
+        Cep: cep,
+        Uf: estado,
+        Cidade: cidade,
     }).then(() => {
         res.redirect("/")
     }).catch((error) => {

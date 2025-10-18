@@ -30,6 +30,9 @@
         <div class="form-container">
             <form action="/cadastrar" method="post" id="cadastroForm">
                 <div class="form-wrapper">
+
+                    <!-- Dados do usuário -->
+
                     <div class="form-group">
                         <label for="nome">Nome completo</label>
                         <input type="text" name="nome" id="nome" placeholder="Digite seu nome completo" required>
@@ -50,6 +53,8 @@
                         <input type="text" name="cep" id="cep" placeholder="00000-000" maxlength="9" required>
                         <span class="error-message" id="cep-error"></span>
                     </div>
+
+                    <!-- Dados do endereço -->
 
                     <div class="form-row">
                         <div class="form-group">
@@ -79,6 +84,8 @@
                         <label for="estado">Estado</label>
                         <input type="text" name="estado" id="estado" placeholder="UF" maxlength="2" required>
                     </div>
+
+                    <!-- Dados do usuário -->
 
                     <div class="form-group">
                         <label for="senha">Senha</label>
