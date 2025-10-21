@@ -1,6 +1,7 @@
 const connection = require("./connection")
 const Sequelize = require("sequelize")
 const cidadeModel = require("./cidadeModel")
+const estadoModel = require("./estadoModel")
 
 const enderecoModel = connection.define("ENDERECO", {
     Rua: {
@@ -21,7 +22,11 @@ const enderecoModel = connection.define("ENDERECO", {
     },
     IdEstado: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: estadoModel,
+            key: "id"
+        }
     },
     IdCidade: {
         type: Sequelize.INTEGER,
@@ -36,6 +41,12 @@ const enderecoModel = connection.define("ENDERECO", {
 // Associação 1->1 - Cidade
 enderecoModel.belongsTo(cidadeModel, {
     foreignKey: "idCidade",
+    key: "id"
+})
+
+// Associação 1->1 - Estado
+enderecoModel.belongsTo(estadoModel, {
+    foreignKey: "IdEstado",
     key: "id"
 })
 

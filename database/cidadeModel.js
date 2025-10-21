@@ -16,10 +16,6 @@ cidadesModel = connection.define("CIDADE", {
         }
     }
 })
-
-// Associação 1->1 - Estado
-cidadesModel.belongsTo()
-
 cidadesModel.sync({force:false})
 
 module.exports = cidadesModel
