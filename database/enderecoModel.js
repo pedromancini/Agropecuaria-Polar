@@ -20,22 +20,14 @@ const enderecoModel = connection.define("ENDERECO", {
         type: Sequelize.STRING,
         allowNull: false
     },
-    IdEstado: {
-        type: Sequelize.INTEGER,
+    Estado: {
+        type: Sequelize.STRING,
         allowNull: false,
-        references: {
-            model: estadoModel,
-            key: "id"
-        }
     },
-    IdCidade: {
-        type: Sequelize.INTEGER,
+    Cidade: {
+        type: Sequelize.STRING,
         allowNull: false,
-        references: {
-            model: cidadeModel,
-            key: "id"
-        }
-    }
+    },
 })
 
 // Associação 1->1 - Cidade

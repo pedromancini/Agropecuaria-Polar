@@ -1,6 +1,5 @@
 const connection = require("./connection")
 const enderecoModel = require("./enderecoModel")
-const cidadeModel = require("./cidadeModel")
 const Sequelize = require("sequelize")
 
 const usuariosModel = connection.define("USUARIO", {
@@ -8,21 +7,21 @@ const usuariosModel = connection.define("USUARIO", {
         type: Sequelize.STRING,
         allowNull: false
     },
+    Cpf: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
     Email: {
         type: Sequelize.STRING,
         allowNull: false
     },
+    Telefone: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
     Senha: {
         type: Sequelize.STRING,
         allowNull: false
-    },
-    Cidade: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-            model: cidadeModel,
-            key: "id"
-        }
     },
     Imagem: {
         type: Sequelize.TEXT,
@@ -35,7 +34,7 @@ const usuariosModel = connection.define("USUARIO", {
             model: enderecoModel,
             key: "id"
         }
-    }
+    },
 })
 
 // Associação 1 -> 1 - endereço
