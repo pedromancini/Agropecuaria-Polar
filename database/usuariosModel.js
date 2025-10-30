@@ -17,7 +17,7 @@ const usuariosModel = connection.define("USUARIO", {
     },
     Telefone: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true, // trocar para false
     },
     Senha: {
         type: Sequelize.STRING,
