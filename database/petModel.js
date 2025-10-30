@@ -43,6 +43,12 @@ petModel.belongsTo(usuarioModel, {
     as: "USUARIO"
 })
 
+// Um usuário possui muitos pets
+usuarioModel.hasMany(petModel, {
+    foreignKey: "idUsuario",
+    as: "PETS"
+});
+
 petModel.sync({force:false})
 
 module.exports = petModel
