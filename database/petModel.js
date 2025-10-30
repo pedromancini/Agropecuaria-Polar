@@ -19,6 +19,10 @@ const petModel = connection.define("PET", {
         type: Sequelize.INTEGER,
         allowNull: true,
     },
+    Imagem: {
+        type: Sequelize.STRING,
+        allowNull: true,
+    },
     Porte: {
         type: Sequelize.STRING,
         allowNull: true,

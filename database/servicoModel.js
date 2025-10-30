@@ -19,14 +19,6 @@ const servicoModel = connection.define("SERVICO", {
         type: Sequelize.DOUBLE,
         allowNull: true,
     },
-    IdProduto: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-            model: produtoModel,
-            key: "id"
-        },
-    },
     IdUsuario: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -35,5 +27,14 @@ const servicoModel = connection.define("SERVICO", {
             key: "id"
         },
     },
+    IdPet: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+            model: petModel,
+            key: "id"
+        },
+    },
 })
 
+servicoModel.sync({force:false});
