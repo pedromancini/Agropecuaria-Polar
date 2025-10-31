@@ -1,71 +1,51 @@
 .navbar-main {
     display: flex;
+    justify-content: center;
+    align-items: center;
     height: 40px;
     background-color: #004d00;
     padding: 5px;
-    justify-content: space-between; /* Distribui os elementos */
-    align-items: center; /* Centraliza verticalmente */
+}
 
+.navbar-main-wrapper {
+    width: 70%;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
 }
 
 .navbar-sections-wrapper {
-    height: 100%;
     display: flex;
     gap: 20px;
-    align-items: center;
     justify-content: center;
-    height: 100%;
+    flex: 1; 
 }
 
 .navbar-sections-wrapper a {
     text-decoration: none;
-    height: 100%;
     color: white;
-
-    transition: color 0.25s ease-in-out;
+    transition: color 0.25s;
 }
 
 .navbar-sections-wrapper a:hover {
     color: black;
 }
 
-.navbar-user-wrapper img {
-    width: 40px;
-}
-
-.navbar-user-wrapper {
-    height: 100%;
-    width: fit-content;
-}
-
-.navbar-main-wrapper {
-    width: 70%;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.dummy1 {
-    width: 40px;
-}
-
 .navbar-user-wrapper {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; 
 }
 
 .hamburger-btn {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    padding: 8px;
 }
 
 .hamburger-line {
@@ -86,7 +66,7 @@
     top: 100%;
     right: 0;
     background-color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     border-radius: 4px;
     min-width: 150px;
     margin-top: 8px;
@@ -115,4 +95,8 @@
 
 .dropdown-menu a:last-child {
     border-radius: 0 0 4px 4px;
+}
+
+.dummy1 {
+    width: 40px;
 }

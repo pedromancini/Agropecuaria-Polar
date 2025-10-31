@@ -1,0 +1,249 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+}
+
+.cadastro-container {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    animation: slideUp 0.5s ease-out;
+    max-height: 95vh;
+    overflow-y: auto;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cadastro-header {
+    padding: 25px 30px 20px;
+    text-align: center;
+    position: relative;
+}
+
+.btn-voltar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    border: none;
+    color: black;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 30px;
+    text-decoration: none;
+}
+
+.btn-voltar:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: translateX(-3px);
+}
+
+.logo-container {
+    margin-bottom: 10px;
+}
+
+.logo-container img {
+    max-width: 100px;
+    height: auto;
+}
+
+.cadastro-header h1 {
+    color: black;
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.cadastro-header p {
+    color: #666;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.form-container {
+    padding: 25px 30px 30px;
+}
+
+.form-wrapper {
+    display: grid;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    color: #333;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+input {
+    padding: 12px 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+input:valid {
+    border-color: #4caf50;
+}
+
+.criar-conta-btn {
+    background-color: #004d00;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 5px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.criar-conta-btn:hover {
+    background-color: #198254;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.criar-conta-btn:active {
+    transform: translateY(0);
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 15px;
+    color: #666;
+    font-size: 13px;
+}
+
+.login-link a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 25px 20px;
+    width: 300px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: slideModal 0.3s ease-out;
+}
+
+.modal-content p {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.modal-content p.erro {
+    color: #d32f2f; /* Vermelho para erro */
+}
+
+.modal-content p.sucesso {
+    color: #4caf50; /* Verde para sucesso */
+}
+
+.close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #666;
+}
+
+.close:hover {
+    color: #000;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideModal {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .cadastro-container {
+        border-radius: 0;
+        max-height: 100vh;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+
+    .cadastro-header {
+        padding: 20px;
+    }
+}

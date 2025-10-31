@@ -1,79 +1,45 @@
-// const {router} = require("../config")
-// const userModel = require("../database/usuariosModel")
-// const enderecoModel = require("../database/enderecoModel")
-
-// router.get("/cadastrar", (req, res) => {
-//     res.render("cadastro.ejs")
-// })
-
-// router.post("/cadastrar", (req, res) => {
-//     const {rua, bairro, estado, cidade, cep, numero, nome, cpf, email, senha} = req.body;
-
-//     enderecoModel.create({
-//         Rua: rua,
-//         Cep: cep,
-//         Bairro: bairro,
-//         Estado: estado,
-//         Cidade: cidade,
-//         Numero: numero,
-//     }).then(() => {
-//         res.redirect("/")
-//     }).catch((error) => {
-//         console.error("Erro ao cadastrar usuário:", error);
-//         res.status(500).send("Erro ao realizar cadastro");
-//     })
-
-//     userModel.create({
-//         Nome: nome,
-//         Cpf: cpf,
-//         Email: email,
-//         Senha: senha,
-//         idEndereco: enderecoModel.id
-//     }).then(()=>{
-//         res.redirect("/")
-//     }).catch((error) => {
-//         console.error("erro ao cadastrar usuario: ", error)
-//         res.status(500).send("erro ao cadastrar")
-//     })
-// })
-
-// module.exports = router
-
-const { router } = require("../config");
+const express = require("express");
+const router = express.Router();
 const userModel = require("../database/usuariosModel");
 const enderecoModel = require("../database/enderecoModel");
+const bcrypt = require("bcryptjs");
 
 router.get("/cadastrar", (req, res) => {
     res.render("cadastro.ejs");
 });
 
-router.post("/cadastrar", (req, res) => {
+// POST: recebe formulário e salva no banco
+router.post("/cadastrar", async (req, res) => {
+  try {
     const { rua, bairro, estado, cidade, cep, numero, nome, cpf, email, senha } = req.body;
 
-    enderecoModel.create({
-        Rua: rua,
-        Cep: cep,
-        Bairro: bairro,
-        Estado: estado,
-        Cidade: cidade,
-        Numero: numero,
-    })
-    .then((novoEndereco) => {
-        return userModel.create({
-            Nome: nome,
-            Cpf: cpf,
-            Email: email,
-            Senha: senha,
-            idEndereco: novoEndereco.id // usa o id gerado pelo Sequelize
-        });
-    })
-    .then(() => {
-        res.redirect("/");
-    })
-    .catch((error) => {
-        console.error("Erro ao cadastrar:", error);
-        res.status(500).send("Erro ao realizar cadastro");
+    // Criptografa a senha antes de salvar
+    const hash = await bcrypt.hash(senha, 10);
+
+    // Cria endereço primeiro
+    const novoEndereco = await enderecoModel.create({
+      Rua: rua,
+      Cep: cep,
+      Bairro: bairro,
+      Estado: estado,
+      Cidade: cidade,
+      Numero: numero,
     });
+
+    // Cria usuario com id do endereço
+    await userModel.create({
+      Nome: nome,
+      Cpf: cpf,
+      Email: email,
+      Senha: hash, // SALVA SENHA CRIPTOGRAFADA
+      idEndereco: novoEndereco.id,
+    });
+
+    res.redirect("/login"); // redireciona para login após cadastro
+  } catch (error) {
+    console.error("Erro ao cadastrar:", error);
+    res.status(500).send("Erro ao realizar cadastro");
+  }
 });
 
 module.exports = router;

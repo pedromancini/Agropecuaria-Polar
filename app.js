@@ -1,18 +1,24 @@
-const {express} = require("./config")
-const {config} = require("./config")
-const app = express()
+const express = require("express");
+const { config } = require("./config");
+const app = express();
+
+
+
 
 // aplicando as config do config.js
-config(app)
+config(app);
 
-const mainRoute = require("./routes/main")
-app.use("/", mainRoute)
+const mainRoute = require("./routes/main");
+app.use("/", mainRoute);
 
-const cadastroRoute = require("./routes/cadastro")
-app.use("/", cadastroRoute)
+const cadastroRoute = require("./routes/cadastro");
+app.use("/", cadastroRoute);
+
+const authRoute = require("./routes/auth");
+app.use("/", authRoute);                     
 
 // abrindo server
 const port = 1000;
 app.listen(port, () => {
-    console.log(`online @ localhost:${port}`)
-})
+    console.log(`online @ localhost:${port}`);
+});
