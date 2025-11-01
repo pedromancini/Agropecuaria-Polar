@@ -11,7 +11,7 @@ router.get("/cadastrar", (req, res) => {
 // POST: recebe formulário e salva no banco
 router.post("/cadastrar", async (req, res) => {
   try {
-    const { rua, bairro, estado, cidade, cep, numero, nome, cpf, email, senha } = req.body;
+    const { rua, bairro, estado, cidade, cep, numero, nome, cpf, email, telefone, senha } = req.body;
 
     // Criptografa a senha antes de salvar
     const hash = await bcrypt.hash(senha, 10);
@@ -31,6 +31,7 @@ router.post("/cadastrar", async (req, res) => {
       Nome: nome,
       Cpf: cpf,
       Email: email,
+      Telefone: telefone,
       Senha: hash, // SALVA SENHA CRIPTOGRAFADA
       idEndereco: novoEndereco.id,
     });
