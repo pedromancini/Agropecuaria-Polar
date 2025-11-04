@@ -41,6 +41,7 @@
                     <div class="form-group">
                         <label for="cpf">CPF</label>
                         <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" required>
+                        <span id="cpf-error" style="color: red; font-size: 0.9em; display: none;"></span>
                     </div>
 
                     <div class="form-group">
@@ -50,8 +51,9 @@
 
                     <div class="form-group">
                         <label for="telefone">Telefone</label>
-                        <input type="text" name="telefone" id="telefone" placeholder="+XX (XX) XXXXXXXXX" required>
-                    </div>                                                                      
+                        <input type="text" name="telefone" id="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
+                        <span id="telefone-error" style="color: red; font-size: 0.9em; display: none;"></span>
+                    </div>                                                                     
 
                     <!-- Dados do endereço -->
 
@@ -85,11 +87,39 @@
                             <input type="text" name="cidade" id="cidade" placeholder="Cidade" required>
                         </div>
 
-                        <div class="form-group">
-                        <label for="estado">Estado</label>
-                        <input type="text" name="estado" id="estado" placeholder="UF" maxlength="2" required>
-                    </div>
-
+<div class="form-group"> 
+    <label for="estado">Estado</label>
+    <select name="estado" id="estado" required>
+        <option value="" selected>Selecione o estado</option>
+        <option value="AC">Acre</option>
+        <option value="AL">Alagoas</option>
+        <option value="AP">Amapá</option>
+        <option value="AM">Amazonas</option>
+        <option value="BA">Bahia</option>
+        <option value="CE">Ceará</option>
+        <option value="DF">Distrito Federal</option>
+        <option value="ES">Espírito Santo</option>
+        <option value="GO">Goiás</option>
+        <option value="MA">Maranhão</option>
+        <option value="MT">Mato Grosso</option>
+        <option value="MS">Mato Grosso do Sul</option>
+        <option value="MG">Minas Gerais</option>
+        <option value="PA">Pará</option>
+        <option value="PB">Paraíba</option>
+        <option value="PR">Paraná</option>
+        <option value="PE">Pernambuco</option>
+        <option value="PI">Piauí</option>
+        <option value="RJ">Rio de Janeiro</option>
+        <option value="RN">Rio Grande do Norte</option>
+        <option value="RS">Rio Grande do Sul</option>
+        <option value="RO">Rondônia</option>
+        <option value="RR">Roraima</option>
+        <option value="SC">Santa Catarina</option>
+        <option value="SP">São Paulo</option>
+        <option value="SE">Sergipe</option>
+        <option value="TO">Tocantins</option>
+    </select>
+</div>
                     </div>
 
                     <!-- Dados do usuário -->

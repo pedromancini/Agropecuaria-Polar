@@ -1,0 +1,348 @@
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        /* Header do site */
+        .site-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1920') center/cover;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .site-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .site-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Navegação */
+        .nav-bar {
+            background: #004d00;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .btn-voltar {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-voltar:hover {
+            background: white;
+            color: #004d00;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 1200px;
+            margin: -50px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header do perfil */
+        .profile-header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .profile-photo-section {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #004d00;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-info h2 {
+            color: #004d00;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .profile-info p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        .upload-hint {
+            color: #999;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .btn-logout {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+        }
+
+        /* Grid de cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #004d00;
+        }
+
+        .card-header h3 {
+            color: #004d00;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon {
+            font-size: 24px;
+        }
+
+        .btn-edit {
+            background: #004d00;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit:hover {
+            background: #198254;
+        }
+
+        /* Informações */
+        .info-group {
+            margin-bottom: 18px;
+        }
+
+        .info-label {
+            color: #004d00;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            color: #333;
+            font-size: 15px;
+            padding: 12px 14px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #004d00;
+        }
+
+        /* Formulários */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            color: #004d00;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #004d00;
+            box-shadow: 0 0 0 3px rgba(0, 77, 0, 0.1);
+        }
+
+        .form-group input:disabled {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .btn-save {
+            width: 100%;
+            background: #004d00;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-save:hover {
+            background: #198254;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 77, 0, 0.3);
+        }
+
+        .btn-cancel {
+            width: 100%;
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-cancel:hover {
+            background: #5a6268;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #photoInput {
+            display: none;
+        }
+
+        /* Footer */
+        .footer {
+            background: #004d00;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-photo-section {
+                flex-direction: column;
+            }
+
+            .site-header h1 {
+                font-size: 28px;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }

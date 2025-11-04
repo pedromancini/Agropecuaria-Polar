@@ -11,7 +11,8 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "bcryptjs": "^3.0.2",
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-session": "^1.18.2",
@@ -28,5 +29,5 @@
     "url": "https://github.com/pedromancini/Agropecuaria-Polar/issues"
   },
   "homepage": "https://github.com/pedromancini/Agropecuaria-Polar#readme",
-  "description": ""
+  "description": "Pacotes necessários para rodar!\r npm install express bcryptjs ejs nodemon sequelize mysql2 express-session"
 }
