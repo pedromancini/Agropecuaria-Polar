@@ -8,8 +8,8 @@ const app = express();
 // aplicando as config do config.js
 config(app);
 
-const mainRoute = require("./routes/main");
-app.use("/", mainRoute);
+const agendamentoRoute = require("./routes/agendamento");
+app.use("/", agendamentoRoute);
 
 const cadastroRoute = require("./routes/cadastro");
 app.use("/", cadastroRoute);
@@ -19,6 +19,9 @@ app.use("/", authRoute);
 
 const perfilRoute = require("./routes/perfil-route");
 app.use("/", perfilRoute);
+
+const mainRoute = require("./routes/main");
+app.use("/", mainRoute);
 
 // abrindo server
 const port = 1000;
