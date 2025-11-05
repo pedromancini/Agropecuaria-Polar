@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/css/reset.css" />
   <link rel="stylesheet" href="/css/GLOBAL.css" />
   <link rel="stylesheet" href="/css/pets.css" />
+  <link rel="icon" href="data:," />
 </head>
 <body>
   <!-- Header do Site -->
@@ -16,7 +17,7 @@
   </div>
 
   <div class="nav-bar">
-    <a href="/" class="btn-voltar">← Voltar ao Início</a>
+    <a href="/agendamento" class="btn-voltar">← Voltar</a>
   </div>
 
   <!-- Container Principal -->
@@ -36,7 +37,7 @@
           <div class="pet-card">
             <div class="pet-image-container">
               <% if (pet.Imagem) { %>
-                <img src="<%= pet.Imagem %>" alt="<%= pet.Nome %>" class="pet-image">
+                <img src="/uploads/pets/<%= pet.Imagem %>" alt="<%= pet.Nome %>" class="pet-image">
               <% } else { %>
                 <div class="pet-icon">
                   <%= pet.Tipo === 'Cachorro' ? '🐶' : pet.Tipo === 'Gato' ? '🐱' : '🐾' %>
@@ -63,6 +64,12 @@
                 <div class="info-label">Porte</div>
                 <div class="info-value"><%= pet.Porte %></div>
               </div>
+            </div>
+
+            <div class="pet-actions">
+              <form action="/pets/deletar/<%= pet.id %>" method="POST" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja excluir <%= pet.Nome %>?');">
+                <button type="submit" class="btn-delete">🗑️ Excluir</button>
+              </form>
             </div>
           </div>
         <% }) %>

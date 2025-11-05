@@ -24,6 +24,8 @@ app.use("/", mainRoute);
 const cadastraPetRoute = require("./routes/cadastraPet");
 app.use("/", cadastraPetRoute);
 
+const petsRoutes = require("./routes/pets");
+app.use("/", petsRoutes);
 
 // abrindo server
 const port = 1000;
