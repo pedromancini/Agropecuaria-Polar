@@ -121,8 +121,9 @@
         }
 
         .profile-info p {
-            color: #666;
+            color: black;
             font-size: 15px;
+            font-weight: bold ;
         }
 
         .upload-hint {
@@ -130,6 +131,7 @@
             font-size: 12px;
             margin-top: 5px;
         }
+        
 
         .btn-logout {
             background: #dc3545;

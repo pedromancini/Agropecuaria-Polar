@@ -3,8 +3,6 @@ const { config } = require("./config");
 const app = express();
 
 
-
-
 // aplicando as config do config.js
 config(app);
 
@@ -22,6 +20,10 @@ app.use("/", perfilRoute);
 
 const mainRoute = require("./routes/main");
 app.use("/", mainRoute);
+
+const cadastraPetRoute = require("./routes/cadastraPet");
+app.use("/", cadastraPetRoute);
+
 
 // abrindo server
 const port = 1000;

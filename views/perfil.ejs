@@ -6,7 +6,8 @@
     <title>Meu Perfil - Agropecuária Polar</title>
 
     <link rel="stylesheet" href="/css/reset.css" />
-    <link rel="stylesheet" href="/css/perfil.css">
+    <link rel="stylesheet" href="/css/perfil.css" />
+    <link rel="stylesheet" href="/css/GLOBAL.css" />
   </head>
   <body>
     <!-- Header do Site -->
@@ -25,16 +26,22 @@
       <div class="profile-header">
         <div class="profile-photo-section">
           <img
-            src="<%= usuario.Imagem || 'https://via.placeholder.com/120' %>"
+            src="<%= usuario.Imagem ? '/uploads/perfil/' + usuario.Imagem : 'https://via.placeholder.com/120' %>"
             alt="Foto de perfil"
             class="profile-photo"
             id="profilePhoto"
+            onclick="document.getElementById('photoInput').click()"
+            style="cursor: pointer"
           />
-          <input type="file" id="photoInput" accept="image/*" />
+          <input
+            type="file"
+            id="photoInput"
+            accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+            style="display: none"
+          />
           <div class="profile-info">
             <h2 id="displayName"><%= usuario.Nome %></h2>
-            <p id="displayEmail"><%= usuario.Email %></p>
-            <p class="upload-hint">📸 Clique na foto para alterar</p>
+            <p class="upload-hint">📷 Clique na foto para alterar</p>
           </div>
         </div>
         <button class="btn-logout" onclick="logout()">🚪 Sair da Conta</button>
@@ -66,7 +73,9 @@
             </div>
             <div class="info-group">
               <div class="info-label">Telefone</div>
-              <div class="info-value" id="viewTelefone"><%= usuario.Telefone || 'Não informado' %></div>
+              <div class="info-value" id="viewTelefone">
+                <%= usuario.Telefone || 'Não informado' %>
+              </div>
             </div>
           </div>
 
@@ -77,7 +86,12 @@
             </div>
             <div class="form-group">
               <label>CPF (não editável)</label>
-              <input type="text" id="editCpf" value="<%= usuario.Cpf %>" disabled />
+              <input
+                type="text"
+                id="editCpf"
+                value="<%= usuario.Cpf %>"
+                disabled
+              />
             </div>
             <div class="form-group">
               <label>Email</label>
@@ -85,7 +99,11 @@
             </div>
             <div class="form-group">
               <label>Telefone</label>
-              <input type="text" id="editTelefone" value="<%= usuario.Telefone || '' %>" />
+              <input
+                type="text"
+                id="editTelefone"
+                value="<%= usuario.Telefone || '' %>"
+              />
             </div>
             <button class="btn-save" onclick="savePessoais()">
               💾 Salvar Alterações
@@ -108,19 +126,27 @@
           <div id="viewEndereco">
             <div class="info-group">
               <div class="info-label">CEP</div>
-              <div class="info-value" id="viewCep"><%= usuario.ENDERECO.Cep %></div>
+              <div class="info-value" id="viewCep">
+                <%= usuario.ENDERECO.Cep %>
+              </div>
             </div>
             <div class="info-group">
               <div class="info-label">Rua</div>
-              <div class="info-value" id="viewRua"><%= usuario.ENDERECO.Rua %></div>
+              <div class="info-value" id="viewRua">
+                <%= usuario.ENDERECO.Rua %>
+              </div>
             </div>
             <div class="info-group">
               <div class="info-label">Número</div>
-              <div class="info-value" id="viewNumero"><%= usuario.ENDERECO.Numero %></div>
+              <div class="info-value" id="viewNumero">
+                <%= usuario.ENDERECO.Numero %>
+              </div>
             </div>
             <div class="info-group">
               <div class="info-label">Bairro</div>
-              <div class="info-value" id="viewBairro"><%= usuario.ENDERECO.Bairro %></div>
+              <div class="info-value" id="viewBairro">
+                <%= usuario.ENDERECO.Bairro %>
+              </div>
             </div>
             <div class="info-group">
               <div class="info-label">Cidade - Estado</div>
@@ -134,27 +160,52 @@
           <div id="editEndereco" class="hidden">
             <div class="form-group">
               <label>CEP</label>
-              <input type="text" id="editCep" value="<%= usuario.ENDERECO.Cep %>" />
+              <input
+                type="text"
+                id="editCep"
+                value="<%= usuario.ENDERECO.Cep %>"
+              />
             </div>
             <div class="form-group">
               <label>Rua</label>
-              <input type="text" id="editRua" value="<%= usuario.ENDERECO.Rua %>" />
+              <input
+                type="text"
+                id="editRua"
+                value="<%= usuario.ENDERECO.Rua %>"
+              />
             </div>
             <div class="form-group">
               <label>Número</label>
-              <input type="text" id="editNumero" value="<%= usuario.ENDERECO.Numero %>" />
+              <input
+                type="text"
+                id="editNumero"
+                value="<%= usuario.ENDERECO.Numero %>"
+              />
             </div>
             <div class="form-group">
               <label>Bairro</label>
-              <input type="text" id="editBairro" value="<%= usuario.ENDERECO.Bairro %>" />
+              <input
+                type="text"
+                id="editBairro"
+                value="<%= usuario.ENDERECO.Bairro %>"
+              />
             </div>
             <div class="form-group">
               <label>Cidade</label>
-              <input type="text" id="editCidade" value="<%= usuario.ENDERECO.Cidade %>" />
+              <input
+                type="text"
+                id="editCidade"
+                value="<%= usuario.ENDERECO.Cidade %>"
+              />
             </div>
             <div class="form-group">
               <label>Estado</label>
-              <input type="text" id="editEstado" value="<%= usuario.ENDERECO.Estado %>" maxlength="2" />
+              <input
+                type="text"
+                id="editEstado"
+                value="<%= usuario.ENDERECO.Estado %>"
+                maxlength="2"
+              />
             </div>
             <button class="btn-save" onclick="saveEndereco()">
               💾 Salvar Alterações

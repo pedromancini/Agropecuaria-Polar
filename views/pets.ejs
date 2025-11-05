@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meus Pets - Agropecuária Polar</title>
+  <link rel="stylesheet" href="/css/reset.css" />
+  <link rel="stylesheet" href="/css/GLOBAL.css" />
+  <link rel="stylesheet" href="/css/pets.css" />
+</head>
+<body>
+  <!-- Header do Site -->
+  <div class="site-header">
+    <h1>🐾 Agropecuária Polar</h1>
+    <p>Seu parceiro no cuidado com os animais</p>
+  </div>
+
+  <div class="nav-bar">
+    <a href="/" class="btn-voltar">← Voltar ao Início</a>
+  </div>
+
+  <!-- Container Principal -->
+  <div class="container">
+    <!-- Header da Página -->
+    <div class="page-header">
+      <h1 class="page-title">
+        <span>🐾</span> Meus Pets
+      </h1>
+      <a href="/cadastrarPet" class="btn-add-pet">➕ Cadastrar Novo Pet</a>
+    </div>
+
+    <!-- Grid de Pets -->
+    <% if (pets && pets.length > 0) { %>
+      <div class="pet-cards">
+        <% pets.forEach(pet => { %>
+          <div class="pet-card">
+            <div class="pet-image-container">
+              <% if (pet.Imagem) { %>
+                <img src="<%= pet.Imagem %>" alt="<%= pet.Nome %>" class="pet-image">
+              <% } else { %>
+                <div class="pet-icon">
+                  <%= pet.Tipo === 'Cachorro' ? '🐶' : pet.Tipo === 'Gato' ? '🐱' : '🐾' %>
+                </div>
+              <% } %>
+            </div>
+
+            <h3><%= pet.Nome %></h3>
+
+            <div class="pet-info">
+              <div class="info-group">
+                <div class="info-label">Tipo</div>
+                <div class="info-value"><%= pet.Tipo %></div>
+              </div>
+              <div class="info-group">
+                <div class="info-label">Sexo</div>
+                <div class="info-value"><%= pet.Sexo %></div>
+              </div>
+              <div class="info-group">
+                <div class="info-label">Idade</div>
+                <div class="info-value"><%= pet.Idade %> anos</div>
+              </div>
+              <div class="info-group">
+                <div class="info-label">Porte</div>
+                <div class="info-value"><%= pet.Porte %></div>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="no-pets">
+        <span class="icon">🐾</span>
+        <p>Você ainda não cadastrou nenhum pet.</p>
+        <a href="/cadastrarPet" class="btn-add-pet">➕ Cadastrar Meu Primeiro Pet</a>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- footer -->
+  <div class="footer">
+    <p>© 2024 Agropecuária Polar - Todos os direitos reservados</p>
+  </div>
+</body>
+</html>
