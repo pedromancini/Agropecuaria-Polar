@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selecione os Serviços - Agropecuária Polar</title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/GLOBAL.css" />
+    <link rel="stylesheet" href="/css/servicos.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+
+    <script src="/js/dropdown-menu.js" defer></script>
+    <script src="/js/servicos.js" defer></script>
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <%-include("partials/header.ejs")%>
+
+    <div class="nav-bar">
+      <%-include("partials/navbarMenu.ejs")%>
+
+      <a href="/agendamento" class="btn-voltar">← Voltar</a>
+    </div>
+
+    <!-- Container Principal -->
+    <div class="container">
+      <!-- Informações do Pet Selecionado -->
+      <div class="pet-selecionado">
+        <div class="pet-info-header">
+          <% if (pet.Imagem) { %>
+          <img
+            src="/uploads/pets/<%= pet.Imagem %>"
+            alt="<%= pet.Nome %>"
+            class="pet-avatar"
+          />
+          <% } else { %>
+          <div class="pet-avatar-icon">
+            <%= pet.Tipo === 'Cachorro' ? '🐶' : pet.Tipo === 'Gato' ? '🐱' :
+            '🐾' %>
+          </div>
+          <% } %>
+          <div>
+            <h2><%= pet.Nome %></h2>
+            <p>
+              <%= pet.Tipo %> • <%= pet.Sexo %> • <%= pet.Porte %> • <%=
+              pet.Idade %> anos
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Título da Página -->
+      <div class="page-header">
+        <h1 class="page-title"><span>✨</span> Selecione os Serviços</h1>
+        <p class="page-subtitle">Escolha um ou mais serviços para o seu pet</p>
+      </div>
+
+      <!-- Grid de Serviços -->
+      <div class="servicos-grid" id="servicosGrid">
+        <% produtos.forEach(produto => { %>
+        <div
+          class="servico-card"
+          data-produto-id="<%= produto.id %>"
+          data-valor="<%= produto.Valor %>"
+        >
+          <div class="servico-icon"><%= produto.Icone %></div>
+          <h3 class="servico-nome"><%= produto.Nome %></h3>
+          <p class="servico-descricao"><%= produto.Descricao %></p>
+
+          <div class="servico-detalhes">
+            <div class="detalhe-item">
+              <span class="detalhe-label">💰 Valor:</span>
+              <span class="detalhe-valor"
+                >R$ <%= produto.Valor.toFixed(2).replace('.', ',') %></span
+              >
+            </div>
+            <div class="detalhe-item">
+              <span class="detalhe-label">⏱️ Duração:</span>
+              <span class="detalhe-valor"
+                ><%= produto.DuracaoMinutos %> min</span
+              >
+            </div>
+          </div>
+
+          <div class="servico-check">
+            <span class="check-icon">✓</span>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+
+      <!-- Resumo e Botão de Continuar -->
+      <div class="resumo-container" id="resumoContainer" style="display: none">
+        <div class="resumo-content">
+          <h3>📋 Resumo da Seleção</h3>
+          <div id="servicosSelecionados"></div>
+          <div class="resumo-total">
+            <span>Total:</span>
+            <span id="valorTotal">R$ 0,00</span>
+          </div>
+        </div>
+        <button class="btn-continuar" id="btnContinuar" disabled>
+          Continuar para Agendamento →
+        </button>
+      </div>
+    </div>
+
+    <%-include("partials/footerCopy.ejs")%>
+
+    <script src="/js/servicos.js"></script>
+  </body>
+</html>

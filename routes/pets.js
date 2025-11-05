@@ -50,6 +50,22 @@ const uploadPet = multer({
 
 // ROTAS
 
+// API para buscar pets do usuário (para o modal)
+router.get("/api/meus-pets", verificarLogin, async (req, res) => {
+    try {
+        const pets = await petModel.findAll({
+            where: { idUsuario: req.session.usuario.id },
+            order: [['createdAt', 'DESC']],
+            attributes: ['id', 'Nome', 'Tipo', 'Sexo', 'Idade', 'Porte', 'Imagem']
+        });
+
+        res.json({ sucesso: true, pets });
+    } catch (error) {
+        console.error("Erro ao buscar pets:", error);
+        res.status(500).json({ sucesso: false, erro: "Erro ao buscar pets" });
+    }
+});
+
 // Listar pets do usuário
 router.get("/pets", verificarLogin, async (req, res) => {
     try {

@@ -11,34 +11,29 @@
     <link rel="stylesheet" href="/css/agendamento.css" />
     <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/footer.css" />
-    <link
-      rel="shortcut icon"
-      href="/img/logoFavicon.png"
-      type="image/x-icon"
-    />
+    <link rel="shortcut icon" href="/img/logoFavicon.png" type="image/x-icon" />
 
     <script src="/js/dropdown-menu.js" defer></script>
+    <script src="/js/selecao-pet.js" defer></script>
   </head>
 
   <body>
     <%- include("partials/header.ejs") %>
-
     <%- include("partials/navbarMenu.ejs") %>
 
     <div class="selecao-pet-container">
-        <a href="/" class="btn-voltar" title="Voltar">←</a>
+      <a href="/" class="btn-voltar" title="Voltar">←</a>
 
       <h1 class="page-title">🐾 Selecione seu Pet</h1>
 
       <div class="pet-cards">
         <!-- Card: Usar Pet Cadastrado -->
-        <a href="/pets" class="pet-card">
+        <a href="#" class="pet-card" id="btnVerPets">
           <span class="pet-icon">🐶</span>
           <h3>Pets Cadastrados</h3>
           <p>Escolha um dos seus pets já cadastrados para agendar o serviço</p>
           <span class="btn-primary-card">Ver meus pets</span>
         </a>
-
 
         <!-- Card: Cadastrar Novo Pet -->
         <a href="/cadastrarPet" class="pet-card">
@@ -49,6 +44,22 @@
         </a>
       </div>
     </div>
-<%-include("partials/footerCopy.ejs")%>
+
+    <!-- MODAL DE SELEÇÃO DE PETS -->
+    <div id="modalPets" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>🐾 Selecione um Pet</h2>
+          <button class="btn-close" id="btnFecharModal">&times;</button>
+        </div>
+
+        <div class="modal-body" id="listaPets">
+          <!-- Os pets serão carregados aqui via JavaScript -->
+          <div class="loading">Carregando pets...</div>
+        </div>
+      </div>
+    </div>
+
+    <%- include("partials/footerCopy.ejs") %>
   </body>
 </html>
