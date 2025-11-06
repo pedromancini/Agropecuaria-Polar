@@ -1,0 +1,639 @@
+/* ==================== VARIÁVEIS E RESET ==================== */
+:root {
+    --primary-color: #004d00;
+    --primary-hover: #198254;
+    --secondary-color: #95a5a6;
+    --success-color: #27ae60;
+    --danger-color: #e74c3c;
+    --warning-color: #f39c12;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+    --border-color: #e0e0e0;
+    --bg-light: #f8f9fa;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 15px;
+    --transition: all 0.3s ease;
+}
+
+/* ==================== CONTAINER PRINCIPAL ==================== */
+.admin-container {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    min-height: calc(100vh - 200px);
+}
+
+/* ==================== HEADER DO PAINEL ==================== */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 3px solid var(--border-color);
+}
+
+.admin-header-left {
+    flex: 1;
+}
+
+.admin-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.admin-header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.admin-header-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* ==================== BOTÕES PRINCIPAIS ==================== */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 77, 0, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 77, 0, 0.4);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--text-dark);
+    padding: 1rem 2rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-secondary:hover {
+    background: var(--bg-light);
+    border-color: var(--text-light);
+    transform: translateY(-2px);
+}
+
+.btn-voltar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    border: none;
+    border-radius: 50%;
+    color: var(--text-dark);
+    font-size: 30px;
+    cursor: pointer;
+    text-decoration: none;
+    background: transparent;
+    transition: var(--transition);
+    margin-bottom: 2rem;
+}
+
+.btn-voltar:hover {
+    background: rgba(0, 77, 0, 0.1);
+    transform: translateX(-5px);
+}
+
+/* ==================== ESTATÍSTICAS ==================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-card-purple {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.stat-card-green {
+    background: linear-gradient(135deg, var(--success-color) 0%, #229954 100%);
+}
+
+.stat-card-red {
+    background: linear-gradient(135deg, var(--danger-color) 0%, #c0392b 100%);
+}
+
+.stat-icon {
+    font-size: 3.5rem;
+    opacity: 0.95;
+}
+
+.stat-card h3 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.stat-card p {
+    font-size: 1rem;
+    opacity: 0.95;
+    font-weight: 500;
+}
+
+/* ==================== TABELA DE SERVIÇOS ==================== */
+.servicos-table-container {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.table-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    padding: 1.8rem 2rem;
+    color: white;
+}
+
+.table-header h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.servicos-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.servicos-table thead {
+    background: #34495e;
+    color: white;
+}
+
+.servicos-table th {
+    padding: 1.3rem 1.5rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.servicos-table td {
+    padding: 1.3rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 1rem;
+}
+
+.servicos-table tbody tr {
+    transition: background 0.2s;
+}
+
+.servicos-table tbody tr:hover {
+    background: var(--bg-light);
+}
+
+.servico-inativo {
+    opacity: 0.5;
+}
+
+.servico-inativo td {
+    color: var(--text-light);
+}
+
+.descricao-cell {
+    max-width: 350px;
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+.valor-cell {
+    font-weight: 700;
+    color: var(--success-color);
+    font-size: 1.1rem;
+}
+
+.duracao-cell {
+    color: #3498db;
+    font-weight: 600;
+}
+
+/* ==================== BADGES ==================== */
+.badge {
+    padding: 0.5rem 1.2rem;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+    letter-spacing: 0.3px;
+}
+
+.badge-success {
+    background: #d4edda;
+    color: #155724;
+    border: 2px solid #c3e6cb;
+}
+
+.badge-danger {
+    background: #f8d7da;
+    color: #721c24;
+    border: 2px solid #f5c6cb;
+}
+
+/* ==================== BOTÕES DE AÇÃO ==================== */
+.acoes-cell {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-action {
+    padding: 0.6rem 1.2rem;
+    border: 2px solid;
+    background: white;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
+    letter-spacing: 0.3px;
+}
+
+.btn-toggle {
+    color: var(--warning-color);
+    border-color: var(--warning-color);
+}
+
+.btn-toggle:hover {
+    background: var(--warning-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
+}
+
+.btn-edit {
+    color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-edit:hover {
+    background: #17a2b8;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+}
+
+.btn-delete {
+    color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.btn-delete:hover {
+    background: var(--danger-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+/* ==================== ESTADO VAZIO ==================== */
+.empty-state {
+    text-align: center;
+    padding: 5rem 2rem;
+}
+
+.empty-icon {
+    font-size: 6rem;
+    display: block;
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
+}
+
+.empty-state h3 {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+}
+
+.empty-state p {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+/* ==================== FORMULÁRIO ==================== */
+.form-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.form-card {
+    background: white;
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 3px solid var(--border-color);
+}
+
+.form-header h1 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+}
+
+.form-header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.8rem;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.label-text {
+    font-size: 1rem;
+}
+
+.label-required {
+    color: var(--danger-color);
+    margin-left: 4px;
+    font-weight: 700;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    transition: var(--transition);
+    font-family: inherit;
+    background: white;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(0, 77, 0, 0.1);
+}
+
+.form-input::placeholder {
+    color: #bdc3c7;
+}
+
+textarea.form-input {
+    resize: vertical;
+    min-height: 140px;
+    line-height: 1.6;
+}
+
+.char-counter {
+    display: block;
+    margin-top: 0.6rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+/* ==================== CHECKBOX ==================== */
+.checkbox-container {
+    background: var(--bg-light);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.checkbox-container:hover {
+    border-color: var(--primary-color);
+    background: #f0f7f0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    cursor: pointer;
+    font-weight: normal !important;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    margin-top: 3px;
+    accent-color: var(--primary-color);
+}
+
+.checkbox-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.checkbox-text strong {
+    color: var(--text-dark);
+    font-size: 1.05rem;
+}
+
+.checkbox-text small {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* ==================== INFO BOX ==================== */
+.info-box {
+    background: #d1ecf1;
+    border-left: 5px solid #17a2b8;
+    padding: 1.2rem 1.5rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.info-icon {
+    font-size: 1.5rem;
+}
+
+.info-text {
+    font-size: 0.95rem;
+    color: #0c5460;
+    line-height: 1.6;
+}
+
+.info-text strong {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+}
+
+/* ==================== AÇÕES DO FORMULÁRIO ==================== */
+.form-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: flex-end;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 3px solid var(--border-color);
+}
+
+/* ==================== FOOTER ADMIN ==================== */
+.admin-footer {
+    display: none; /* Remove o footer já que o botão foi para o header */
+}
+
+/* ==================== RESPONSIVIDADE ==================== */
+@media (max-width: 768px) {
+    .admin-container {
+        padding: 0 1.5rem;
+    }
+
+    .admin-header {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    .admin-header-left {
+        width: 100%;
+    }
+
+    .admin-header-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .admin-header h1 {
+        font-size: 2rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .stat-card {
+        padding: 1.5rem;
+    }
+
+    .stat-icon {
+        font-size: 2.5rem;
+    }
+
+    .stat-card h3 {
+        font-size: 2rem;
+    }
+
+    .servicos-table-container {
+        overflow-x: auto;
+    }
+
+    .servicos-table {
+        min-width: 800px;
+    }
+
+    .form-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+        gap: 1rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .form-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .btn-voltar {
+        width: 50px;
+        height: 50px;
+        font-size: 26px;
+    }
+}

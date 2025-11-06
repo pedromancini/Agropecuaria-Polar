@@ -1,48 +1,53 @@
-const connection = require("./connection")
-const enderecoModel = require("./enderecoModel")
-const Sequelize = require("sequelize")
+const connection = require("./connection");
+const enderecoModel = require("./enderecoModel");
+const Sequelize = require("sequelize");
 
 const usuariosModel = connection.define("USUARIO", {
-    Nome: {
-        type: Sequelize.STRING,
-        allowNull: false
+  Nome: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  Cpf: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  Email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  Telefone: {
+    type: Sequelize.STRING,
+    allowNull: true, // trocar para false
+  },
+  Senha: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  Imagem: {
+    type: Sequelize.TEXT,
+    allowNull: true,
+  },
+  idEndereco: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: enderecoModel,
+      key: "id",
     },
-    Cpf: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-    Email: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    Telefone: {
-        type: Sequelize.STRING,
-        allowNull: true, // trocar para false
-    },
-    Senha: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    Imagem: {
-        type: Sequelize.TEXT,
-        allowNull: true,
-    },
-    idEndereco: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-            model: enderecoModel,
-            key: "id"
-        }
-    },
-})
+  },
+  TipoUsuario: {
+    type: Sequelize.ENUM("Cliente", "Admin"),
+    allowNull: false,
+    defaultValue: "Cliente",
+  },
+});
 
 // Associação 1 -> 1 - endereço
 usuariosModel.belongsTo(enderecoModel, {
-    foreignKey: "idEndereco",
-    as: "ENDERECO" // nome da relação
-})
+  foreignKey: "idEndereco",
+  as: "ENDERECO", // nome da relação
+});
 
-usuariosModel.sync({force:false})
+usuariosModel.sync({ force: false });
 
-module.exports = usuariosModel
+module.exports = usuariosModel;

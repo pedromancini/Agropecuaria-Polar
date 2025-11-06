@@ -30,6 +30,11 @@ app.use("/", petsRoutes);
 const servicosRoutes = require("./routes/servicos");
 app.use("/", servicosRoutes);
 
+
+// ADM
+const adminRoutes = require("./routes/admin-routes");
+app.use("/", adminRoutes);
+
 // abrindo server
 const port = 1000;
 app.listen(port, () => {

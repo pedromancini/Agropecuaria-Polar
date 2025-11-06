@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const produtoModel = require("../database/produtoModel");
 const servicoModel = require("../database/servicoModel");
-// const servicoProdutoModel = require("../database/servicoProdutoModel");
+const servicoProdutoModel = require("../database/servicoProduto");
 const petModel = require("../database/petModel");
 const { Op } = require("sequelize");
 

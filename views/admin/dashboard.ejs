@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel Admin - Gerenciar Serviços</title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/GLOBAL.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+
+    <script src="/js/admin.js" defer></script>
+
+  </head>
+  <body>
+    <%- include("../partials/header.ejs") %>
+
+    <div class="admin-container">
+      <!-- Header do Painel -->
+
+      <div class="admin-header">
+        <div class="admin-header-left">
+          <h1>🛠️ Painel Administrativo</h1>
+          <p>Gerencie os serviços disponíveis para agendamento</p>
+        </div>
+        <div class="admin-header-actions">
+          <a href="/admin/servicos/novo" class="btn-primary">+ Novo Serviço</a>
+          <a href="/" class="btn-secondary">← Voltar para Home</a>
+        </div>
+      </div>
+
+      <!-- Estatísticas Rápidas -->
+      <div class="stats-grid">
+        <div class="stat-card stat-card-purple">
+          <span class="stat-icon">📊</span>
+          <div>
+            <h3><%= produtos.length %></h3>
+            <p>Total de Serviços</p>
+          </div>
+        </div>
+        <div class="stat-card stat-card-green">
+          <span class="stat-icon">✅</span>
+          <div>
+            <h3><%= produtos.filter(p => p.Ativo).length %></h3>
+            <p>Serviços Ativos</p>
+          </div>
+        </div>
+        <div class="stat-card stat-card-red">
+          <span class="stat-icon">❌</span>
+          <div>
+            <h3><%= produtos.filter(p => !p.Ativo).length %></h3>
+            <p>Serviços Inativos</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabela de Serviços -->
+      <div class="servicos-table-container">
+        <div class="table-header">
+          <h2>📋 Lista de Serviços</h2>
+        </div>
+
+        <% if (produtos.length === 0) { %>
+        <div class="empty-state">
+          <span class="empty-icon">📦</span>
+          <h3>Nenhum serviço cadastrado</h3>
+          <p>Comece adicionando seu primeiro serviço!</p>
+          <a href="/admin/servicos/novo" class="btn-primary"
+            >+ Criar Primeiro Serviço</a
+          >
+        </div>
+        <% } else { %>
+        <table class="servicos-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Valor</th>
+              <th>Duração</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% produtos.forEach(produto => { %>
+            <tr
+              data-produto-id="<%= produto.id %>"
+              class="<%= produto.Ativo ? '' : 'servico-inativo' %>"
+            >
+              <td><strong><%= produto.Nome %></strong></td>
+              <td class="descricao-cell">
+                <%= produto.Descricao.length > 80 ?
+                produto.Descricao.substring(0, 80) + '...' : produto.Descricao
+                %>
+              </td>
+              <td class="valor-cell">
+                R$ <%= produto.Valor.toFixed(2).replace('.', ',') %>
+              </td>
+              <td class="duracao-cell"><%= produto.DuracaoMinutos %> min</td>
+              <td>
+                <span
+                  class="badge <%= produto.Ativo ? 'badge-success' : 'badge-danger' %>"
+                >
+                  <%= produto.Ativo ? '✓ Ativo' : '✗ Inativo' %>
+                </span>
+              </td>
+              <td class="acoes-cell">
+                <button
+                  class="btn-action btn-toggle"
+                  onclick="toggleStatus(<%= produto.id %>)"
+                  title="<%= produto.Ativo ? 'Desativar' : 'Ativar' %>"
+                >
+                  <%= produto.Ativo ? 'Desativar' : 'Ativar' %>
+                </button>
+                <a
+                  href="/admin/servicos/editar/<%= produto.id %>"
+                  class="btn-action btn-edit"
+                  title="Editar"
+                >
+                  Editar
+                </a>
+                <button
+                  class="btn-action btn-delete"
+                  onclick="excluirServico(<%= produto.id %>)"
+                  title="Excluir"
+                >
+                  Excluir
+                </button>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <% } %>
+      </div>
+
+    </div>
+  </body>
+</html>

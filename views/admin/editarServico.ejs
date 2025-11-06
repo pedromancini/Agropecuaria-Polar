@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Serviço - Admin</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/GLOBAL.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/header.css">
+</head>
+<body>
+    <%- include("../partials/header.ejs") %>
+
+    <div class="form-container">
+        <a href="/admin" class="btn-voltar">← Voltar ao Painel</a>
+
+        <div class="form-card">
+            <div class="form-header">
+                <h1>✏️ Editar Serviço</h1>
+                <p>Atualize as informações do serviço</p>
+            </div>
+
+            <form id="formEditarServico">
+                <!-- Nome do Serviço -->
+                <div class="form-group">
+                    <label for="nome">
+                        <span class="label-text">Nome do Serviço</span>
+                        <span class="label-required">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="nome" 
+                        name="nome" 
+                        required 
+                        value="<%= produto.Nome %>"
+                        maxlength="100"
+                        class="form-input">
+                </div>
+
+                <!-- Valor e Duração -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="valor">
+                            <span class="label-text">💰 Valor (R$)</span>
+                            <span class="label-required">*</span>
+                        </label>
+                        <input 
+                            type="number" 
+                            id="valor" 
+                            name="valor" 
+                            step="0.01" 
+                            min="0" 
+                            required 
+                            value="<%= produto.Valor %>"
+                            class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="duracaoMinutos">
+                            <span class="label-text">⏱️ Duração (min)</span>
+                            <span class="label-required">*</span>
+                        </label>
+                        <select id="duracaoMinutos" name="duracaoMinutos" required class="form-input">
+                            <option value="15" <%= produto.DuracaoMinutos === 15 ? 'selected' : '' %>>15 minutos</option>
+                            <option value="30" <%= produto.DuracaoMinutos === 30 ? 'selected' : '' %>>30 minutos</option>
+                            <option value="45" <%= produto.DuracaoMinutos === 45 ? 'selected' : '' %>>45 minutos</option>
+                            <option value="60" <%= produto.DuracaoMinutos === 60 ? 'selected' : '' %>>1 hora</option>
+                            <option value="90" <%= produto.DuracaoMinutos === 90 ? 'selected' : '' %>>1h 30min</option>
+                            <option value="120" <%= produto.DuracaoMinutos === 120 ? 'selected' : '' %>>2 horas</option>
+                            <option value="150" <%= produto.DuracaoMinutos === 150 ? 'selected' : '' %>>2h 30min</option>
+                            <option value="180" <%= produto.DuracaoMinutos === 180 ? 'selected' : '' %>>3 horas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Descrição -->
+                <div class="form-group">
+                    <label for="descricao">
+                        <span class="label-text">📝 Descrição</span>
+                        <span class="label-required">*</span>
+                    </label>
+                    <textarea 
+                        id="descricao" 
+                        name="descricao" 
+                        rows="5" 
+                        required 
+                        maxlength="500"
+                        class="form-input"><%= produto.Descricao %></textarea>
+                    <small id="charCount" class="char-counter"><%= produto.Descricao.length %>/500 caracteres</small>
+                </div>
+
+                <!-- Status Ativo -->
+                <div class="form-group">
+                    <div class="checkbox-container">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="ativo" name="ativo" <%= produto.Ativo ? 'checked' : '' %>>
+                            <span class="checkbox-text">
+                                <strong>✅ Serviço Ativo</strong>
+                                <small>Quando ativo, o serviço ficará disponível para os clientes agendarem</small>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Info sobre alteração -->
+                <div class="info-box">
+                    <span class="info-icon">ℹ️</span>
+                    <div class="info-text">
+                        <strong>Importante:</strong> As alterações afetarão apenas novos agendamentos. Agendamentos já realizados não serão modificados.
+                    </div>
+                </div>
+
+                <!-- Botões -->
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="window.location.href='/admin'">
+                        ✖️ Cancelar
+                    </button>
+                    <button type="submit" class="btn-primary" id="btnSalvar">
+                        💾 Salvar Alterações
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Contador de caracteres
+        const descricao = document.getElementById('descricao');
+        const charCount = document.getElementById('charCount');
+
+        descricao.addEventListener('input', () => {
+            const length = descricao.value.length;
+            charCount.textContent = `${length}/500 caracteres`;
+            
+            if (length > 450) {
+                charCount.style.color = '#e74c3c';
+            } else {
+                charCount.style.color = '#7f8c8d';
+            }
+        });
+
+        // Formatar valor em tempo real
+        const valorInput = document.getElementById('valor');
+        valorInput.addEventListener('blur', function() {
+            if (this.value) {
+                this.value = parseFloat(this.value).toFixed(2);
+            }
+        });
+
+        // Submit do formulário
+        document.getElementById('formEditarServico').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const btnSalvar = document.getElementById('btnSalvar');
+            btnSalvar.disabled = true;
+            btnSalvar.innerHTML = '⏳ Salvando...';
+
+            const formData = {
+                nome: document.getElementById('nome').value.trim(),
+                valor: document.getElementById('valor').value,
+                duracaoMinutos: document.getElementById('duracaoMinutos').value,
+                descricao: document.getElementById('descricao').value.trim(),
+                ativo: document.getElementById('ativo').checked
+            };
+
+            // Validações
+            if (!formData.nome || !formData.valor || !formData.duracaoMinutos || !formData.descricao) {
+                alert('❌ Por favor, preencha todos os campos obrigatórios!');
+                btnSalvar.disabled = false;
+                btnSalvar.innerHTML = '💾 Salvar Alterações';
+                return;
+            }
+
+            if (parseFloat(formData.valor) <= 0) {
+                alert('❌ O valor deve ser maior que zero!');
+                btnSalvar.disabled = false;
+                btnSalvar.innerHTML = '💾 Salvar Alterações';
+                return;
+            }
+
+            try {
+                const response = await fetch('/admin/servicos/atualizar/<%= produto.id %>', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.sucesso) {
+                    alert('✅ ' + data.mensagem);
+                    window.location.href = '/admin';
+                } else {
+                    alert('❌ ' + (data.erro || 'Erro ao atualizar serviço'));
+                    btnSalvar.disabled = false;
+                    btnSalvar.innerHTML = '💾 Salvar Alterações';
+                }
+            } catch (error) {
+                console.error(error);
+                alert('❌ Erro ao processar requisição. Tente novamente.');
+                btnSalvar.disabled = false;
+                btnSalvar.innerHTML = '💾 Salvar Alterações';
+            }
+        });
+    </script>
+</body>
+</html>

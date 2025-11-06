@@ -15,14 +15,18 @@
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
         </button>
+
         <div class="dropdown-menu" id="dropdownMenu">
           <% if (usuario) { %>
-          <a href="/perfil">Perfil</a>
-          <a href="/pets">Meus Pets</a>
-          <a href="/logout">Sair</a>
+            <% if (usuario.TipoUsuario === 'Admin') { %>
+              <a href="/admin" class="admin-link">🛠️ Painel Admin</a>
+            <% } %>
+            <a href="/perfil">Perfil</a>
+            <a href="/pets">Meus Pets</a>
+            <a href="/logout">Sair</a>
           <% } else { %>
-          <a href="/login">Login</a>
-          <a href="/cadastrar">Cadastro</a>
+            <a href="/login">Login</a>
+            <a href="/cadastrar">Cadastro</a>
           <% } %>
         </div>
       </div>

@@ -3,7 +3,7 @@ const Sequelize = require("sequelize")
 const produtoModel = require("./produtoModel")
 const servicoModel = require("./servicoModel")
 
-const servicoProdutoModel = connection.define("SERVICOPRODUTO", {
+const servicoProduto = connection.define("SERVICOPRODUTO", {
     idServico: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -24,17 +24,17 @@ const servicoProdutoModel = connection.define("SERVICOPRODUTO", {
 
 // Relação N:N → através de SERVICOPRODUTO
 servicoModel.belongsToMany(produtoModel, {
-    through: servicoProdutoModel,
+    through: servicoProduto,
     foreignKey: "idServico",
     as: "PRODUTOS"
 });
 
 produtoModel.belongsToMany(servicoModel, {
-    through: servicoProdutoModel,
+    through: servicoProduto,
     foreignKey: "idProduto",
     as: "SERVICOS"
 });
 
-servicoProdutoModel.sync({force:false})
+servicoProduto.sync({force:false})
 
-module.exports = servicoProdutoModel
+module.exports = servicoProduto

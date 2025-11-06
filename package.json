@@ -30,5 +30,6 @@
     "url": "https://github.com/pedromancini/Agropecuaria-Polar/issues"
   },
   "homepage": "https://github.com/pedromancini/Agropecuaria-Polar#readme",
-  "description": "Pacotes necessários para rodar!\r npm install express bcryptjs ejs nodemon sequelize mysql2 express-session"
+  "description": "Pacotes necessários para rodar!\r npm install express bcryptjs ejs nodemon sequelize mysql2 express-session",
+  "devDependencies": {}
 }
