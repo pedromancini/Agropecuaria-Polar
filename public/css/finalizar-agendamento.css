@@ -1,0 +1,370 @@
+.container {
+  max-width: 1200px;
+  margin: 20px auto 40px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+}
+
+/* Resumo do Pedido */
+.resumo-pedido {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+.resumo-pedido h2 {
+  color: #004d00;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.info-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid #004d00;
+}
+
+.info-card h3 {
+  color: #004d00;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.pet-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.pet-thumb {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #004d00;
+}
+
+.pet-thumb-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid #004d00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
+.pet-info strong {
+  color: #004d00;
+  font-size: 18px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.pet-info p {
+  color: #666;
+  font-size: 14px;
+}
+
+/* Serviços */
+.servicos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.servico-resumo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+}
+
+.servico-valor {
+  color: #004d00;
+  font-weight: 700;
+}
+
+.total-servicos {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 10px;
+  margin-top: 10px;
+  border-top: 2px solid #004d00;
+  font-size: 18px;
+}
+
+.valor-total {
+  color: #004d00;
+  font-size: 20px;
+}
+
+/* Seção de Agendamento */
+.agendamento-section {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.agendamento-section h2 {
+  color: #004d00;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+/* Calendário */
+.calendario-container {
+  margin-bottom: 30px;
+}
+
+.calendario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.calendario-header h3 {
+  color: #004d00;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.btn-nav-mes {
+  background: #004d00;
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-nav-mes:hover {
+  background: #198254;
+  transform: scale(1.1);
+}
+
+.calendario-dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: 700;
+  color: #004d00;
+}
+
+.calendario-dias {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.dia {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  background: #f8f9fa;
+  border: 2px solid transparent;
+}
+
+.dia:hover:not(.disabled):not(.outro-mes) {
+  background: #e8f5e8;
+  border-color: #004d00;
+  transform: scale(1.05);
+}
+
+.dia.selected {
+  background: #004d00;
+  color: white;
+  border-color: #004d00;
+}
+
+.dia.disabled {
+  background: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.dia.outro-mes {
+  color: #ccc;
+  cursor: default;
+}
+
+/* Horários */
+.horarios-container {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border-left: 4px solid #004d00;
+}
+
+.horarios-container h3 {
+  color: #004d00;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.loading-horarios {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.horarios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.horario {
+  padding: 12px;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.horario:hover:not(.ocupado) {
+  background: #e8f5e8;
+  border-color: #004d00;
+  transform: translateY(-2px);
+}
+
+.horario.selected {
+  background: #004d00;
+  color: white;
+  border-color: #004d00;
+}
+
+.horario.ocupado {
+  background: #f0f0f0;
+  color: #999;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* Observações */
+.observacoes-container {
+  margin-bottom: 30px;
+}
+
+.observacoes-container h3 {
+  color: #004d00;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.observacoes-container textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+.observacoes-container textarea:focus {
+  outline: none;
+  border-color: #004d00;
+  box-shadow: 0 0 0 3px rgba(0, 77, 0, 0.1);
+}
+
+.char-count {
+  display: block;
+  text-align: right;
+  color: #666;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+/* Botão Finalizar */
+.btn-finalizar {
+  width: 100%;
+  background: #004d00;
+  color: white;
+  border: none;
+  padding: 18px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 77, 0, 0.3);
+}
+
+.btn-finalizar:hover:not(:disabled) {
+  background: #198254;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 77, 0, 0.4);
+}
+
+.btn-finalizar:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+/* Responsivo */
+@media (max-width: 968px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .resumo-pedido {
+    position: static;
+  }
+
+  .horarios-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}
+
+@media (max-width: 576px) {
+  .calendario-dias {
+    gap: 5px;
+  }
+
+  .dia {
+    font-size: 14px;
+  }
+
+  .horarios-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

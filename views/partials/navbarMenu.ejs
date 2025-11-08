@@ -2,13 +2,13 @@
   <div class="navbar-main-wrapper">
     <div class="dummy1"></div>
 
-    <div class="navbar-sections-wrapper">
-      <a href="#nossos-servicos">Serviços</a>
-      <a href="#nossas-marcas">Marcas</a>
-      <a href="#quem-somos">Sobre</a>
-    </div>
-
     <div class="navbar-user-wrapper">
+      <div class="navbar-hamburger">
+        <button class="hamburger-btn" onclick="toggleMenu()">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
 
         <div class="dropdown-menu" id="dropdownMenu">
           <% if (usuario) { %>

@@ -30,6 +30,10 @@ app.use("/", petsRoutes);
 const servicosRoutes = require("./routes/servicos");
 app.use("/", servicosRoutes);
 
+const agendamentoController = require('./routes/agendamento');
+app.use('/', agendamentoController);
+
+
 
 // ADM
 const adminRoutes = require("./routes/admin-routes");
