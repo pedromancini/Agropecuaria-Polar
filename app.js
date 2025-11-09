@@ -31,6 +31,9 @@ app.use("/", agendamentoRoute);
 const servicosRoutes = require("./routes/servicos");
 app.use("/", servicosRoutes);
 
+const meusAgendamentosRoute = require("./routes/meus-agendamentos");
+app.use("/", meusAgendamentosRoute);
+
 // adm
 const adminRoutes = require("./routes/admin-routes");
 app.use("/", adminRoutes);

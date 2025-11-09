@@ -1,4 +1,16 @@
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -7,7 +19,9 @@
 }
 
 .btn-voltar {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding: 10px 20px;
   background: #6c757d;
   color: white;
@@ -16,13 +30,14 @@
   margin-bottom: 20px;
   transition: all 0.3s ease;
   font-weight: 500;
+  box-shadow: 0 2px 5px rgba(108, 117, 125, 0.3);
 }
 
 .btn-voltar:hover {
   background: #5a6268;
   transform: translateX(-5px);
+  box-shadow: 0 4px 10px rgba(108, 117, 125, 0.4);
 }
-
 
 .page-header {
   display: flex;
@@ -31,6 +46,10 @@
   margin-bottom: 30px;
   flex-wrap: wrap;
   gap: 15px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .page-title {
@@ -39,6 +58,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  font-weight: 700;
 }
 
 .page-title span {
@@ -47,19 +67,22 @@
 
 .btn-novo-agendamento {
   padding: 12px 24px;
-  background: #28a745;
+  background: linear-gradient(135deg, #28a745, #20c997);
   color: white;
   text-decoration: none;
   border-radius: 8px;
   font-weight: 600;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(40, 167, 69, 0.3);
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .btn-novo-agendamento:hover {
-  background: #218838;
+  background: linear-gradient(135deg, #218838, #1ea87a);
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
 }
 
 .filtros-container {
@@ -67,9 +90,10 @@
   gap: 10px;
   margin-bottom: 30px;
   flex-wrap: wrap;
-  padding: 15px;
-  background: #f8f9fa;
-  border-radius: 10px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .filtro-btn {
@@ -80,6 +104,7 @@
   border-radius: 25px;
   cursor: pointer;
   font-weight: 500;
+  font-size: 14px;
   transition: all 0.3s ease;
 }
 
@@ -87,27 +112,28 @@
   border-color: #007bff;
   color: #007bff;
   transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
 }
 
 .filtro-btn.active {
   background: #007bff;
   color: white;
   border-color: #007bff;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
-
 
 .agendamentos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 20px;
+  gap: 25px;
+  margin-bottom: 30px;
 }
-
 
 .agendamento-card {
   background: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   position: relative;
   transition: all 0.3s ease;
   border: 2px solid transparent;
@@ -115,44 +141,48 @@
 
 .agendamento-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: #007bff;
 }
-
 
 .status-badge {
   position: absolute;
   top: 15px;
   right: 15px;
-  padding: 6px 12px;
+  padding: 8px 16px;
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .status-pendente {
   background: #fff3cd;
   color: #856404;
+  border: 2px solid #ffc107;
 }
 
 .status-confirmado {
   background: #d1ecf1;
   color: #0c5460;
+  border: 2px solid #17a2b8;
 }
 
 .status-concluído {
   background: #d4edda;
   color: #155724;
+  border: 2px solid #28a745;
 }
 
 .status-cancelado {
   background: #f8d7da;
   color: #721c24;
+  border: 2px solid #dc3545;
 }
 
-
 .card-header {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   padding-bottom: 15px;
   border-bottom: 2px solid #f1f3f5;
 }
@@ -160,63 +190,73 @@
 .pet-info-compact {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 15px;
 }
 
 .pet-icon-small {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 2rem;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 .pet-info-compact h3 {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   color: #2c3e50;
   margin: 0;
+  font-weight: 700;
 }
 
 .pet-detalhes {
   font-size: 0.9rem;
   color: #6c757d;
-  margin: 3px 0 0 0;
+  margin: 5px 0 0 0;
+  font-weight: 500;
 }
 
-
 .agendamento-info {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .info-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
+  padding: 12px 0;
   border-bottom: 1px solid #f1f3f5;
+}
+
+.info-row:last-child {
+  border-bottom: none;
 }
 
 .info-label {
   font-weight: 600;
   color: #495057;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .info-value {
   color: #2c3e50;
   font-weight: 500;
+  font-size: 1.05rem;
 }
 
 .servicos-lista {
-  margin: 15px 0;
+  margin: 20px 0;
 }
 
 .servicos-lista h4 {
   font-size: 1rem;
   color: #495057;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   font-weight: 600;
 }
 
@@ -229,36 +269,47 @@
 .servicos-lista li {
   display: flex;
   justify-content: space-between;
-  padding: 8px 12px;
+  align-items: center;
+  padding: 10px 15px;
   background: #f8f9fa;
-  border-radius: 6px;
-  margin-bottom: 5px;
+  border-radius: 8px;
+  margin-bottom: 8px;
   font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.servicos-lista li:hover {
+  background: #e9ecef;
+  transform: translateX(5px);
 }
 
 .servico-valor {
-  font-weight: 600;
+  font-weight: 700;
   color: #28a745;
+  font-size: 1rem;
 }
-
 
 .valor-total {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
+  padding: 15px 20px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 8px;
-  margin: 15px 0;
+  border-radius: 10px;
+  margin: 20px 0;
   color: white;
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
+.valor-total .valor {
+  font-size: 1.4rem;
+}
 
 .observacoes {
   background: #fff3cd;
-  padding: 12px;
+  padding: 15px;
   border-radius: 8px;
   margin: 15px 0;
   border-left: 4px solid #ffc107;
@@ -266,37 +317,42 @@
 
 .observacoes strong {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   color: #856404;
+  font-weight: 700;
 }
 
 .observacoes p {
   margin: 0;
   color: #856404;
   font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 .card-actions {
-  margin-top: 15px;
+  margin-top: 20px;
   display: flex;
   gap: 10px;
 }
 
 .btn-cancelar {
   flex: 1;
-  padding: 10px;
-  background: #dc3545;
+  padding: 12px;
+  background: linear-gradient(135deg, #dc3545, #c82333);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
+  font-size: 0.95rem;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
 }
 
 .btn-cancelar:hover {
-  background: #c82333;
+  background: linear-gradient(135deg, #c82333, #bd2130);
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
 }
 
 .info-cancelado,
@@ -304,44 +360,50 @@
 .info-passado {
   flex: 1;
   text-align: center;
-  padding: 10px;
-  border-radius: 6px;
-  font-weight: 500;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .info-cancelado {
   background: #f8d7da;
   color: #721c24;
+  border: 2px solid #f5c6cb;
 }
 
 .info-concluido {
   background: #d4edda;
   color: #155724;
+  border: 2px solid #c3e6cb;
 }
 
 .info-passado {
   background: #e2e3e5;
   color: #383d41;
+  border: 2px solid #d6d8db;
 }
 
 .empty-state {
   text-align: center;
-  padding: 60px 20px;
+  padding: 80px 20px;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .empty-icon {
-  font-size: 5rem;
+  font-size: 6rem;
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  opacity: 0.7;
 }
 
 .empty-state h3 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: #2c3e50;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  font-weight: 700;
 }
 
 .empty-state p {
@@ -350,6 +412,12 @@
   font-size: 1.1rem;
 }
 
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+  font-size: 1.1rem;
+}
 
 @media (max-width: 768px) {
   .page-header {
@@ -367,5 +435,29 @@
 
   .filtros-container {
     justify-content: center;
+  }
+
+  .status-badge {
+    position: static;
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+
+  .pet-icon-small {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .pet-info-compact h3 {
+    font-size: 1.2rem;
+  }
+
+  .valor-total {
+    font-size: 1rem;
+  }
+
+  .valor-total .valor {
+    font-size: 1.2rem;
   }
 }
