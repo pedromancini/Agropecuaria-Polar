@@ -4,6 +4,7 @@ const produtoModel = require("../database/produtoModel");
 const servicoModel = require("../database/servicoModel");
 const servicoProdutoModel = require("../database/servicoProduto");
 const petModel = require("../database/petModel");
+const horarioModel = require("../database/horarioModel");
 const { Op } = require("sequelize");
 
 // Middleware de login
@@ -23,7 +24,6 @@ router.get("/servicos", verificarLogin, async (req, res) => {
             return res.redirect("/agendamento");
         }
 
-        // Buscar o pet selecionado
         const pet = await petModel.findOne({
             where: { 
                 id: petId,
@@ -35,7 +35,6 @@ router.get("/servicos", verificarLogin, async (req, res) => {
             return res.redirect("/agendamento");
         }
 
-        // Buscar produtos (serviços) ativos
         const produtos = await produtoModel.findAll({
             where: { Ativo: true },
             order: [['Nome', 'ASC']]
@@ -52,16 +51,16 @@ router.get("/servicos", verificarLogin, async (req, res) => {
     }
 });
 
-// Página de agendamento (data e hora)
-router.get("/agendar", verificarLogin, async (req, res) => {
+// Página de finalizar agendamento - NOVO!
+router.get("/finalizar-agendamento", verificarLogin, async (req, res) => {
     try {
-        const { petId, produtoIds } = req.query;
+        const { petId, servicos } = req.query;
 
-        if (!petId || !produtoIds) {
+        if (!petId || !servicos) {
             return res.redirect("/agendamento");
         }
 
-        const idsArray = produtoIds.split(',').map(id => parseInt(id));
+        const idsArray = servicos.split(',').map(id => parseInt(id));
 
         const pet = await petModel.findOne({
             where: { 
@@ -78,13 +77,12 @@ router.get("/agendar", verificarLogin, async (req, res) => {
             return res.redirect("/agendamento");
         }
 
-        // Calcular valor total e duração total
         const valorTotal = produtos.reduce((sum, p) => sum + parseFloat(p.Valor), 0);
         const duracaoTotal = produtos.reduce((sum, p) => sum + p.DuracaoMinutos, 0);
 
-        res.render("agendar", { 
+        res.render("finalizar-agendamento", { 
             pet, 
-            produtos,
+            servicos: produtos,
             valorTotal,
             duracaoTotal,
             usuario: req.session.usuario 
@@ -95,21 +93,85 @@ router.get("/agendar", verificarLogin, async (req, res) => {
     }
 });
 
-// Processar agendamento
-router.post("/agendar", verificarLogin, async (req, res) => {
+// API: Buscar horários disponíveis - NOVO!
+router.get("/api/horarios-disponiveis", verificarLogin, async (req, res) => {
     try {
-        const { petId, produtoIds, data, horario, observacoes, acrescimo, desconto } = req.body;
+        const { data, duracao } = req.query;
+        
+        const dataSelecionada = new Date(data + 'T00:00:00');
+        const diaSemana = dataSelecionada.getDay();
+        const diasSemana = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+        const diaStr = diasSemana[diaSemana];
 
-        // Validações
-        if (!petId || !produtoIds || !data || !horario) {
-            return res.status(400).json({ 
-                erro: "Todos os campos são obrigatórios!" 
-            });
+        const horariosConfig = await horarioModel.findAll({
+            where: { 
+                DiaSemana: diaStr,
+                Ativo: true 
+            },
+            order: [['HorarioInicio', 'ASC']]
+        });
+
+        if (horariosConfig.length === 0) {
+            return res.json([]);
         }
 
-        const idsArray = produtoIds.split(',').map(id => parseInt(id));
+        const agendamentosExistentes = await servicoModel.findAll({
+            where: {
+                DataAgendamento: {
+                    [Op.between]: [
+                        new Date(`${data}T00:00:00`),
+                        new Date(`${data}T23:59:59`)
+                    ]
+                },
+                Status: { [Op.notIn]: ['Cancelado'] }
+            }
+        });
 
-        // Verificar se o pet pertence ao usuário
+        const horariosDisponiveis = [];
+        const duracaoMinutos = parseInt(duracao);
+
+        for (const config of horariosConfig) {
+            let horaAtual = parseHorario(config.HorarioInicio);
+            const horaFim = parseHorario(config.HorarioFim);
+
+            while (horaAtual < horaFim) {
+                const horarioStr = formatarHorario(horaAtual);
+                const horaFimAtendimento = horaAtual + duracaoMinutos;
+
+                if (horaFimAtendimento > horaFim) break;
+
+                const ocupado = agendamentosExistentes.some(agendamento => {
+                    const agendHoraInicio = parseHorario(agendamento.HorarioAgendamento);
+                    const agendDuracao = 60;
+                    const agendHoraFim = agendHoraInicio + agendDuracao;
+                    return (horaAtual < agendHoraFim && horaFimAtendimento > agendHoraInicio);
+                });
+
+                horariosDisponiveis.push({
+                    horario: horarioStr,
+                    disponivel: !ocupado
+                });
+
+                horaAtual += 30;
+            }
+        }
+
+        res.json(horariosDisponiveis);
+    } catch (error) {
+        console.error('Erro ao buscar horários:', error);
+        res.status(500).json({ erro: 'Erro ao buscar horários' });
+    }
+});
+
+// API: Criar agendamento - NOVO!
+router.post("/api/criar-agendamento", verificarLogin, async (req, res) => {
+    try {
+        const { petId, servicosIds, data, horario, observacoes } = req.body;
+
+        if (!petId || !servicosIds || !data || !horario) {
+            return res.status(400).json({ erro: "Todos os campos são obrigatórios!" });
+        }
+
         const pet = await petModel.findOne({
             where: { 
                 id: petId,
@@ -118,26 +180,20 @@ router.post("/agendar", verificarLogin, async (req, res) => {
         });
 
         if (!pet) {
-            return res.status(400).json({ 
-                erro: "Pet não encontrado!" 
-            });
+            return res.status(400).json({ erro: "Pet não encontrado!" });
         }
 
-        // Buscar produtos selecionados
         const produtos = await produtoModel.findAll({
-            where: { id: idsArray }
+            where: { id: servicosIds }
         });
 
-        // Calcular valor total
-        let valorTotal = produtos.reduce((sum, p) => sum + parseFloat(p.Valor), 0);
-        
-        if (acrescimo) valorTotal += parseFloat(acrescimo);
-        if (desconto) valorTotal -= parseFloat(desconto);
+        if (produtos.length === 0) {
+            return res.status(400).json({ erro: "Serviços não encontrados!" });
+        }
 
-        // Criar data/hora completa
+        let valorTotal = produtos.reduce((sum, p) => sum + parseFloat(p.Valor), 0);
         const dataHora = new Date(`${data}T${horario}`);
 
-        // Verificar se já existe agendamento no mesmo horário (opcional)
         const agendamentoExistente = await servicoModel.findOne({
             where: {
                 DataAgendamento: {
@@ -147,31 +203,27 @@ router.post("/agendar", verificarLogin, async (req, res) => {
                     ]
                 },
                 HorarioAgendamento: horario,
-                Status: { [Op.in]: ['Pendente', 'Confirmado'] }
+                Status: { [Op.notIn]: ['Cancelado'] }
             }
         });
 
         if (agendamentoExistente) {
-            return res.status(400).json({ 
-                erro: "Já existe um agendamento neste horário. Escolha outro." 
-            });
+            return res.status(400).json({ erro: "Horário não está mais disponível" });
         }
 
-        // Criar agendamento
         const servico = await servicoModel.create({
             idUsuario: req.session.usuario.id,
             idPet: petId,
             DataAgendamento: dataHora,
             HorarioAgendamento: horario,
             ValorTotal: valorTotal,
-            Acrescimo: acrescimo || 0,
-            Desconto: desconto || 0,
+            Acrescimo: 0,
+            Desconto: 0,
             Observacoes: observacoes || null,
             Status: 'Pendente'
         });
 
-        // Vincular produtos ao serviço
-        for (const produtoId of idsArray) {
+        for (const produtoId of servicosIds) {
             await servicoProdutoModel.create({
                 idServico: servico.id,
                 idProduto: produtoId
@@ -181,7 +233,7 @@ router.post("/agendar", verificarLogin, async (req, res) => {
         res.json({ 
             sucesso: true, 
             mensagem: "Agendamento realizado com sucesso!",
-            servicoId: servico.id
+            agendamentoId: servico.id
         });
     } catch (error) {
         console.error("Erro ao criar agendamento:", error);
@@ -249,5 +301,17 @@ router.post("/agendamento/cancelar/:id", verificarLogin, async (req, res) => {
         res.status(500).json({ erro: "Erro ao cancelar agendamento" });
     }
 });
+
+// Funções auxiliares
+function parseHorario(horarioStr) {
+    const [hora, minuto] = horarioStr.split(':').map(Number);
+    return hora * 60 + minuto;
+}
+
+function formatarHorario(minutos) {
+    const hora = Math.floor(minutos / 60);
+    const min = minutos % 60;
+    return `${String(hora).padStart(2, '0')}:${String(min).padStart(2, '0')}`;
+}
 
 module.exports = router;

@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Finalizar Agendamento - Agropecuária Polar</title>
+  
+  <!-- Estilos -->
   <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/GLOBAL.css">
   <link rel="stylesheet" href="/css/finalizar-agendamento.css">
@@ -11,17 +13,22 @@
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="shortcut icon" href="/img/logoFavicon.png" type="image/x-icon">
+
+  <!-- Scripts -->
   <script src="/js/dropdown-menu.js" defer></script>
+  <script src="/js/finalizar-agendamento.js" defer></script>
 </head>
 <body>
+  <!-- Cabeçalho -->
   <%- include("partials/header.ejs") %>
   
+  <!-- Menu lateral -->
   <div class="navbar-menu">
     <%- include("partials/navbarMenu.ejs") %>
   </div>
 
   <div class="container">
-    <!-- Informações do Pet e Serviços -->
+    <!-- Resumo do Agendamento -->
     <div class="resumo-pedido">
       <h2>📋 Resumo do Agendamento</h2>
       
@@ -50,18 +57,22 @@
           <% servicos.forEach(servico => { %>
             <div class="servico-resumo">
               <span><%= servico.Nome %></span>
-              <span class="servico-valor">R$ <%= servico.Valor.toFixed(2).replace('.', ',') %></span>
+              <span class="servico-valor">
+                R$ <%= servico.Valor.toFixed(2).replace('.', ',') %>
+              </span>
             </div>
           <% }) %>
           <div class="total-servicos">
             <strong>Total:</strong>
-            <strong class="valor-total">R$ <%= valorTotal.toFixed(2).replace('.', ',') %></strong>
+            <strong class="valor-total">
+              R$ <%= valorTotal.toFixed(2).replace('.', ',') %>
+            </strong>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Seleção de Data e Horário -->
+    <!-- Seção de Agendamento -->
     <div class="agendamento-section">
       <h2>📅 Escolha Data e Horário</h2>
 
@@ -101,7 +112,9 @@
           placeholder="Adicione informações importantes sobre seu pet ou preferências para o atendimento..."
           maxlength="500"
         ></textarea>
-        <small class="char-count"><span id="charCount">0</span>/500 caracteres</small>
+        <small class="char-count">
+          <span id="charCount">0</span>/500 caracteres
+        </small>
       </div>
 
       <!-- Botão Finalizar -->
@@ -111,7 +124,23 @@
     </div>
   </div>
 
+  <!-- Rodapé -->
   <%- include("partials/footerCopy.ejs") %>
-  <script src="/js/finalizar-agendamento.js"></script>
+
+  <!-- Dados do Servidor para o JS -->
+  
+<script>
+  // Dados vindos do servidor - gerados pelo EJS
+  const petId = <%- JSON.stringify(pet.id) %>;
+  const servicosIds = <%- JSON.stringify(servicos.map(s => s.id)) %>;
+  const duracaoTotal = <%- JSON.stringify(duracaoTotal) %>;
+
+  console.log("🐾 Dados recebidos do servidor:");
+  console.log({ petId, servicosIds, duracaoTotal });
+</script>
+
+
+  <!-- Script principal -->
+  <script src="/js/finalizar-agendamento.js" defer></script>
 </body>
 </html>
