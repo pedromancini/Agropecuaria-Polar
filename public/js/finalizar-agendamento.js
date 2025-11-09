@@ -1,3 +1,4 @@
+
 let mesAtual = new Date().getMonth();
 let anoAtual = new Date().getFullYear();
 let dataSelecionada = null;
@@ -9,6 +10,9 @@ const meses = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('🚀 Sistema de agendamento inicializado');
+  console.log('Dados recebidos:', { petId, servicosIds, duracaoTotal });
+
   // Contador de caracteres
   const observacoes = document.getElementById('observacoes');
   const charCount = document.getElementById('charCount');
@@ -19,11 +23,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Navegação do calendário
   document.getElementById('mesAnterior').addEventListener('click', () => {
+    const hoje = new Date();
+    const mesMinimo = hoje.getMonth();
+    const anoMinimo = hoje.getFullYear();
+    
     mesAtual--;
     if (mesAtual < 0) {
       mesAtual = 11;
       anoAtual--;
     }
+    
+    // Não permite navegar para meses anteriores ao atual
+    if (anoAtual < anoMinimo || (anoAtual === anoMinimo && mesAtual < mesMinimo)) {
+      mesAtual = mesMinimo;
+      anoAtual = anoMinimo;
+    }
+    
     renderizarCalendario();
   });
 
@@ -36,26 +51,25 @@ document.addEventListener('DOMContentLoaded', () => {
     renderizarCalendario();
   });
 
-  // Botão finalizar
   document.getElementById('btnFinalizar').addEventListener('click', finalizarAgendamento);
 
-  // Renderizar calendário inicial
   renderizarCalendario();
 });
 
+//calendario renderizador 
 function renderizarCalendario() {
   const calendarioDias = document.getElementById('calendarioDias');
   const mesAnoSpan = document.getElementById('mesAno');
   
   mesAnoSpan.textContent = `${meses[mesAtual]} ${anoAtual}`;
   
-  // Primeiro dia do mês
+  // Primeiro dia do mês (0 = domingo, 1 = segunda, ...)
   const primeiroDia = new Date(anoAtual, mesAtual, 1).getDay();
   
   // Último dia do mês
   const ultimoDia = new Date(anoAtual, mesAtual + 1, 0).getDate();
   
-  // Dias do mês anterior
+  // Dias do mês anterior (para preencher início)
   const diasMesAnterior = new Date(anoAtual, mesAtual, 0).getDate();
   
   let html = '';
@@ -86,29 +100,45 @@ function renderizarCalendario() {
     
     const dataStr = `${anoAtual}-${String(mesAtual + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
     
-    html += `<div class="${classes}" data-data="${dataStr}" onclick="selecionarData('${dataStr}')">${dia}</div>`;
+    const onclick = (isPast || isDomingo) ? '' : `onclick="selecionarData('${dataStr}')"`;
+    
+    html += `<div class="${classes}" data-data="${dataStr}" ${onclick}>${dia}</div>`;
+  }
+  
+
+  const totalDias = primeiroDia + ultimoDia;
+  const diasRestantes = 7 - (totalDias % 7);
+  if (diasRestantes < 7) {
+    for (let i = 1; i <= diasRestantes; i++) {
+      html += `<div class="dia outro-mes">${i}</div>`;
+    }
   }
   
   calendarioDias.innerHTML = html;
 }
 
+// selecao de data
 async function selecionarData(dataStr) {
+  console.log('📅 Data selecionada:', dataStr);
+  
   const [ano, mes, dia] = dataStr.split('-').map(Number);
   const data = new Date(ano, mes - 1, dia);
   
-  // Verificar se é dia passado ou domingo
   const hoje = new Date();
   hoje.setHours(0, 0, 0, 0);
   data.setHours(0, 0, 0, 0);
   
-  if (data < hoje || data.getDay() === 0) return;
+  if (data < hoje || data.getDay() === 0) {
+    console.log('⚠️ Data inválida');
+    return;
+  }
   
   dataSelecionada = data;
   horarioSelecionado = null;
   
   renderizarCalendario();
   
-  // Mostrar container de horários
+
   const horariosContainer = document.getElementById('horariosContainer');
   const loadingHorarios = document.getElementById('loadingHorarios');
   const horariosGrid = document.getElementById('horariosGrid');
@@ -116,51 +146,78 @@ async function selecionarData(dataStr) {
   horariosContainer.style.display = 'block';
   loadingHorarios.style.display = 'block';
   horariosGrid.innerHTML = '';
+
+  document.getElementById('btnFinalizar').disabled = true;
   
-  // Buscar horários disponíveis
+ // busca d horarios disponiveis
   try {
+    console.log('🔍 Buscando horários disponíveis...');
+    console.log('Parâmetros:', { data: dataStr, duracao: duracaoTotal });
+    
     const response = await fetch(`/api/horarios-disponiveis?data=${dataStr}&duracao=${duracaoTotal}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
     const horarios = await response.json();
+    console.log('✅ Horários recebidos:', horarios);
     
     loadingHorarios.style.display = 'none';
     
     if (horarios.length === 0) {
-      horariosGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666;">Nenhum horário disponível para esta data.</p>';
+      horariosGrid.innerHTML = `
+        <p style="grid-column: 1/-1; text-align: center; color: #666; padding: 20px;">
+          Nenhum horário disponível para esta data.
+        </p>
+      `;
       return;
     }
     
     horariosGrid.innerHTML = horarios.map(h => `
       <div class="horario ${h.disponivel ? '' : 'ocupado'}" 
            data-horario="${h.horario}"
-           onclick="selecionarHorario('${h.horario}', ${h.disponivel})">
+           onclick="${h.disponivel ? `selecionarHorario('${h.horario}', true)` : ''}">
         ${h.horario}
       </div>
     `).join('');
     
   } catch (error) {
-    console.error('Erro ao buscar horários:', error);
+    console.error('❌ Erro ao buscar horários:', error);
     loadingHorarios.style.display = 'none';
-    horariosGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #dc3545;">Erro ao carregar horários. Tente novamente.</p>';
+    horariosGrid.innerHTML = `
+      <p style="grid-column: 1/-1; text-align: center; color: #dc3545; padding: 20px;">
+        Erro ao carregar horários. Tente novamente.
+      </p>
+    `;
   }
 }
 
+//selecao de horario
 function selecionarHorario(horario, disponivel) {
-  if (!disponivel) return;
+  if (!disponivel) {
+    console.log('⚠️ Horário não disponível:', horario);
+    return;
+  }
   
-  // Remover seleção anterior
+  console.log('⏰ Horário selecionado:', horario);
+  
+
   document.querySelectorAll('.horario').forEach(h => h.classList.remove('selected'));
   
-  // Adicionar seleção atual
-  event.target.classList.add('selected');
+  const horarioElement = document.querySelector(`[data-horario="${horario}"]`);
+  if (horarioElement) {
+    horarioElement.classList.add('selected');
+  }
+  
   horarioSelecionado = horario;
   
-  // Habilitar botão finalizar
   document.getElementById('btnFinalizar').disabled = false;
 }
-
+//finalizar agendamento
 async function finalizarAgendamento() {
   if (!dataSelecionada || !horarioSelecionado) {
-    alert('Por favor, selecione data e horário');
+    alert('⚠️ Por favor, selecione data e horário');
     return;
   }
   
@@ -171,12 +228,14 @@ async function finalizarAgendamento() {
   const observacoes = document.getElementById('observacoes').value;
   
   const dados = {
-    petId,
-    servicosIds,
+    petId: petId,
+    servicosIds: servicosIds,
     data: dataSelecionada.toISOString().split('T')[0],
     horario: horarioSelecionado,
-    observacoes
+    observacoes: observacoes
   };
+  
+  console.log('📤 Enviando agendamento:', dados);
   
   try {
     const response = await fetch('/api/criar-agendamento', {
@@ -188,8 +247,9 @@ async function finalizarAgendamento() {
     });
     
     const result = await response.json();
+    console.log('📥 Resposta do servidor:', result);
     
-    if (response.ok) {
+    if (response.ok && result.sucesso) {
       alert('✅ Agendamento realizado com sucesso!');
       window.location.href = '/meus-agendamentos';
     } else {
@@ -197,10 +257,14 @@ async function finalizarAgendamento() {
     }
     
   } catch (error) {
-    console.error('Erro:', error);
+    console.error('❌ Erro:', error);
     alert('❌ Erro ao criar agendamento: ' + error.message);
     btnFinalizar.disabled = false;
     btnFinalizar.textContent = 'Confirmar Agendamento';
   }
 }
- 
+
+
+window.selecionarData = selecionarData;
+window.selecionarHorario = selecionarHorario;
+window.finalizarAgendamento = finalizarAgendamento;

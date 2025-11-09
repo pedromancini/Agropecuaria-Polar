@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meus Agendamentos - Agropecuária Polar</title>
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/GLOBAL.css">
+  <link rel="stylesheet" href="/css/meus-agendamentos.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="shortcut icon" href="/img/logoFavicon.png" type="image/x-icon">
+  <script src="/js/dropdown-menu.js" defer></script>
+  <script src="/js/meusAgendamentos.js" defer></script>
+</head>
+<body>
+  <%- include("partials/header.ejs") %>
+  
+  <div class="navbar-menu">
+    <%- include("partials/navbarMenu.ejs") %>
+  </div>
+
+  <div class="container">
+    <a href="/" class="btn-voltar">← Voltar ao Início</a>
+
+    <div class="page-header">
+      <h1 class="page-title">
+        <span>📅</span> Meus Agendamentos
+      </h1>
+      <a href="/agendamento" class="btn-novo-agendamento">+ Novo Agendamento</a>
+    </div>
+
+    <% if (servicos && servicos.length > 0) { %>
+      <!-- Filtros -->
+      <div class="filtros-container">
+        <button class="filtro-btn active" data-filtro="todos">Todos</button>
+        <button class="filtro-btn" data-filtro="Pendente">Pendentes</button>
+        <button class="filtro-btn" data-filtro="Confirmado">Confirmados</button>
+        <button class="filtro-btn" data-filtro="Concluído">Concluídos</button>
+        <button class="filtro-btn" data-filtro="Cancelado">Cancelados</button>
+      </div>
+
+      <!-- Lista de Agendamentos -->
+      <div class="agendamentos-grid">
+        <% servicos.forEach(servico => { 
+          const dataAgendamento = new Date(servico.DataAgendamento);
+          const dataFormatada = dataAgendamento.toLocaleDateString('pt-BR');
+          const statusClass = servico.Status.toLowerCase();
+          const isPastDate = dataAgendamento < new Date();
+          const canCancel = servico.Status === 'Pendente' && !isPastDate;
+        %>
+          <div class="agendamento-card" data-status="<%= servico.Status %>">
+            <!-- Badge de Status -->
+            <div class="status-badge status-<%= statusClass %>">
+              <%= servico.Status %>
+            </div>
+
+            <!-- Cabeçalho do Card -->
+            <div class="card-header">
+              <div class="pet-info-compact">
+                <div class="pet-icon-small">
+                  <%= servico.PET.Tipo === 'Cachorro' ? '🐶' : servico.PET.Tipo === 'Gato' ? '🐱' : '🐾' %>
+                </div>
+                <div>
+                  <h3><%= servico.PET.Nome %></h3>
+                  <p class="pet-detalhes"><%= servico.PET.Tipo %> • <%= servico.PET.Porte %></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Data e Hora -->
+            <div class="agendamento-info">
+              <div class="info-row">
+                <span class="info-label">📅 Data:</span>
+                <span class="info-value"><%= dataFormatada %></span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">⏰ Horário:</span>
+                <span class="info-value"><%= servico.HorarioAgendamento %></span>
+              </div>
+            </div>
+
+            <!-- Serviços -->
+            <div class="servicos-lista">
+              <h4>Serviços:</h4>
+              <ul>
+                <% servico.PRODUTOS.forEach(produto => { %>
+                  <li>
+                    <span><%= produto.Nome %></span>
+                    <span class="servico-valor">R$ <%= produto.Valor.toFixed(2).replace('.', ',') %></span>
+                  </li>
+                <% }) %>
+              </ul>
+            </div>
+
+            <!-- Valor Total -->
+            <div class="valor-total">
+              <span>Total:</span>
+              <span class="valor">R$ <%= servico.ValorTotal.toFixed(2).replace('.', ',') %></span>
+            </div>
+
+            <!-- Observações (se houver) -->
+            <% if (servico.Observacoes) { %>
+              <div class="observacoes">
+                <strong>📝 Observações:</strong>
+                <p><%= servico.Observacoes %></p>
+              </div>
+            <% } %>
+
+            <!-- Ações -->
+            <div class="card-actions">
+              <% if (canCancel) { %>
+                <button class="btn-cancelar" onclick="cancelarAgendamento(<%= servico.id %>)">
+                  ❌ Cancelar Agendamento
+                </button>
+              <% } else if (servico.Status === 'Cancelado') { %>
+                <span class="info-cancelado">Este agendamento foi cancelado</span>
+              <% } else if (servico.Status === 'Concluído') { %>
+                <span class="info-concluido">✅ Serviço concluído</span>
+              <% } else if (isPastDate) { %>
+                <span class="info-passado">Este agendamento já passou</span>
+              <% } %>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+
+    <% } else { %>
+      <!-- Estado Vazio -->
+      <div class="empty-state">
+        <span class="empty-icon">📅</span>
+        <h3>Nenhum agendamento encontrado</h3>
+        <p>Você ainda não realizou nenhum agendamento.</p>
+        <a href="/agendamento" class="btn-novo-agendamento">
+          + Fazer Primeiro Agendamento
+        </a>
+      </div>
+    <% } %>
+  </div>
+
+  <%- include("partials/footerCopy.ejs") %>
+</body>
+</html>
