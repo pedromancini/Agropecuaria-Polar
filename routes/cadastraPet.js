@@ -51,7 +51,6 @@ const upload = multer({
     },
 });
 
-// ============== ROTAS ==============
 
 // Página de perfil
 router.get("/perfil", verificarLogin, async (req, res) => {
@@ -69,7 +68,6 @@ router.get("/perfil", verificarLogin, async (req, res) => {
     }
 });
 
-// Atualizar dados pessoais
 router.post("/perfil/atualizar-dados", verificarLogin, async (req, res) => {
     try {
         const { nome, email, telefone } = req.body;

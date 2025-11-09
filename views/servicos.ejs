@@ -7,27 +7,20 @@
     <link rel="stylesheet" href="/css/reset.css" />
     <link rel="stylesheet" href="/css/GLOBAL.css" />
     <link rel="stylesheet" href="/css/servicos.css" />
-    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/navbar-btn.css" />
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
+
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon" />
 
     <script src="/js/dropdown-menu.js" defer></script>
     <script src="/js/servicos.js" defer></script>
     <link rel="icon" href="data:," />
   </head>
   <body>
-    <%-include("partials/header.ejs")%>
-    <div class="navbar-menu">
-    <%-include("partials/navbarMenu.ejs")%>
-    </div>
+    <%-include("partials/header.ejs")%> <%-include("partials/navbar-btn.ejs")%>
 
-
-
-      <!-- <a href="/agendamento" class="btn-voltar">← Voltar</a> -->
-
-    <!-- Container Principal -->
     <div class="container">
-      <!-- Informações do Pet Selecionado -->
       <div class="pet-selecionado">
         <div class="pet-info-header">
           <% if (pet.Imagem) { %>
@@ -52,13 +45,11 @@
         </div>
       </div>
 
-      <!-- Título da Página -->
       <div class="page-header">
         <h1 class="page-title"><span>✨</span> Selecione os Serviços</h1>
         <p class="page-subtitle">Escolha um ou mais serviços para o seu pet</p>
       </div>
 
-      <!-- Grid de Serviços -->
       <div class="servicos-grid" id="servicosGrid">
         <% produtos.forEach(produto => { %>
         <div
@@ -91,7 +82,6 @@
         <% }) %>
       </div>
 
-      <!-- Resumo e Botão de Continuar -->
       <div class="resumo-container" id="resumoContainer" style="display: none">
         <div class="resumo-content">
           <h3>📋 Resumo da Seleção</h3>

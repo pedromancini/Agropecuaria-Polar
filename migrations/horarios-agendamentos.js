@@ -106,7 +106,7 @@ module.exports = {
       }
     });
 
-    // Índices para performance
+    // indices para performance
     await queryInterface.addIndex('Agendamentos', ['data', 'horario']);
     await queryInterface.addIndex('Agendamentos', ['UsuarioId']);
     await queryInterface.addIndex('Agendamentos', ['status']);

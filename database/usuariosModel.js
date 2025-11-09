@@ -45,7 +45,7 @@ const usuariosModel = connection.define("USUARIO", {
 // Associação 1 -> 1 - endereço
 usuariosModel.belongsTo(enderecoModel, {
   foreignKey: "idEndereco",
-  as: "ENDERECO", // nome da relação
+  as: "ENDERECO",
 });
 
 usuariosModel.sync({ force: false });

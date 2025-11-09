@@ -1,91 +1,100 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meus Pets - Agropecuária Polar</title>
-  <link rel="stylesheet" href="/css/reset.css" />
-  <link rel="stylesheet" href="/css/GLOBAL.css" />
-  <link rel="stylesheet" href="/css/pets.css" />
-  <link rel="icon" href="data:," />
-</head>
-<body>
-  <!-- Header do Site -->
-  <div class="site-header">
-    <h1>🐾 Agropecuária Polar</h1>
-    <p>Seu parceiro no cuidado com os animais</p>
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meus Pets - Agropecuária Polar</title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/GLOBAL.css" />
+    <link rel="stylesheet" href="/css/pets.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
 
-  <div class="nav-bar">
-    <a href="/agendamento" class="btn-voltar">← Voltar</a>
-  </div>
-
-  <!-- Container Principal -->
-  <div class="container">
-    <!-- Header da Página -->
-    <div class="page-header">
-      <h1 class="page-title">
-        <span>🐾</span> Meus Pets
-      </h1>
-      <a href="/cadastrarPet" class="btn-add-pet">➕ Cadastrar Novo Pet</a>
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="site-header">
+      <h1>🐾 Agropecuária Polar</h1>
+      <p>Seu parceiro no cuidado com os animais</p>
     </div>
 
-    <!-- Grid de Pets -->
-    <% if (pets && pets.length > 0) { %>
+    <div class="nav-bar">
+      <a href="/agendamento" class="btn-voltar">← Voltar</a>
+    </div>
+
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title"><span>🐾</span> Meus Pets</h1>
+        <a href="/cadastrarPet" class="btn-add-pet">➕ Cadastrar Novo Pet</a>
+      </div>
+
+      <% if (pets && pets.length > 0) { %>
       <div class="pet-cards">
         <% pets.forEach(pet => { %>
-          <div class="pet-card">
-            <div class="pet-image-container">
-              <% if (pet.Imagem) { %>
-                <img src="/uploads/pets/<%= pet.Imagem %>" alt="<%= pet.Nome %>" class="pet-image">
-              <% } else { %>
-                <div class="pet-icon">
-                  <%= pet.Tipo === 'Cachorro' ? '🐶' : pet.Tipo === 'Gato' ? '🐱' : '🐾' %>
-                </div>
-              <% } %>
+        <div class="pet-card">
+          <div class="pet-image-container">
+            <% if (pet.Imagem) { %>
+            <img
+              src="/uploads/pets/<%= pet.Imagem %>"
+              alt="<%= pet.Nome %>"
+              class="pet-image"
+            />
+            <% } else { %>
+            <div class="pet-icon">
+              <%= pet.Tipo === 'Cachorro' ? '🐶' : pet.Tipo === 'Gato' ? '🐱' :
+              '🐾' %>
             </div>
+            <% } %>
+          </div>
 
-            <h3><%= pet.Nome %></h3>
+          <h3><%= pet.Nome %></h3>
 
-            <div class="pet-info">
-              <div class="info-group">
-                <div class="info-label">Tipo</div>
-                <div class="info-value"><%= pet.Tipo %></div>
-              </div>
-              <div class="info-group">
-                <div class="info-label">Sexo</div>
-                <div class="info-value"><%= pet.Sexo %></div>
-              </div>
-              <div class="info-group">
-                <div class="info-label">Idade</div>
-                <div class="info-value"><%= pet.Idade %> anos</div>
-              </div>
-              <div class="info-group">
-                <div class="info-label">Porte</div>
-                <div class="info-value"><%= pet.Porte %></div>
-              </div>
+          <div class="pet-info">
+            <div class="info-group">
+              <div class="info-label">Tipo</div>
+              <div class="info-value"><%= pet.Tipo %></div>
             </div>
-
-            <div class="pet-actions">
-              <form action="/pets/deletar/<%= pet.id %>" method="POST" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja excluir <%= pet.Nome %>?');">
-                <button type="submit" class="btn-delete">🗑️ Excluir</button>
-              </form>
+            <div class="info-group">
+              <div class="info-label">Sexo</div>
+              <div class="info-value"><%= pet.Sexo %></div>
+            </div>
+            <div class="info-group">
+              <div class="info-label">Idade</div>
+              <div class="info-value"><%= pet.Idade %> anos</div>
+            </div>
+            <div class="info-group">
+              <div class="info-label">Porte</div>
+              <div class="info-value"><%= pet.Porte %></div>
             </div>
           </div>
+
+          <div class="pet-actions">
+            <a href="/pets/editar/<%= pet.id %>" class="btn-edit">
+              ✏️ Editar
+            </a>
+            <form
+              action="/pets/deletar/<%= pet.id %>"
+              method="POST"
+              style="display: inline"
+              onsubmit="return confirm('Tem certeza que deseja excluir <%= pet.Nome %>?');"
+            >
+              <button type="submit" class="btn-delete">🗑️ Excluir</button>
+            </form>
+          </div>
+        </div>
         <% }) %>
       </div>
-    <% } else { %>
+      <% } else { %>
       <div class="no-pets">
         <span class="icon">🐾</span>
         <p>Você ainda não cadastrou nenhum pet.</p>
-        <a href="/cadastrarPet" class="btn-add-pet">➕ Cadastrar Meu Primeiro Pet</a>
+        <a href="/cadastrarPet" class="btn-add-pet"
+          >➕ Cadastrar Meu Primeiro Pet</a
+        >
       </div>
-    <% } %>
-  </div>
+      <% } %>
+    </div>
 
-  <!-- footer -->
-  <div class="footer">
-    <p>© 2024 Agropecuária Polar - Todos os direitos reservados</p>
-  </div>
-</body>
+    <!-- footer -->
+    <%- include("partials/footerCopy.ejs") %>
+  </body>
 </html>

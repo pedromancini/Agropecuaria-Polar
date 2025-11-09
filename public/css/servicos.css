@@ -419,16 +419,14 @@ body {
   color: #004d00;
 }
 
-/* Container */
 .container {
   max-width: 1200px;
-  margin: -40px auto 40px;
+  margin: -60px auto 40px;
   padding: 0 20px;
   position: relative;
-  z-index: 1;
+  z-index: 50;
 }
 
-/* Pet Selecionado */
 .pet-selecionado {
   background: white;
   border-radius: 15px;
@@ -488,7 +486,6 @@ body {
   font-weight: 600;
 }
 
-/* Header da Página */
 .page-header {
   text-align: center;
   margin-bottom: 40px;
@@ -510,7 +507,6 @@ body {
   font-size: 16px;
 }
 
-/* Grid de Serviços */
 .servicos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -619,7 +615,6 @@ body {
   opacity: 1;
 }
 
-/* Resumo */
 .resumo-container {
   background: white;
   border-radius: 15px;
@@ -716,7 +711,6 @@ body {
   opacity: 0.7;
 }
 
-/* Footer */
 .footer {
   background: #004d00;
   color: white;
@@ -725,7 +719,6 @@ body {
   margin-top: 50px;
 }
 
-/* Responsivo */
 @media (max-width: 768px) {
   .selecao-pet-container {
     margin: 20px auto;
@@ -765,7 +758,6 @@ body {
     font-size: 20px;
   }
 
-  /* Responsivo para página de serviços */
   .servicos-grid {
     grid-template-columns: 1fr;
   }

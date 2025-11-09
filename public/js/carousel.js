@@ -6,7 +6,7 @@ const indicatorsContainer = document.getElementById('indicators');
 let currentPage = 0;
 const totalPages = 4;
 let autoPlayInterval;
-const autoPlayDelay = 4000; // passagem automatica dos slides
+const autoPlayDelay = 4000;
 
 for (let i = 0; i < totalPages; i++) {
     const indicator = document.createElement('div');

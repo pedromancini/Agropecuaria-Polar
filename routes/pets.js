@@ -13,13 +13,13 @@ function verificarLogin(req, res, next) {
     next();
 }
 
-// Diretório de uploads das imagens dos pets
+// upload das img
 const uploadDirPets = "public/uploads/pets/";
 if (!fs.existsSync(uploadDirPets)) {
     fs.mkdirSync(uploadDirPets, { recursive: true });
 }
 
-// Configuração do Multer para pets
+// img
 const storagePets = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, uploadDirPets);
@@ -48,9 +48,9 @@ const uploadPet = multer({
     },
 });
 
-// ROTAS
 
-// API para buscar pets do usuário (para o modal)
+
+// API para buscar pets do usuário
 router.get("/api/meus-pets", verificarLogin, async (req, res) => {
     try {
         const pets = await petModel.findAll({
@@ -133,6 +133,99 @@ router.post(
             }
             
             res.status(500).send("Erro ao cadastrar pet. Tente novamente.");
+        }
+    }
+);
+
+// Página de edição de pet
+router.get("/pets/editar/:id", verificarLogin, async (req, res) => {
+    try {
+        const pet = await petModel.findOne({
+            where: {
+                id: req.params.id,
+                idUsuario: req.session.usuario.id
+            }
+        });
+
+        if (!pet) {
+            return res.status(404).send("Pet não encontrado");
+        }
+
+        res.render("editarPet", { pet, usuario: req.session.usuario });
+    } catch (error) {
+        console.error("Erro ao carregar pet:", error);
+        res.status(500).send("Erro ao carregar pet");
+    }
+});
+
+// Processar edição do pet
+router.post(
+    "/pets/editar/:id",
+    verificarLogin,
+    uploadPet.single("Imagem"),
+    async (req, res) => {
+        try {
+            const { Nome, Tipo, Sexo, Idade, Porte } = req.body;
+
+            // Buscar pet
+            const pet = await petModel.findOne({
+                where: {
+                    id: req.params.id,
+                    idUsuario: req.session.usuario.id
+                }
+            });
+
+            if (!pet) {
+                if (req.file) {
+                    fs.unlinkSync(path.join(uploadDirPets, req.file.filename));
+                }
+                return res.status(404).send("Pet não encontrado");
+            }
+
+            // Validações
+            if (!Nome || !Tipo || !Sexo || !Idade || !Porte) {
+                if (req.file) {
+                    fs.unlinkSync(path.join(uploadDirPets, req.file.filename));
+                }
+                return res.status(400).send("Todos os campos são obrigatórios!");
+            }
+
+            // Atualizar imagem se houver nova
+            let caminhoImagem = pet.Imagem;
+            if (req.file) {
+                // Remove a imagem antiga se existir
+                if (pet.Imagem) {
+                    const oldImagePath = path.join(uploadDirPets, pet.Imagem);
+                    if (fs.existsSync(oldImagePath)) {
+                        fs.unlinkSync(oldImagePath);
+                    }
+                }
+                caminhoImagem = req.file.filename;
+            }
+
+            // Atualizar pet no banco
+            await pet.update({
+                Nome: Nome,
+                Tipo: Tipo,
+                Sexo: Sexo,
+                Idade: parseInt(Idade),
+                Porte: Porte,
+                Imagem: caminhoImagem
+            });
+
+            res.redirect("/pets");
+        } catch (error) {
+            console.error("Erro ao editar pet:", error);
+            
+            // Remove o arquivo se houver erro
+            if (req.file) {
+                const filePath = path.join(uploadDirPets, req.file.filename);
+                if (fs.existsSync(filePath)) {
+                    fs.unlinkSync(filePath);
+                }
+            }
+            
+            res.status(500).send("Erro ao editar pet. Tente novamente.");
         }
     }
 );

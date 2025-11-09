@@ -10,7 +10,6 @@ body {
   min-height: 100vh;
 }
 
-/* Header do site */
 .site-header {
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1920') center/cover;
   color: white;
@@ -195,6 +194,34 @@ body {
   justify-content: center;
 }
 
+.btn-edit {
+  background: linear-gradient(135deg, #17a2b8, #138496);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(23, 162, 184, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.btn-edit:hover {
+  background: linear-gradient(135deg, #138496, #117a8b);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(23, 162, 184, 0.4);
+}
+
+.btn-edit:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(23, 162, 184, 0.3);
+}
+
 .btn-delete {
   background: linear-gradient(135deg, #dc3545, #c82333);
   color: white;
@@ -243,14 +270,6 @@ body {
   margin-bottom: 30px;
 }
 
-/* Footer */
-.footer {
-  background: #004d00;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  margin-top: 50px;
-}
 
 @media (max-width: 768px) {
   .pet-cards {
@@ -274,8 +293,13 @@ body {
     height: 180px;
   }
 
+  .pet-actions {
+    flex-direction: column;
+  }
+
+  .btn-edit,
   .btn-delete {
-    padding: 10px 20px;
-    font-size: 13px;
+    width: 100%;
+    justify-content: center;
   }
 }

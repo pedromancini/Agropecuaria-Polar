@@ -193,11 +193,11 @@ input:valid {
 }
 
 .modal-content p.erro {
-    color: #d32f2f; /* Vermelho para erro */
+    color: #d32f2f; 
 }
 
 .modal-content p.sucesso {
-    color: #4caf50; /* Verde para sucesso */
+    color: #4caf50;
 }
 
 .close {

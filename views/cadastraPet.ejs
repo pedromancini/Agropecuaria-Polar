@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/css/GLOBAL.css" />
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/cadastra-Pet.css" />
+
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon" />
   </head>
 
   <body>
@@ -16,8 +18,12 @@
     <div class="form-container">
       <a href="/agendamento" class="btn-voltar" title="Voltar">←</a>
       <h1 class="page-title">🐾 Cadastrar Novo Pet</h1>
-      <form action="/cadastrarPet" method="POST" enctype="multipart/form-data" class="form-pet">
-        
+      <form
+        action="/cadastrarPet"
+        method="POST"
+        enctype="multipart/form-data"
+        class="form-pet"
+      >
         <div class="form-group">
           <label for="Nome">Nome:</label>
           <input type="text" id="Nome" name="Nome" required />
@@ -63,7 +69,6 @@
         </div>
 
         <button type="submit">Cadastrar Pet</button>
-        
       </form>
     </div>
   </body>

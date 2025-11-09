@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/css/reset.css" />
     <link rel="stylesheet" href="/css/perfil.css" />
     <link rel="stylesheet" href="/css/GLOBAL.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon" />
   </head>
   <body>
     <!-- Header do Site -->
@@ -17,12 +20,10 @@
     </div>
 
     <div class="nav-bar">
-      <a href="/" class="btn-voltar">← Voltar ao Início</a>
+      <a href="/" class="btn-voltar">← Voltar</a>
     </div>
 
-    <!-- Container Principal -->
     <div class="container">
-      <!-- Header do Perfil -->
       <div class="profile-header">
         <div class="profile-photo-section">
           <img
@@ -254,9 +255,7 @@
     </div>
 
     <!-- Footer -->
-    <div class="footer">
-      <p>© 2024 Agropecuária Polar - Todos os direitos reservados</p>
-    </div>
+    <%- include("partials/footerCopy.ejs") %>
 
     <script src="/js/perfil.js"></script>
   </body>

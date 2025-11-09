@@ -1,146 +1,138 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Finalizar Agendamento - Agropecuária Polar</title>
-  
-  <!-- Estilos -->
-  <link rel="stylesheet" href="/css/reset.css">
-  <link rel="stylesheet" href="/css/GLOBAL.css">
-  <link rel="stylesheet" href="/css/finalizar-agendamento.css">
-  <link rel="stylesheet" href="/css/navbar.css">
-  <link rel="stylesheet" href="/css/header.css">
-  <link rel="stylesheet" href="/css/footer.css">
-  <link rel="shortcut icon" href="/img/logoFavicon.png" type="image/x-icon">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finalizar Agendamento - Agropecuária Polar</title>
 
-  <!-- Scripts -->
-  <script src="/js/dropdown-menu.js" defer></script>
-  <script src="/js/finalizar-agendamento.js" defer></script>
-</head>
-<body>
-  <!-- Cabeçalho -->
-  <%- include("partials/header.ejs") %>
-  
-  <!-- Menu lateral -->
-  <div class="navbar-menu">
-    <%- include("partials/navbarMenu.ejs") %>
-  </div>
+    <!-- Estilos -->
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/GLOBAL.css" />
+    <link rel="stylesheet" href="/css/finalizar-agendamento.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon" />
 
-  <div class="container">
-    <!-- Resumo do Agendamento -->
-    <div class="resumo-pedido">
-      <h2>📋 Resumo do Agendamento</h2>
-      
-      <!-- Pet Selecionado -->
-      <div class="info-card">
-        <h3>🐾 Pet</h3>
-        <div class="pet-info">
-          <% if (pet.Imagem) { %>
-            <img src="/uploads/pets/<%= pet.Imagem %>" alt="<%= pet.Nome %>" class="pet-thumb">
-          <% } else { %>
+    <script src="/js/dropdown-menu.js" defer></script>
+    <script src="/js/finalizar-agendamento.js" defer></script>
+  </head>
+  <body>
+    <%- include("partials/header.ejs") %>
+
+    <div class="navbar-menu"><%- include("partials/navbarMenu.ejs") %></div>
+
+    <div class="container">
+      <div class="resumo-pedido">
+        <h2>📋 Resumo do Agendamento</h2>
+
+        <div class="info-card">
+          <h3>🐾 Pet</h3>
+          <div class="pet-info">
+            <% if (pet.Imagem) { %>
+            <img
+              src="/uploads/pets/<%= pet.Imagem %>"
+              alt="<%= pet.Nome %>"
+              class="pet-thumb"
+            />
+            <% } else { %>
             <div class="pet-thumb-icon">
-              <%= pet.Tipo === 'Cachorro' ? '🐶' : pet.Tipo === 'Gato' ? '🐱' : '🐾' %>
+              <%= pet.Tipo === 'Cachorro' ? '🐶' : pet.Tipo === 'Gato' ? '🐱' :
+              '🐾' %>
             </div>
-          <% } %>
-          <div>
-            <strong><%= pet.Nome %></strong>
-            <p><%= pet.Tipo %> • <%= pet.Sexo %> • <%= pet.Porte %></p>
+            <% } %>
+            <div>
+              <strong><%= pet.Nome %></strong>
+              <p><%= pet.Tipo %> • <%= pet.Sexo %> • <%= pet.Porte %></p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Serviços Selecionados -->
-      <div class="info-card">
-        <h3>✨ Serviços</h3>
-        <div class="servicos-lista">
-          <% servicos.forEach(servico => { %>
+        <div class="info-card">
+          <h3>✨ Serviços</h3>
+          <div class="servicos-lista">
+            <% servicos.forEach(servico => { %>
             <div class="servico-resumo">
               <span><%= servico.Nome %></span>
               <span class="servico-valor">
                 R$ <%= servico.Valor.toFixed(2).replace('.', ',') %>
               </span>
             </div>
-          <% }) %>
-          <div class="total-servicos">
-            <strong>Total:</strong>
-            <strong class="valor-total">
-              R$ <%= valorTotal.toFixed(2).replace('.', ',') %>
-            </strong>
+            <% }) %>
+            <div class="total-servicos">
+              <strong>Total:</strong>
+              <strong class="valor-total">
+                R$ <%= valorTotal.toFixed(2).replace('.', ',') %>
+              </strong>
+            </div>
           </div>
         </div>
       </div>
+
+      <div class="agendamento-section">
+        <h2>📅 Escolha Data e Horário</h2>
+
+        <div class="calendario-container">
+          <div class="calendario-header">
+            <button id="mesAnterior" class="btn-nav-mes">←</button>
+            <h3 id="mesAno"></h3>
+            <button id="proximoMes" class="btn-nav-mes">→</button>
+          </div>
+          <div class="calendario-dias-semana">
+            <div>Dom</div>
+            <div>Seg</div>
+            <div>Ter</div>
+            <div>Qua</div>
+            <div>Qui</div>
+            <div>Sex</div>
+            <div>Sáb</div>
+          </div>
+          <div id="calendarioDias" class="calendario-dias"></div>
+        </div>
+
+        <div
+          class="horarios-container"
+          id="horariosContainer"
+          style="display: none"
+        >
+          <h3>⏰ Horários Disponíveis</h3>
+          <div class="loading-horarios" id="loadingHorarios">
+            Carregando horários disponíveis...
+          </div>
+          <div id="horariosGrid" class="horarios-grid"></div>
+        </div>
+
+        <div class="observacoes-container">
+          <h3>📝 Observações (opcional)</h3>
+          <textarea
+            id="observacoes"
+            placeholder="Adicione informações importantes sobre seu pet ou preferências para o atendimento..."
+            maxlength="500"
+          ></textarea>
+          <small class="char-count">
+            <span id="charCount">0</span>/500 caracteres
+          </small>
+        </div>
+
+        <!-- Botão Finalizar -->
+        <button id="btnFinalizar" class="btn-finalizar" disabled>
+          Confirmar Agendamento
+        </button>
+      </div>
     </div>
 
-    <!-- Seção de Agendamento -->
-    <div class="agendamento-section">
-      <h2>📅 Escolha Data e Horário</h2>
-
-      <!-- Calendário -->
-      <div class="calendario-container">
-        <div class="calendario-header">
-          <button id="mesAnterior" class="btn-nav-mes">←</button>
-          <h3 id="mesAno"></h3>
-          <button id="proximoMes" class="btn-nav-mes">→</button>
-        </div>
-        <div class="calendario-dias-semana">
-          <div>Dom</div>
-          <div>Seg</div>
-          <div>Ter</div>
-          <div>Qua</div>
-          <div>Qui</div>
-          <div>Sex</div>
-          <div>Sáb</div>
-        </div>
-        <div id="calendarioDias" class="calendario-dias"></div>
-      </div>
-
-      <!-- Horários Disponíveis -->
-      <div class="horarios-container" id="horariosContainer" style="display: none;">
-        <h3>⏰ Horários Disponíveis</h3>
-        <div class="loading-horarios" id="loadingHorarios">
-          Carregando horários disponíveis...
-        </div>
-        <div id="horariosGrid" class="horarios-grid"></div>
-      </div>
-
-      <!-- Observações -->
-      <div class="observacoes-container">
-        <h3>📝 Observações (opcional)</h3>
-        <textarea 
-          id="observacoes" 
-          placeholder="Adicione informações importantes sobre seu pet ou preferências para o atendimento..."
-          maxlength="500"
-        ></textarea>
-        <small class="char-count">
-          <span id="charCount">0</span>/500 caracteres
-        </small>
-      </div>
-
-      <!-- Botão Finalizar -->
-      <button id="btnFinalizar" class="btn-finalizar" disabled>
-        Confirmar Agendamento
-      </button>
-    </div>
-  </div>
-
-  <!-- Rodapé -->
-  <%- include("partials/footerCopy.ejs") %>
-
-  <!-- Dados do Servidor para o JS -->
-  
-<script>
-  // Dados vindos do servidor - gerados pelo EJS
-  const petId = <%- JSON.stringify(pet.id) %>;
-  const servicosIds = <%- JSON.stringify(servicos.map(s => s.id)) %>;
-  const duracaoTotal = <%- JSON.stringify(duracaoTotal) %>;
-
-  console.log("🐾 Dados recebidos do servidor:");
-  console.log({ petId, servicosIds, duracaoTotal });
-</script>
+    <%- include("partials/footerCopy.ejs") %>
 
 
-  <!-- Script principal -->
-  <script src="/js/finalizar-agendamento.js" defer></script>
-</body>
+    <script>
+      const petId = <%- JSON.stringify(pet.id) %>;
+      const servicosIds = <%- JSON.stringify(servicos.map(s => s.id)) %>;
+      const duracaoTotal = <%- JSON.stringify(duracaoTotal) %>;
+
+      console.log("🐾 Dados recebidos do servidor:");
+      console.log({ petId, servicosIds, duracaoTotal });
+    </script>
+
+    <script src="/js/finalizar-agendamento.js" defer></script>
+  </body>
 </html>
