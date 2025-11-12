@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const produtoModel = require("../database/produtoModel");
 const usuariosModel = require("../database/usuariosModel");
-const { Agendamento, Usuario, Pet, Produto } = require("../models");
+const db = require("../models");
 const { Op } = require("sequelize");
 
 async function verificarAdmin(req, res, next) {
@@ -10,7 +10,6 @@ async function verificarAdmin(req, res, next) {
     return res.redirect("/login");
   }
 
-  // Atualiza os dados do usuário a partir do banco
   const usuarioAtualizado = await usuariosModel.findByPk(
     req.session.usuario.id
   );
@@ -20,10 +19,8 @@ async function verificarAdmin(req, res, next) {
     return res.redirect("/login");
   }
 
-  // Atualiza sessão
   req.session.usuario = usuarioAtualizado;
 
-  // Verifica tipo
   if (usuarioAtualizado.TipoUsuario !== "Admin") {
     return res
       .status(403)
@@ -61,7 +58,6 @@ router.post("/admin/servicos/criar", verificarAdmin, async (req, res) => {
   try {
     const { nome, valor, descricao, duracaoMinutos, ativo } = req.body;
 
-    // Validações
     if (!nome || !valor || !descricao || !duracaoMinutos) {
       return res.status(400).json({
         erro: "Preencha todos os campos obrigatórios!",
@@ -87,7 +83,7 @@ router.post("/admin/servicos/criar", verificarAdmin, async (req, res) => {
   }
 });
 
-// edit servico
+// edita servico
 router.get("/admin/servicos/editar/:id", verificarAdmin, async (req, res) => {
   try {
     const produto = await produtoModel.findByPk(req.params.id);
@@ -174,7 +170,6 @@ router.delete(
         return res.status(404).json({ erro: "Serviço não encontrado" });
       }
 
-      // Verificar se o serviço está sendo usado em algum agendamento
       const servicoProduto = require("../database/servicoProduto");
 
       const emUso = await servicoProduto.findOne({
@@ -200,31 +195,33 @@ router.delete(
   }
 );
 
-router.get("/admin/agendamentos", verificarAdmin, async (req, res) => {
+
+router.get("/admin/agendamento", verificarAdmin, async (req, res) => {
   try {
     const { status, data } = req.query;
 
     let whereClause = {};
 
-    // Filtrar por status
     if (status && status !== "todos") {
       whereClause.status = status;
     }
 
-    // Filtrar por data
     if (data) {
       whereClause.data = data;
     }
 
-    const agendamentos = await Agendamento.findAll({
+
+    const agendamentos = await db.Agendamento.findAll({
       where: whereClause,
       include: [
         {
-          model: Usuario,
+          model: db.Usuario,
+          as: 'Usuario', 
           attributes: ["id", "Nome", "Email", "Telefone"],
         },
         {
-          model: Pet,
+          model: db.Pet,
+          as: 'Pet', 
           attributes: ["id", "Nome", "Tipo", "Sexo", "Porte", "Imagem"],
         },
       ],
@@ -234,23 +231,22 @@ router.get("/admin/agendamentos", verificarAdmin, async (req, res) => {
       ],
     });
 
-    // Buscar serviços para cada agendamento
+
     const agendamentosComServicos = await Promise.all(
-      agendamentos.map(async (agendamento) => {
-        const servicosIds = JSON.parse(agendamento.servicosIds);
-        const servicos = await Produto.findAll({
+      agendamentos.map(async (item) => {
+        const servicosIds = JSON.parse(item.servicosIds);
+        const servicos = await db.Produto.findAll({
           where: { id: servicosIds },
           attributes: ["id", "Nome", "Valor"],
         });
 
         return {
-          ...agendamento.toJSON(),
+          ...item.toJSON(),
           servicos,
         };
       })
     );
 
-    // Estatísticas
     const stats = {
       total: agendamentos.length,
       pendente: agendamentos.filter((a) => a.status === "pendente").length,
@@ -259,7 +255,7 @@ router.get("/admin/agendamentos", verificarAdmin, async (req, res) => {
       cancelado: agendamentos.filter((a) => a.status === "cancelado").length,
     };
 
-    res.render("admin/agendamentos", {
+    res.render("admin/agendamento", {
       agendamentos: agendamentosComServicos,
       stats,
       filtroStatus: status || "todos",
@@ -274,14 +270,14 @@ router.get("/admin/agendamentos", verificarAdmin, async (req, res) => {
 
 // Atualizar status do agendamento
 router.post(
-  "/admin/agendamentos/status/:id",
+  "/admin/agendamento/status/:id",
   verificarAdmin,
   async (req, res) => {
     try {
       const { status } = req.body;
       const agendamentoId = req.params.id;
 
-      const agendamento = await Agendamento.findByPk(agendamentoId);
+      const agendamento = await db.Agendamento.findByPk(agendamentoId);
 
       if (!agendamento) {
         return res.status(404).json({ erro: "Agendamento não encontrado" });
@@ -302,19 +298,21 @@ router.post(
 
 // Visualizar detalhes do agendamento
 router.get(
-  "/admin/agendamentos/detalhes/:id",
+  "/admin/agendamento/detalhes/:id",
   verificarAdmin,
   async (req, res) => {
     try {
-      const agendamento = await Agendamento.findOne({
+      const agendamento = await db.Agendamento.findOne({
         where: { id: req.params.id },
         include: [
           {
-            model: Usuario,
+            model: db.Usuario,
+            as: 'Usuario',
             attributes: ["id", "Nome", "Email", "Telefone", "Cpf"],
           },
           {
-            model: Pet,
+            model: db.Pet,
+            as: 'Pet',
             attributes: [
               "id",
               "Nome",
@@ -333,7 +331,7 @@ router.get(
       }
 
       const servicosIds = JSON.parse(agendamento.servicosIds);
-      const servicos = await Produto.findAll({
+      const servicos = await db.Produto.findAll({
         where: { id: servicosIds },
       });
 

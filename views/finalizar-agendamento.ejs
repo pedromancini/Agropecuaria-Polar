@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/whatsapp.css" />
+
     <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon" />
 
     <script src="/js/dropdown-menu.js" defer></script>
@@ -120,9 +122,8 @@
         </button>
       </div>
     </div>
-
-    <%- include("partials/footerCopy.ejs") %>
-
+    <%-include("partials/whatsapp-button.ejs")%> <%-
+    include("partials/footerCopy.ejs") %>
 
     <script>
       const petId = <%- JSON.stringify(pet.id) %>;

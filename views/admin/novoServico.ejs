@@ -8,15 +8,16 @@
     <link rel="stylesheet" href="/css/GLOBAL.css">
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="/css/header.css">
+
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon" />
 </head>
 <body>
     <%- include("../partials/header.ejs") %>
 
     <div class="form-container">
-        <a href="/admin" class="btn-voltar">← Voltar ao Painel</a>
-
         <div class="form-card">
             <div class="form-header">
+                <a href="/admin" class="btn-secondary" style="margin-bottom: 20px; display: inline-block; margin-right: auto; margin-right: 100%; width: 70px;">← Voltar</a>
                 <h1>➕ Cadastrar Novo Serviço</h1>
                 <p>Preencha os dados do serviço que será oferecido aos clientes</p>
             </div>
@@ -119,7 +120,7 @@
     </div>
 
     <script>
-        // Contador de caracteres
+
         const descricao = document.getElementById('descricao');
         const charCount = document.getElementById('charCount');
 
@@ -134,7 +135,6 @@
             }
         });
 
-        // Formatar valor em tempo real
         const valorInput = document.getElementById('valor');
         valorInput.addEventListener('blur', function() {
             if (this.value) {
@@ -142,7 +142,6 @@
             }
         });
 
-        // Submit do formulário
         document.getElementById('formNovoServico').addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -158,7 +157,7 @@
                 ativo: document.getElementById('ativo').checked
             };
 
-            // Validações
+
             if (!formData.nome || !formData.valor || !formData.duracaoMinutos || !formData.descricao) {
                 alert('❌ Por favor, preencha todos os campos obrigatórios!');
                 btnSalvar.disabled = false;
