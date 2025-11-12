@@ -70,7 +70,7 @@ petModel.hasMany(servicoModel, {
 });
 servicoModel.belongsTo(petModel, {
     foreignKey: "idPet",
-    as: "PET"
+    as: "PETs"
 });
 
 servicoModel.sync({ force: false });
