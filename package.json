@@ -18,7 +18,7 @@
     "express-session": "^1.18.2",
     "multer": "^2.0.2",
     "mysql2": "^3.15.3",
-    "nodemon": "^3.1.10",
+    "nodemon": "^3.1.11",
     "path": "^0.12.7",
     "sequelize": "^6.37.7"
   },
@@ -30,6 +30,5 @@
     "url": "https://github.com/pedromancini/Agropecuaria-Polar/issues"
   },
   "homepage": "https://github.com/pedromancini/Agropecuaria-Polar#readme",
-  "description": "Pacotes necessários para rodar!\r npm install express bcryptjs ejs nodemon sequelize mysql2 express-session",
-  "devDependencies": {}
+  "description": "Pacotes necessários para rodar!\r npm install express bcryptjs ejs nodemon sequelize mysql2 express-session"
 }
