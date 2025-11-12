@@ -1,38 +1,36 @@
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("📅 Sistema de Agendamentos Inicializado");
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('📅 Sistema de Agendamentos Inicializado');
-  
   inicializarFiltros();
   inicializarBotoesCancelar();
   carregarEstatisticas();
 });
 
-
 function inicializarFiltros() {
-  const filtros = document.querySelectorAll('.filtro-btn');
-  const cards = document.querySelectorAll('.agendamento-card');
-  
-  filtros.forEach(btn => {
-    btn.addEventListener('click', () => {
+  const filtros = document.querySelectorAll(".filtro-btn");
+  const cards = document.querySelectorAll(".agendamento-card");
+
+  filtros.forEach((btn) => {
+    btn.addEventListener("click", () => {
       // Remove active de todos
-      filtros.forEach(b => b.classList.remove('active'));
-      
+      filtros.forEach((b) => b.classList.remove("active"));
+
       // Adiciona active no clicado
-      btn.classList.add('active');
-      
+      btn.classList.add("active");
+
       const filtro = btn.dataset.filtro;
-      
+
       // Filtra cards
-      cards.forEach(card => {
-        if (filtro === 'todos' || card.dataset.status === filtro) {
-          card.style.display = 'block';
+      cards.forEach((card) => {
+        if (filtro === "todos" || card.dataset.status === filtro) {
+          card.style.display = "block";
           // Animação de entrada
-          card.style.animation = 'fadeIn 0.3s ease';
+          card.style.animation = "fadeIn 0.3s ease";
         } else {
-          card.style.display = 'none';
+          card.style.display = "none";
         }
       });
-      
+
       // Verificar se há resultados
       verificarResultados(filtro);
     });
@@ -41,40 +39,42 @@ function inicializarFiltros() {
 
 // Verificar se há resultados após filtrar
 function verificarResultados(filtro) {
-  const cards = document.querySelectorAll('.agendamento-card');
-  const visibleCards = Array.from(cards).filter(card => card.style.display !== 'none');
-  
-  const grid = document.querySelector('.agendamentos-grid');
-  const mensagemVazia = document.getElementById('mensagemVazia');
-  
+  const cards = document.querySelectorAll(".agendamento-card");
+  const visibleCards = Array.from(cards).filter(
+    (card) => card.style.display !== "none"
+  );
+
+  const grid = document.querySelector(".agendamentos-grid");
+  const mensagemVazia = document.getElementById("mensagemVazia");
+
   // Remove mensagem anterior se existir
   if (mensagemVazia) {
     mensagemVazia.remove();
   }
-  
+
   if (visibleCards.length === 0) {
-    const mensagem = document.createElement('div');
-    mensagem.id = 'mensagemVazia';
-    mensagem.className = 'empty-state';
+    const mensagem = document.createElement("div");
+    mensagem.id = "mensagemVazia";
+    mensagem.className = "empty-state";
     mensagem.innerHTML = `
       <span class="empty-icon">📭</span>
       <h3>Nenhum agendamento encontrado</h3>
       <p>Não há agendamentos com status "${filtro}"</p>
     `;
     grid.parentNode.insertBefore(mensagem, grid);
-    grid.style.display = 'none';
+    grid.style.display = "none";
   } else {
-    grid.style.display = 'grid';
+    grid.style.display = "grid";
   }
 }
 
 // ==================== CANCELAR AGENDAMENTO ====================
 function inicializarBotoesCancelar() {
-  const botoesCancelar = document.querySelectorAll('.btn-cancelar');
-  
-  botoesCancelar.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const agendamentoId = this.getAttribute('onclick').match(/\d+/)[0];
+  const botoesCancelar = document.querySelectorAll(".btn-cancelar");
+
+  botoesCancelar.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const agendamentoId = this.getAttribute("onclick").match(/\d+/)[0];
       cancelarAgendamento(agendamentoId);
     });
   });
@@ -83,21 +83,21 @@ function inicializarBotoesCancelar() {
 async function cancelarAgendamento(id) {
   // Confirmação personalizada
   const confirmacao = await mostrarConfirmacao(
-    '⚠️ Cancelar Agendamento',
-    'Tem certeza que deseja cancelar este agendamento? Esta ação não pode ser desfeita.',
-    'Sim, cancelar',
-    'Não, manter'
+    "⚠️ Cancelar Agendamento",
+    "Tem certeza que deseja cancelar este agendamento? Esta ação não pode ser desfeita.",
+    "Sim, cancelar",
+    "Não, manter"
   );
-  
+
   if (!confirmacao) return;
-  
+
   // Mostrar loading
-  mostrarLoading('Cancelando agendamento...');
-  
+  mostrarLoading("Cancelando agendamento...");
+
   try {
     const response = await fetch(`/agendamento/cancelar/${id}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
     });
 
     const result = await response.json();
@@ -105,67 +105,91 @@ async function cancelarAgendamento(id) {
     esconderLoading();
 
     if (result.sucesso) {
-      mostrarNotificacao('sucesso', '✅ ' + result.mensagem);
-      
+      mostrarNotificacao("sucesso", "✅ " + result.mensagem);
+
       // Aguardar 1 segundo antes de recarregar
       setTimeout(() => {
         location.reload();
       }, 1000);
     } else {
-      mostrarNotificacao('erro', '❌ ' + result.erro);
+      mostrarNotificacao("erro", "❌ " + result.erro);
     }
   } catch (error) {
     esconderLoading();
-    console.error('Erro ao cancelar:', error);
-    mostrarNotificacao('erro', '❌ Erro ao cancelar agendamento. Tente novamente.');
+    console.error("Erro ao cancelar:", error);
+    mostrarNotificacao(
+      "erro",
+      "❌ Erro ao cancelar agendamento. Tente novamente."
+    );
   }
 }
 
 //
 async function carregarEstatisticas() {
   try {
-    const response = await fetch('/agendamento/estatisticas');
+    const response = await fetch("/agendamento/estatisticas");
     const data = await response.json();
-    
+
     if (data.sucesso) {
-      console.log('📊 Estatísticas:', data.estatisticas);
-      
+      console.log("📊 Estatísticas:", data.estatisticas);
     }
   } catch (error) {
-    console.error('Erro ao carregar estatísticas:', error);
+    console.error("Erro ao carregar estatísticas:", error);
   }
 }
 
-// 
+//
 function mostrarConfirmacao(titulo, mensagem, btnConfirmar, btnCancelar) {
   return new Promise((resolve) => {
-    // Criar modal
-    const modal = document.createElement('div');
-    modal.className = 'modal-confirmacao';
+    // Remover modal existente se houver
+    const modalExistente = document.querySelector(".modal-confirmacao");
+    if (modalExistente) {
+      modalExistente.remove();
+    }
+
+    const modal = document.createElement("div");
+    modal.className = "modal-confirmacao";
     modal.innerHTML = `
       <div class="modal-overlay" onclick="fecharModalConfirmacao()"></div>
       <div class="modal-content-confirmacao">
         <h3>${titulo}</h3>
         <p>${mensagem}</p>
         <div class="modal-actions">
-          <button class="btn-modal-cancelar" onclick="fecharModalConfirmacao(false)">${btnCancelar}</button>
-          <button class="btn-modal-confirmar" onclick="fecharModalConfirmacao(true)">${btnConfirmar}</button>
+          <button class="btn-modal-cancelar" onclick="fecharModalConfirmacao()">${btnCancelar}</button>
+          <button class="btn-modal-confirmar" onclick="confirmarModalConfirmacao()">${btnConfirmar}</button>
         </div>
       </div>
     `;
-    
+
     document.body.appendChild(modal);
-    
-    // Função global para fechar modal
-    window.fecharModalConfirmacao = (confirmado = false) => {
-      modal.remove();
-      resolve(confirmado);
+
+    // Animar entrada
+    setTimeout(() => modal.classList.add("show"), 10);
+
+    // Função GLOBAL para fechar o modal (retorna false)
+    window.fecharModalConfirmacao = () => {
+      console.log("❌ Modal fechado - Ação cancelada");
+      modal.classList.remove("show");
+      setTimeout(() => {
+        modal.remove();
+        resolve(false); // Retorna false = não confirmar
+      }, 300);
     };
-    
+
+    // Função GLOBAL para confirmar (retorna true)
+    window.confirmarModalConfirmacao = () => {
+      console.log("✅ Modal confirmado - Ação aceita");
+      modal.classList.remove("show");
+      setTimeout(() => {
+        modal.remove();
+        resolve(true); // Retorna true = confirmar
+      }, 300);
+    };
+
     // Adicionar estilos se ainda não existirem
-    if (!document.getElementById('modal-styles')) {
-      const styles = document.createElement('style');
-      styles.id = 'modal-styles';
+    if (!document.getElementById("modal-styles")) {
+      const styles = document.createElement("style");
+      styles.id = "modal-styles";
       styles.textContent = `
         .modal-confirmacao {
           position: fixed;
@@ -270,22 +294,22 @@ function mostrarConfirmacao(titulo, mensagem, btnConfirmar, btnCancelar) {
 }
 
 // lloading
-function mostrarLoading(mensagem = 'Carregando...') {
-  const loading = document.createElement('div');
-  loading.id = 'loading-overlay';
+function mostrarLoading(mensagem = "Carregando...") {
+  const loading = document.createElement("div");
+  loading.id = "loading-overlay";
   loading.innerHTML = `
     <div class="loading-content">
       <div class="spinner"></div>
       <p>${mensagem}</p>
     </div>
   `;
-  
+
   document.body.appendChild(loading);
-  
+
   // Adicionar estilos
-  if (!document.getElementById('loading-styles')) {
-    const styles = document.createElement('style');
-    styles.id = 'loading-styles';
+  if (!document.getElementById("loading-styles")) {
+    const styles = document.createElement("style");
+    styles.id = "loading-styles";
     styles.textContent = `
       #loading-overlay {
         position: fixed;
@@ -330,7 +354,7 @@ function mostrarLoading(mensagem = 'Carregando...') {
 }
 
 function esconderLoading() {
-  const loading = document.getElementById('loading-overlay');
+  const loading = document.getElementById("loading-overlay");
   if (loading) {
     loading.remove();
   }
@@ -338,16 +362,16 @@ function esconderLoading() {
 
 // notificações
 function mostrarNotificacao(tipo, mensagem) {
-  const notificacao = document.createElement('div');
+  const notificacao = document.createElement("div");
   notificacao.className = `notificacao notificacao-${tipo}`;
   notificacao.textContent = mensagem;
-  
+
   document.body.appendChild(notificacao);
-  
+
   // Adicionar estilos
-  if (!document.getElementById('notificacao-styles')) {
-    const styles = document.createElement('style');
-    styles.id = 'notificacao-styles';
+  if (!document.getElementById("notificacao-styles")) {
+    const styles = document.createElement("style");
+    styles.id = "notificacao-styles";
     styles.textContent = `
       .notificacao {
         position: fixed;
@@ -383,9 +407,9 @@ function mostrarNotificacao(tipo, mensagem) {
     `;
     document.head.appendChild(styles);
   }
-  
+
   setTimeout(() => {
-    notificacao.style.animation = 'slideInRight 0.3s ease reverse';
+    notificacao.style.animation = "slideInRight 0.3s ease reverse";
     setTimeout(() => notificacao.remove(), 300);
   }, 3000);
 }
