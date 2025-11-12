@@ -46,6 +46,24 @@
   gap: 15px;
 }
 
+
+.horario.passou {
+  background: #f5f5f5;
+  color: #ccc;
+  cursor: not-allowed;
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+
+.horario.ocupado {
+  background: #fff3cd;
+  color: #856404;
+  cursor: not-allowed;
+  text-decoration: line-through;
+  border: 2px solid #ffc107;
+}
+
 .pet-thumb {
   width: 60px;
   height: 60px;

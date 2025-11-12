@@ -121,7 +121,7 @@ async function cancelarAgendamento(id) {
   }
 }
 
-// ==================== ESTATÍSTICAS ====================
+//
 async function carregarEstatisticas() {
   try {
     const response = await fetch('/agendamento/estatisticas');
@@ -129,14 +129,14 @@ async function carregarEstatisticas() {
     
     if (data.sucesso) {
       console.log('📊 Estatísticas:', data.estatisticas);
-      // Você pode usar essas estatísticas para exibir informações adicionais
+      
     }
   } catch (error) {
     console.error('Erro ao carregar estatísticas:', error);
   }
 }
 
-// ==================== MODAL DE CONFIRMAÇÃO ====================
+// 
 function mostrarConfirmacao(titulo, mensagem, btnConfirmar, btnCancelar) {
   return new Promise((resolve) => {
     // Criar modal

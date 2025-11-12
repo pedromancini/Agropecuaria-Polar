@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/footer.css" />
-
     <link rel="stylesheet" href="/css/whatsapp.css" />
 
     <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon" />
@@ -25,9 +24,7 @@
     <div class="container">
       <div class="page-header">
         <h1 class="page-title"><span>📅</span> Meus Agendamentos</h1>
-        <a href="/agendamento" class="btn-novo-agendamento"
-          >+ Novo Agendamento</a
-        >
+        <a href="/agendamento" class="btn-novo-agendamento">+ Novo Agendamento</a>
       </div>
 
       <div class="info-agropecuaria">
@@ -77,44 +74,52 @@
       <!-- Filtros -->
       <div class="filtros-container">
         <button class="filtro-btn active" data-filtro="todos">Todos</button>
-        <button class="filtro-btn" data-filtro="Pendente">Pendentes</button>
-        <button class="filtro-btn" data-filtro="Confirmado">Confirmados</button>
-        <button class="filtro-btn" data-filtro="Concluído">Concluídos</button>
-        <button class="filtro-btn" data-filtro="Cancelado">Cancelados</button>
+        <button class="filtro-btn" data-filtro="pendente">Pendentes</button>
+        <button class="filtro-btn" data-filtro="confirmado">Confirmados</button>
+        <button class="filtro-btn" data-filtro="concluido">Concluídos</button>
+        <button class="filtro-btn" data-filtro="cancelado">Cancelados</button>
       </div>
 
       <div class="agendamentos-grid">
-        <% servicos.forEach(servico => { const dataAgendamento = new
-        Date(servico.DataAgendamento); const dataFormatada =
-        dataAgendamento.toLocaleDateString('pt-BR'); const statusClass =
-        servico.Status.toLowerCase(); const isPastDate = dataAgendamento < new
-        Date(); const canCancel = servico.Status === 'Pendente' && !isPastDate;
+        <% servicos.forEach(servico => { 
+          // Formatar data
+          const dataAgendamento = new Date(servico.data + 'T00:00:00');
+          const dataFormatada = dataAgendamento.toLocaleDateString('pt-BR');
+          
+          // Status
+          const statusClass = servico.status.toLowerCase();
+          const statusTexto = servico.status.charAt(0).toUpperCase() + servico.status.slice(1);
+          
+          // Verificações
+          const hoje = new Date();
+          hoje.setHours(0, 0, 0, 0);
+          dataAgendamento.setHours(0, 0, 0, 0);
+          const isPastDate = dataAgendamento < hoje;
+          const canCancel = servico.status === 'pendente' && !isPastDate;
         %>
-        <div class="agendamento-card" data-status="<%= servico.Status %>">
+        <div class="agendamento-card" data-status="<%= servico.status %>">
           <div class="status-badge status-<%= statusClass %>">
-            <%= servico.Status %>
+            <%= statusTexto %>
           </div>
 
           <div class="card-header">
             <div class="pet-info-compact">
-              <div class="pet-icon-small">
-                <% if (servico.PET.Imagem) { %>
+              <% if (servico.Pet.Imagem) { %>
                 <img
-                  src="/uploads/pets/<%= servico.PET.Imagem %>"
-                  alt="<%= servico.PET.Nome %>"
+                  src="/uploads/pets/<%= servico.Pet.Imagem %>"
+                  alt="<%= servico.Pet.Nome %>"
                   class="pet-icon-small"
+                  style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;"
                 />
-                <% } else { %>
+              <% } else { %>
                 <div class="pet-icon-small">
-                  <%= servico.PET.Tipo === 'Cachorro' ? '🐶' : servico.PET.Tipo
-                  === 'Gato' ? '🐱' : '🐾' %>
+                  <%= servico.Pet.Tipo === 'Cachorro' ? '🐶' : servico.Pet.Tipo === 'Gato' ? '🐱' : '🐾' %>
                 </div>
-                <% } %>
-              </div>
+              <% } %>
               <div>
-                <h3><%= servico.PET.Nome %></h3>
+                <h3><%= servico.Pet.Nome %></h3>
                 <p class="pet-detalhes">
-                  <%= servico.PET.Tipo %> • <%= servico.PET.Porte %>
+                  <%= servico.Pet.Tipo %> • <%= servico.Pet.Porte %>
                 </p>
               </div>
             </div>
@@ -129,9 +134,7 @@
               </div>
               <div class="info-row">
                 <span class="info-label">⏰ Horário:</span>
-                <span class="info-value"
-                  ><%= servico.HorarioAgendamento %></span
-                >
+                <span class="info-value"><%= servico.horario %></span>
               </div>
             </div>
 
@@ -139,12 +142,12 @@
             <div class="servicos-lista">
               <h4>Serviços:</h4>
               <ul>
-                <% servico.PRODUTOS.forEach(produto => { %>
+                <% servico.Servicos.forEach(produto => { %>
                 <li>
                   <span><%= produto.Nome %></span>
-                  <span class="servico-valor"
-                    >R$ <%= produto.Valor.toFixed(2).replace('.', ',') %></span
-                  >
+                  <span class="servico-valor">
+                    R$ <%= parseFloat(produto.Valor).toFixed(2).replace('.', ',') %>
+                  </span>
                 </li>
                 <% }) %>
               </ul>
@@ -153,16 +156,16 @@
             <!-- Valor Total -->
             <div class="valor-total">
               <span>Total:</span>
-              <span class="valor"
-                >R$ <%= servico.ValorTotal.toFixed(2).replace('.', ',') %></span
-              >
+              <span class="valor">
+                R$ <%= parseFloat(servico.valorTotal).toFixed(2).replace('.', ',') %>
+              </span>
             </div>
 
             <!-- Observações (se houver) -->
-            <% if (servico.Observacoes) { %>
+            <% if (servico.observacoes) { %>
             <div class="observacoes">
               <strong>📝 Observações:</strong>
-              <p><%= servico.Observacoes %></p>
+              <p><%= servico.observacoes %></p>
             </div>
             <% } %>
           </div>
@@ -175,9 +178,9 @@
             >
               ❌ Cancelar Agendamento
             </button>
-            <% } else if (servico.Status === 'Cancelado') { %>
+            <% } else if (servico.status === 'cancelado') { %>
             <span class="info-cancelado">Este agendamento foi cancelado</span>
-            <% } else if (servico.Status === 'Concluído') { %>
+            <% } else if (servico.status === 'concluido') { %>
             <span class="info-concluido">✅ Serviço concluído</span>
             <% } else if (isPastDate) { %>
             <span class="info-passado">Este agendamento já passou</span>
@@ -199,7 +202,7 @@
       <% } %>
     </div>
 
-    <%-include("partials/whatsapp-button.ejs")%> <%-
-    include("partials/footerCopy.ejs") %>
+    <%- include("partials/whatsapp-button.ejs") %>
+    <%- include("partials/footerCopy.ejs") %>
   </body>
 </html>

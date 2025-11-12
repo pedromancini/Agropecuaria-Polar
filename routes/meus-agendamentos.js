@@ -1,13 +1,9 @@
- express = require("express");
+const express = require("express");
 const router = express.Router();
+const db = require("../models");
 const { Op } = require("sequelize");
 
-// Models
-const servicoModel = require("../database/servicoModel");
-const petModel = require("../database/petModel");
-const produtoModel = require("../database/produtoModel");
-
-// middleware
+// Middleware
 function verificarLogin(req, res, next) {
   if (!req.session.usuario) {
     return res.redirect("/login");
@@ -15,36 +11,55 @@ function verificarLogin(req, res, next) {
   next();
 }
 
-// rotas
-
 // GET: Página de Meus Agendamentos
 router.get("/meus-agendamentos", verificarLogin, async (req, res) => {
   try {
-    const servicos = await servicoModel.findAll({
-      where: { idUsuario: req.session.usuario.id },
+    console.log('📋 Buscando agendamentos do usuário:', req.session.usuario.id);
+
+    const agendamentos = await db.Agendamento.findAll({
+      where: { UsuarioId: req.session.usuario.id },
       include: [
         {
-          model: petModel,
-          as: "PET",
-          attributes: ["id", "Nome", "Tipo", "Sexo", "Porte", "Imagem"],
-        },
-        {
-          model: produtoModel,
-          as: "PRODUTOS",
-          through: { attributes: [] },
-          attributes: ["id", "Nome", "Valor"],
-        },
+          model: db.Pet,
+          as: "Pet",
+          attributes: ["id", "Nome", "Tipo", "Sexo", "Porte", "Imagem", "Idade"],
+        }
       ],
       order: [
-        ["DataAgendamento", "DESC"], 
-        ["HorarioAgendamento", "DESC"]
+        ["data", "DESC"],
+        ["horario", "DESC"]
       ],
     });
 
-    console.log(`📊 ${servicos.length} agendamentos encontrados para usuário #${req.session.usuario.id}`);
+    console.log(`✅ ${agendamentos.length} agendamentos encontrados`);
+
+    // Buscar os produtos/serviços de cada agendamento
+    const agendamentosComServicos = await Promise.all(
+      agendamentos.map(async (agendamento) => {
+        const servicosIds = JSON.parse(agendamento.servicosIds);
+        
+        const produtos = await db.Produto.findAll({
+          where: { id: servicosIds },
+          attributes: ["id", "Nome", "Valor", "DuracaoMinutos"],
+        });
+
+        return {
+          id: agendamento.id,
+          data: agendamento.data,
+          horario: agendamento.horario,
+          valorTotal: agendamento.valorTotal,
+          duracaoTotal: agendamento.duracaoTotal,
+          observacoes: agendamento.observacoes,
+          status: agendamento.status,
+          createdAt: agendamento.createdAt,
+          Pet: agendamento.Pet,
+          Servicos: produtos // Renomeado para Servicos para compatibilidade com a view
+        };
+      })
+    );
 
     res.render("meusAgendamentos", {
-      servicos,
+      servicos: agendamentosComServicos, // Mantém o nome "servicos" para a view
       usuario: req.session.usuario,
     });
   } catch (error) {
@@ -53,44 +68,47 @@ router.get("/meus-agendamentos", verificarLogin, async (req, res) => {
   }
 });
 
-
+// POST: Cancelar Agendamento
 router.post("/agendamento/cancelar/:id", verificarLogin, async (req, res) => {
   try {
     const agendamentoId = req.params.id;
     const usuarioId = req.session.usuario.id;
 
+    console.log('🗑️ Tentando cancelar agendamento:', agendamentoId);
+
     // Buscar agendamento
-    const servico = await servicoModel.findOne({
+    const agendamento = await db.Agendamento.findOne({
       where: {
         id: agendamentoId,
-        idUsuario: usuarioId,
+        UsuarioId: usuarioId,
       },
     });
 
     // Validações
-    if (!servico) {
+    if (!agendamento) {
+      console.log('❌ Agendamento não encontrado');
       return res.status(404).json({
         sucesso: false,
         erro: "Agendamento não encontrado",
       });
     }
 
-    if (servico.Status === "Cancelado") {
+    if (agendamento.status === "cancelado") {
       return res.status(400).json({
         sucesso: false,
         erro: "Este agendamento já foi cancelado",
       });
     }
 
-    if (servico.Status === "Concluído") {
+    if (agendamento.status === "concluido") {
       return res.status(400).json({
         sucesso: false,
         erro: "Não é possível cancelar um agendamento já concluído",
       });
     }
 
-    
-    const dataAgendamento = new Date(servico.DataAgendamento);
+    // Verificar se é data futura
+    const dataAgendamento = new Date(agendamento.data);
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0);
     dataAgendamento.setHours(0, 0, 0, 0);
@@ -102,10 +120,10 @@ router.post("/agendamento/cancelar/:id", verificarLogin, async (req, res) => {
       });
     }
 
-    
-    await servico.update({ Status: "Cancelado" });
+    // Cancelar agendamento
+    await agendamento.update({ status: "cancelado" });
 
-    console.log(`✅ Agendamento #${agendamentoId} cancelado pelo usuário #${usuarioId}`);
+    console.log(`✅ Agendamento #${agendamentoId} cancelado`);
 
     res.json({
       sucesso: true,
@@ -120,39 +138,44 @@ router.post("/agendamento/cancelar/:id", verificarLogin, async (req, res) => {
   }
 });
 
+// GET: Detalhes do Agendamento
 router.get("/agendamento/detalhes/:id", verificarLogin, async (req, res) => {
   try {
     const agendamentoId = req.params.id;
     const usuarioId = req.session.usuario.id;
 
-    const servico = await servicoModel.findOne({
+    const agendamento = await db.Agendamento.findOne({
       where: {
         id: agendamentoId,
-        idUsuario: usuarioId,
+        UsuarioId: usuarioId,
       },
       include: [
         {
-          model: petModel,
-          as: "PET",
-        },
-        {
-          model: produtoModel,
-          as: "PRODUTOS",
-          through: { attributes: [] },
-        },
+          model: db.Pet,
+          as: "Pet",
+        }
       ],
     });
 
-    if (!servico) {
+    if (!agendamento) {
       return res.status(404).json({
         sucesso: false,
         erro: "Agendamento não encontrado",
       });
     }
 
+    // Buscar produtos/serviços
+    const servicosIds = JSON.parse(agendamento.servicosIds);
+    const produtos = await db.Produto.findAll({
+      where: { id: servicosIds },
+    });
+
     res.json({
       sucesso: true,
-      agendamento: servico,
+      agendamento: {
+        ...agendamento.toJSON(),
+        Servicos: produtos,
+      },
     });
   } catch (error) {
     console.error("❌ Erro ao buscar detalhes:", error);
@@ -163,39 +186,23 @@ router.get("/agendamento/detalhes/:id", verificarLogin, async (req, res) => {
   }
 });
 
+// GET: Estatísticas
 router.get("/agendamento/estatisticas", verificarLogin, async (req, res) => {
   try {
     const usuarioId = req.session.usuario.id;
 
-    const estatisticas = await servicoModel.findAll({
-      where: { idUsuario: usuarioId },
-      attributes: [
-        "Status",
-        [
-          servicoModel.sequelize.fn("COUNT", servicoModel.sequelize.col("id")),
-          "total",
-        ],
-      ],
-      group: ["Status"],
-      raw: true,
+    const agendamentos = await db.Agendamento.findAll({
+      where: { UsuarioId: usuarioId },
+      attributes: ["status"],
     });
 
     const stats = {
-      total: 0,
-      pendentes: 0,
-      confirmados: 0,
-      concluidos: 0,
-      cancelados: 0,
+      total: agendamentos.length,
+      pendentes: agendamentos.filter((a) => a.status === "pendente").length,
+      confirmados: agendamentos.filter((a) => a.status === "confirmado").length,
+      concluidos: agendamentos.filter((a) => a.status === "concluido").length,
+      cancelados: agendamentos.filter((a) => a.status === "cancelado").length,
     };
-
-    estatisticas.forEach((stat) => {
-      stats.total += parseInt(stat.total);
-      if (stat.Status === "Pendente") stats.pendentes = parseInt(stat.total);
-      if (stat.Status === "Confirmado")
-        stats.confirmados = parseInt(stat.total);
-      if (stat.Status === "Concluído") stats.concluidos = parseInt(stat.total);
-      if (stat.Status === "Cancelado") stats.cancelados = parseInt(stat.total);
-    });
 
     res.json({
       sucesso: true,

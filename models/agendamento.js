@@ -9,19 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     UsuarioId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'USUARIOS',
-        key: 'id'
-      }
+      allowNull: false
     },
     PetId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'PETS',
-        key: 'id'
-      }
+      allowNull: false
     },
     data: {
       type: DataTypes.DATEONLY,
@@ -61,15 +53,23 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Agendamento.associate = (models) => {
-    Agendamento.belongsTo(models.USUARIO || models.Usuario, { 
-      foreignKey: 'UsuarioId',
-      as: 'Usuario'
-    });
+    // Importante: use o nome exato do modelo exportado
+    const UsuarioModel = models.Usuario || models.USUARIO;
+    const PetModel = models.Pet || models.PET;
     
-    Agendamento.belongsTo(models.PET || models.Pet, { 
-      foreignKey: 'PetId',
-      as: 'Pet'
-    });
+    if (UsuarioModel) {
+      Agendamento.belongsTo(UsuarioModel, { 
+        foreignKey: 'UsuarioId',
+        as: 'Usuario'
+      });
+    }
+    
+    if (PetModel) {
+      Agendamento.belongsTo(PetModel, { 
+        foreignKey: 'PetId',
+        as: 'Pet'
+      });
+    }
   };
 
   return Agendamento;
