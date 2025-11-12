@@ -16,6 +16,7 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
+// Carrega dinamicamente todos os modelos da pasta
 fs
   .readdirSync(__dirname)
   .filter(file => {
@@ -31,6 +32,7 @@ fs
     db[model.name] = model;
   });
 
+// Configura associações entre modelos
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
@@ -39,5 +41,14 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+// Exporta instâncias dos modelos para facilitar o uso
+db.Usuario = db.USUARIO || db.Usuario;
+db.Pet = db.PET || db.Pet;
+db.Produto = db.PRODUTO || db.Produto;
+db.Agendamento = db.Agendamento;
+db.Horario = db.HORARIO || db.Horario;
+db.Endereco = db.ENDERECO || db.Endereco;
+db.Servico = db.SERVICO || db.Servico;
 
 module.exports = db;

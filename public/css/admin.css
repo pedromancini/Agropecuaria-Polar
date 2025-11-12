@@ -536,7 +536,7 @@ textarea.form-input {
 }
 
 .admin-footer {
-    display: none; 
+    display: none;
 }
 
 @media (max-width: 768px) {
@@ -623,4 +623,118 @@ textarea.form-input {
         height: 50px;
         font-size: 26px;
     }
+}
+
+.filtros-admin {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.filtros-form {
+    display: flex;
+    gap: 20px;
+    align-items: end;
+    flex-wrap: wrap;
+}
+
+.filtro-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filtro-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #004d00;
+    font-weight: 600;
+}
+
+.filtro-group select,
+.filtro-group input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.btn-limpar {
+    padding: 10px 20px;
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.badge-pendente {
+    background: #fff3cd;
+    color: #856404;
+    border: 2px solid #ffc107;
+}
+
+.badge-confirmado {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 2px solid #17a2b8;
+}
+
+.badge-concluido {
+    background: #d4edda;
+    color: #155724;
+    border: 2px solid #28a745;
+}
+
+.badge-cancelado {
+    background: #f8d7da;
+    color: #721c24;
+    border: 2px solid #dc3545;
+}
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content-detalhes {
+    background: white;
+    border-radius: 15px;
+    max-width: 700px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header-detalhes {
+    background: #004d00;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-close-modal {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.modal-body-detalhes {
+    padding: 30px;
 }

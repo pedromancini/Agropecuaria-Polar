@@ -11,19 +11,20 @@
     <link rel="stylesheet" href="/css/navbar.css" />
 
     <script src="/js/admin.js" defer></script>
-
   </head>
   <body>
     <%- include("../partials/header.ejs") %>
 
     <div class="admin-container">
-
       <div class="admin-header">
         <div class="admin-header-left">
           <h1>🛠️ Painel Administrativo</h1>
           <p>Gerencie os serviços disponíveis para agendamento</p>
         </div>
         <div class="admin-header-actions">
+          <a href="/admin/agendamentos" class="btn-primary"
+            >📅 Ver Agendamentos</a
+          >
           <a href="/admin/servicos/novo" class="btn-primary">+ Novo Serviço</a>
           <a href="/" class="btn-secondary">← Voltar para Home</a>
         </div>
@@ -133,7 +134,6 @@
         </table>
         <% } %>
       </div>
-
     </div>
   </body>
 </html>

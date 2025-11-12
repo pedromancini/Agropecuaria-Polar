@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Agendamentos - Admin</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/GLOBAL.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/header.css">
+
+    <script src="/js/admin.js" defer></script>
+</head>
+<body>
+    <%- include("../partials/header.ejs") %>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <div class="admin-header-left">
+                <h1>📅 Gerenciar Agendamentos</h1>
+                <p>Visualize e gerencie todos os agendamentos</p>
+            </div>
+            <div class="admin-header-actions">
+                <a href="/admin" class="btn-secondary">← Voltar ao Painel</a>
+            </div>
+        </div>
+
+
+        <div class="stats-grid">
+            <div class="stat-card stat-card-purple">
+                <span class="stat-icon">📊</span>
+                <div>
+                    <h3><%= stats.total %></h3>
+                    <p>Total</p>
+                </div>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);">
+                <span class="stat-icon">⏳</span>
+                <div>
+                    <h3><%= stats.pendente %></h3>
+                    <p>Pendentes</p>
+                </div>
+            </div>
+            <div class="stat-card stat-card-green">
+                <span class="stat-icon">✅</span>
+                <div>
+                    <h3><%= stats.confirmado %></h3>
+                    <p>Confirmados</p>
+                </div>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);">
+                <span class="stat-icon">🎉</span>
+                <div>
+                    <h3><%= stats.concluido %></h3>
+                    <p>Concluídos</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="filtros-admin">
+            <form method="GET" action="/admin/agendamentos" class="filtros-form">
+                <div class="filtro-group">
+                    <label for="status">Status:</label>
+                    <select name="status" id="status" onchange="this.form.submit()">
+                        <option value="todos" <%= filtroStatus === 'todos' ? 'selected' : '' %>>Todos</option>
+                        <option value="pendente" <%= filtroStatus === 'pendente' ? 'selected' : '' %>>Pendente</option>
+                        <option value="confirmado" <%= filtroStatus === 'confirmado' ? 'selected' : '' %>>Confirmado</option>
+                        <option value="concluido" <%= filtroStatus === 'concluido' ? 'selected' : '' %>>Concluído</option>
+                        <option value="cancelado" <%= filtroStatus === 'cancelado' ? 'selected' : '' %>>Cancelado</option>
+                    </select>
+                </div>
+                
+                <div class="filtro-group">
+                    <label for="data">Data:</label>
+                    <input type="date" name="data" id="data" value="<%= filtroData %>" onchange="this.form.submit()">
+                </div>
+                
+                <button type="button" class="btn-limpar" onclick="window.location.href='/admin/agendamentos'">
+                    🔄 Limpar Filtros
+                </button>
+            </form>
+        </div>
+
+        <div class="servicos-table-container">
+            <div class="table-header">
+                <h2>📋 Lista de Agendamentos</h2>
+            </div>
+
+            <% if (agendamentos.length === 0) { %>
+                <div class="empty-state">
+                    <span class="empty-icon">📅</span>
+                    <h3>Nenhum agendamento encontrado</h3>
+                    <p>Não há agendamentos com os filtros selecionados</p>
+                </div>
+            <% } else { %>
+                <table class="servicos-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Pet</th>
+                            <th>Data</th>
+                            <th>Horário</th>
+                            <th>Valor</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% agendamentos.forEach(agendamento => { 
+                            const dataFormatada = new Date(agendamento.data).toLocaleDateString('pt-BR');
+                        %>
+                        <tr>
+                            <td><strong>#<%= agendamento.id %></strong></td>
+                            <td>
+                                <strong><%= agendamento.Usuario.Nome %></strong><br>
+                                <small><%= agendamento.Usuario.Email %></small>
+                            </td>
+                            <td>
+                                <strong><%= agendamento.Pet.Nome %></strong><br>
+                                <small><%= agendamento.Pet.Tipo %> - <%= agendamento.Pet.Porte %></small>
+                            </td>
+                            <td><%= dataFormatada %></td>
+                            <td class="duracao-cell"><%= agendamento.horario %></td>
+                            <td class="valor-cell">R$ <%= agendamento.valorTotal.toFixed(2).replace('.', ',') %></td>
+                            <td>
+                                <span class="badge badge-<%= agendamento.status %>">
+                                    <%= agendamento.status %>
+                                </span>
+                            </td>
+                            <td class="acoes-cell">
+                                <button class="btn-action btn-edit" onclick="verDetalhes(<%= agendamento.id %>)">
+                                    👁️ Ver
+                                </button>
+                                <% if (agendamento.status === 'pendente') { %>
+                                    <button class="btn-action" style="color: #28a745; border-color: #28a745;" 
+                                            onclick="atualizarStatus(<%= agendamento.id %>, 'confirmado')">
+                                        ✅ Confirmar
+                                    </button>
+                                <% } else if (agendamento.status === 'confirmado') { %>
+                                    <button class="btn-action" style="color: #17a2b8; border-color: #17a2b8;" 
+                                            onclick="atualizarStatus(<%= agendamento.id %>, 'concluido')">
+                                        🎉 Concluir
+                                    </button>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } %>
+        </div>
+    </div>
+
+    <div id="modalDetalhes" class="modal-overlay" style="display: none;">
+        <div class="modal-content-detalhes">
+            <div class="modal-header-detalhes">
+                <h3>📋 Detalhes do Agendamento</h3>
+                <button class="btn-close-modal" onclick="fecharModal()">&times;</button>
+            </div>
+            <div id="conteudoModal" class="modal-body-detalhes">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
