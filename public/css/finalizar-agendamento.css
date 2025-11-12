@@ -7,7 +7,7 @@
   gap: 30px;
 }
 
-/* Resumo do Pedido */
+
 .resumo-pedido {
   background: white;
   border-radius: 15px;
@@ -78,7 +78,7 @@
   font-size: 14px;
 }
 
-/* Serviços */
+
 .servicos-lista {
   display: flex;
   flex-direction: column;
@@ -113,7 +113,7 @@
   font-size: 20px;
 }
 
-/* Seção de Agendamento */
+
 .agendamento-section {
   background: white;
   border-radius: 15px;
@@ -128,7 +128,7 @@
   margin-bottom: 25px;
 }
 
-/* Calendário */
+
 .calendario-container {
   margin-bottom: 30px;
 }
