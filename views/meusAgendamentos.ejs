@@ -18,12 +18,10 @@
   <body>
     <%- include("partials/header.ejs") %>
 
-    <div class="nav-bar">
-      <div class="nav-content">
-        <a href="/agendamento" class="btn-voltar">← Voltar</a>
+
+        <!-- <a href="/agendamento" class="btn-voltar">← Voltar</a> -->
         <%- include("partials/navbarMenu.ejs") %>
-      </div>
-    </div>
+
 
     <div class="container">
       <div class="page-header">
@@ -31,6 +29,50 @@
         <a href="/agendamento" class="btn-novo-agendamento"
           >+ Novo Agendamento</a
         >
+      </div>
+
+      <div class="info-agropecuaria">
+        <div class="info-card-agro">
+          <h3>📍 Local de Atendimento</h3>
+          <div class="endereco-content">
+            <div class="endereco-item">
+              <span class="endereco-icon">🏢</span>
+              <div>
+                <strong>Agropecuária Polar</strong>
+                <p>Av. Brasil, 486 - Centro</p>
+                <p>Vargem Grande do Sul - SP, 13880-000</p>
+              </div>
+            </div>
+
+
+            <div class="endereco-item">
+              <span class="endereco-icon">📞</span>
+              <div>
+                <strong>Telefone:</strong>
+                <p><a href="tel:+5501936413836">(019) 3641-3836</a></p>
+              </div>
+            </div>
+
+            <div class="endereco-item">
+              <span class="endereco-icon">⏰</span>
+              <div>
+                <strong>Horário de Funcionamento:</strong>
+                <p>Segunda a Sexta: 07:00 - 19:00</p>
+                <p>Sábado: 07:00 - 19:00</p>
+              </div>
+            </div>
+
+            <div class="endereco-actions">
+              <a
+                href="https://maps.app.goo.gl/83ub27FaZBdW2X5M7"
+                target="_blank"
+                class="btn-mapa"
+              >
+                📍 Ver no Mapa
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
       <% if (servicos && servicos.length > 0) { %>

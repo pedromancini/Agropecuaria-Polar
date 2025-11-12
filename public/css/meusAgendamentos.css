@@ -17,43 +17,6 @@ body {
   min-height: calc(100vh - 200px);
 }
 
-.nav-bar {
-  background: #004d00;
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-height: 50px;
-}
-
-.nav-bar .nav-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-left: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.btn-voltar {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 2px solid white;
-  padding: 8px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-
-}
-
-.btn-voltar:hover {
-  background: white;
-  color: #004d00;
-}
 
 
 .page-header {
@@ -479,5 +442,153 @@ body {
 
   .valor-total .valor {
     font-size: 1.2rem;
+  }
+}
+
+.info-agropecuaria {
+  margin-bottom: 30px;
+  animation: fadeIn 0.5s ease;
+}
+
+.info-card-agro {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid #004d00;
+}
+
+.info-card-agro h3 {
+  color: #004d00;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.endereco-content {
+  display: grid;
+  gap: 20px;
+}
+
+.endereco-item {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.endereco-item:hover {
+  background: #e9ecef;
+  transform: translateX(5px);
+}
+
+.endereco-icon {
+  font-size: 2rem;
+  min-width: 40px;
+  text-align: center;
+}
+
+.endereco-item strong {
+  display: block;
+  color: #004d00;
+  font-size: 1rem;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.endereco-item p {
+  color: #495057;
+  line-height: 1.6;
+  margin: 2px 0;
+}
+
+.endereco-item a {
+  color: #004d00;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.endereco-item a:hover {
+  color: #198254;
+}
+
+.endereco-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-mapa,
+.btn-contato {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-mapa {
+  background: #004d00;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 77, 0, 0.3);
+}
+
+.btn-mapa:hover {
+  background: #198254;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 77, 0, 0.4);
+}
+
+.btn-contato {
+  background: #25D366;
+  color: white;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.btn-contato:hover {
+  background: #128C7E;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .info-card-agro {
+    padding: 20px;
+  }
+  
+  .endereco-actions {
+    flex-direction: column;
+  }
+  
+  .btn-mapa,
+  .btn-contato {
+    width: 100%;
+    min-width: auto;
   }
 }
