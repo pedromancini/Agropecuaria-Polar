@@ -33,18 +33,18 @@
         <% pets.forEach(pet => { %>
         <div class="pet-card">
           <div class="pet-image-container">
-            <% if (pet.Imagem) { %>
+            <!-- <% if (pet.Imagem) { %>
             <img
               src="/uploads/pets/<%= pet.Imagem %>"
               alt="<%= pet.Nome %>"
               class="pet-image"
-            />
+            /> -->
             <% } else { %>
             <div class="pet-icon">
               <%= pet.Tipo === 'Cachorro' ? '🐶' : pet.Tipo === 'Gato' ? '🐱' :
               '🐾' %>
             </div>
-            <% } %>
+            <!-- <% } %> -->
           </div>
 
           <h3><%= pet.Nome %></h3>
